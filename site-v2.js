@@ -2,7 +2,7 @@ const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const DISCORD='https://discord.gg/efdQJsceKb';
 const pages=[['home','Home','/'],['matches','Matches','/matches/'],['standings','Standings','/standings/'],['teams','Teams','/teams/'],['players','Players','/players/'],['stats','Stats','/stats/'],['history','History','/history/'],['league','League','/league/'],['news','News','/news/']];
-const esc=v=>String(v??'—').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const esc=v=>String(v??'—').replace(/[&<>'\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]));
 const norm=v=>String(v??'').trim().toLowerCase().replace(/[\s-]+/g,'_');
 const phaseLabel=v=>String(v??'').trim().replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
 const tierCode=t=>({mythic:'MYT',legend:'LEG',elite:'ELI',contender:'CON',rookie:'ROO',amateur:'AMA'}[String(t).toLowerCase()]||String(t).slice(0,3).toUpperCase());
@@ -32,3 +32,57 @@ function renderNews(){const box=$('#news-grid'),rows=league.news||[];if(!box||!r
 function filter(){const input=$('[data-filter]');if(!input)return;input.addEventListener('input',()=>{const q=input.value.trim().toLowerCase();$$('[data-filterable]').forEach(card=>card.hidden=!!q&&!card.textContent.toLowerCase().includes(q))})}
 async function start(){loadFixStyles();shell();nav();tabs();filter();try{const r=await fetch('/data/league.json',{cache:'no-store'});if(!r.ok)throw new Error();league=await r.json()}catch{league={}}renderMatches();renderStandings($('.tab.active[data-tier]')?.dataset.tier||'mythic');renderTeams();renderPlayers();renderPower();renderSeasonSummary();renderHistory();renderNews()}
 start();
+
+(()=>{
+  const LIVE_REFRESH_MS=60000;
+  const IDLE_REFRESH_MS=300000;
+  const DYNAMIC_PAGES=new Set(['home','matches','standings','stats','history']);
+  let timer=null;
+  let refreshing=false;
+  let lastStamp=null;
+
+  const dynamicPage=()=>DYNAMIC_PAGES.has(document.body.dataset.page||'home');
+  const snapshotStamp=data=>data?.generated_at||JSON.stringify([data?.season,data?.match_night,data?.standings]);
+  const schedule=()=>{
+    clearTimeout(timer);
+    if(!dynamicPage())return;
+    const delay=league.match_night?.active?LIVE_REFRESH_MS:IDLE_REFRESH_MS;
+    timer=setTimeout(refreshLeague,delay);
+  };
+  const rerenderDynamic=()=>{
+    renderMatches();
+    renderStandings($('.tab.active[data-tier]')?.dataset.tier||'mythic');
+    renderPower();
+    renderSeasonSummary();
+    renderHistory();
+  };
+  async function refreshLeague(){
+    if(refreshing||document.hidden||!dynamicPage()){schedule();return}
+    refreshing=true;
+    try{
+      const response=await fetch(`/data/league.json?live=${Date.now()}`,{cache:'no-store'});
+      if(!response.ok)throw new Error('league refresh failed');
+      const next=await response.json();
+      const stamp=snapshotStamp(next);
+      if(stamp!==lastStamp){
+        league=next;
+        lastStamp=stamp;
+        rerenderDynamic();
+      }
+    }catch{}
+    finally{
+      refreshing=false;
+      schedule();
+    }
+  }
+  setTimeout(()=>{
+    lastStamp=snapshotStamp(league);
+    refreshLeague();
+  },10000);
+  document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden){
+      clearTimeout(timer);
+      refreshLeague();
+    }
+  });
+})();
