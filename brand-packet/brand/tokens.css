@@ -1,0 +1,22 @@
+:root {
+  --ssl-arena-navy: #07101D;
+  --ssl-raised-navy: #0D1A2B;
+  --ssl-panel-navy: #101F35;
+  --ssl-system-cyan: #49C7FF;
+  --ssl-competition-orange: #FF9F43;
+  --ssl-verified-green: #55D68B;
+  --ssl-warning-yellow: #FFD166;
+  --ssl-restricted-red: #FF5C7A;
+  --ssl-text: #F7FBFF;
+  --ssl-muted: #9CB0C9;
+  --ssl-mythic: #FF69B4;
+  --ssl-legend: #BD7CFF;
+  --ssl-elite: #49C7FF;
+  --ssl-contender: #FF9F43;
+  --ssl-rookie: #55D68B;
+  --ssl-amateur: #FF8A80;
+  --ssl-radius-card: 18px;
+  --ssl-safe-card: 48px;
+  --ssl-font-ui: Arial, Inter, system-ui, sans-serif;
+  --ssl-font-display: 'Arial Black', Impact, sans-serif;
+}

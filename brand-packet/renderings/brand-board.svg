@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07101D"/><stop offset="1" stop-color="#030811"/></linearGradient><linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101F35"/><stop offset="1" stop-color="#0D1A2B"/></linearGradient></defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <g opacity=".16" stroke="#49C7FF"><path d="M-80 900 380 -40M120 1040 580 -40M320 1040 780 -40M520 1040 980 -40M720 1040 1180 -40M920 1040 1380 -40"/></g>
+  <text x="90" y="110" fill="#49C7FF" font-family="Arial" font-size="28" font-weight="900" letter-spacing="8">SSL BRAND PACKET v1.0</text>
+  <text x="90" y="220" fill="#F7FBFF" font-family="Arial Black, Impact" font-size="94" letter-spacing="-5">SUPERSONIC</text>
+  <text x="90" y="315" fill="#FF9F43" font-family="Arial Black, Impact" font-size="94" letter-spacing="-5">SHOWDOWN</text>
+  <text x="95" y="380" fill="#F7FBFF" font-family="Arial Black, Impact" font-size="48">LEAGUE <tspan fill="#FF9F43">2</tspan><tspan fill="#49C7FF">v</tspan><tspan fill="#FF9F43">2</tspan></text>
+  <text x="95" y="440" fill="#9CB0C9" font-family="Arial" font-size="28">Organized Rocket League 2v2 competition built around Discord, divisions, match night, teams, standings, and player identity.</text>
+  <rect x="1050" y="115" width="360" height="360" rx="28" fill="url(#panel)" stroke="#49C7FF" opacity=".95"/>
+  <image href="/assets/branding/ssl-logo.svg" x="1110" y="165" width="240" height="240"/>
+  <text x="1230" y="440" text-anchor="middle" fill="#F7FBFF" font-family="Arial Black" font-size="28">CURRENT BOT LOGO</text>
+  <g transform="translate(95 560)"><text fill="#F7FBFF" font-family="Arial Black" font-size="34">COLORS</text><g transform="translate(0 50)"><rect width="150" height="90" fill="#07101D" stroke="#fff" opacity=".9"/><rect x="170" width="150" height="90" fill="#0D1A2B"/><rect x="340" width="150" height="90" fill="#49C7FF"/><rect x="510" width="150" height="90" fill="#FF9F43"/><rect x="680" width="150" height="90" fill="#55D68B"/><rect x="850" width="150" height="90" fill="#FFD166"/><rect x="1020" width="150" height="90" fill="#FF5C7A"/></g><g fill="#9CB0C9" font-family="Arial" font-size="18" transform="translate(0 165)"><text>Arena Navy</text><text x="170">Raised Navy</text><text x="340">System Cyan</text><text x="510">Comp. Orange</text><text x="680">Verified</text><text x="850">Warning</text><text x="1020">Restricted</text></g></g>
+  <g transform="translate(95 820)"><text fill="#49C7FF" font-family="Arial" font-size="24" font-weight="900">VOICE</text><text y="45" fill="#F7FBFF" font-family="Arial Black" font-size="42">PLAY. REPORT. CLIMB.</text><text y="88" fill="#9CB0C9" font-family="Arial" font-size="24">Player-facing, competitive, clean, and match-night focused.</text></g>
+</svg>
