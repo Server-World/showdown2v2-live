@@ -1,70 +1,74 @@
 # Supersonic Showdown League Website
 
-**Status: V1 competition hub live on GitHub Pages. Competitive data integration is still in progress.**
+**Status: multi-page competition platform live on GitHub Pages; verified league-data integration is in progress.**
 
-This repository contains the public-facing Supersonic Showdown League 2v2 website at `showdown2v2.live`.
+Public site: `showdown2v2.live`
 
 ## Architecture
 
 The website is a static GitHub Pages deployment. It does not connect directly to PostgreSQL and it does not decide competitive facts.
 
-The authority chain is:
+Authority chain:
 
 `SSL Bot / PostgreSQL` → scheduled read-only export → `data/league.json` → website UI
 
 The bot/database remain the single source of truth. The site publishes verified output only.
 
-## Files
+## Public routes
 
-- `index.html` — competition-hub markup and public league content
-- `styles.css` — responsive esports visual system and six-tier color system
-- `app.js` — client-side rendering for the read-only league snapshot
-- `data/league.json` — public data contract; currently contains confirmed rulebook facts plus empty arrays for unverified competitive data
-- `.nojekyll` — prevents Jekyll processing
-- `CNAME` — custom domain: `showdown2v2.live`
+- `/` — competition dashboard / home
+- `/matches/` — Match Center
+- `/standings/` — six-division Standings Hub
+- `/teams/` — team/franchise directory
+- `/players/` — player directory and player-card surface
+- `/stats/` — league leaders and SSL Power Index
+- `/history/` — Hall of Champions, records and season archive
+- `/league/` — league format, scheduling, rules and FAQ
+- `/news/` — league desk and highlights
+
+## Shared files
+
+- `site-v2.css` — shared responsive competition design system
+- `site-v2.js` — shared read-only data renderer
+- `data/league.json` — public league snapshot contract
+- `assets/branding/` — website branding assets
+- `.nojekyll` — disables Jekyll processing
+- `CNAME` — custom domain `showdown2v2.live`
+
+Legacy `styles.css` and `app.js` may remain temporarily while the V2 migration is verified; current public pages use `site-v2.css` and `site-v2.js`.
 
 No framework, package manager, build step, external font, CDN, analytics package, or direct database connection is required.
 
-## Current competition surfaces
+## Corrected rulebook schedule
 
-- The Arena / Match Center
-- Standings Hub with six tier tabs
-- Division identities: Mythic, Legend, Elite, Contender, Rookie, Amateur
-- Schedule & Match Rules
-- Team Directory shell
-- Player Card shell
-- SSL Power Index shell
-- Hall of Champions / records shell
-- News & Highlights
-- League onboarding / FAQ
+The earlier draft incorrectly published stale `10:00 PM / 10:45 PM EST` values. The current rulebook source is reflected in the V2 pages and data contract:
 
-## Confirmed rulebook facts currently published
-
-- Official league matches: Saturdays at 10:00 PM EST
-- Official streamed games: Saturdays at 10:45 PM EST
+- Amateur through Legend: Saturday at **8:00 PM EST**
+- Mythic: open scheduling Monday through Sunday; weekly deadline Sunday at **11:59 PM EST**
+- Official streamed games: Saturday at **9:30 PM EST**
 - Format: 2v2 with default server settings and bots off
-- Default region: US-East unless both teams agree otherwise
-- Both teams report scores and submit replays within 24 hours
+- Default region: US-East unless both teams agree otherwise under league rules
+- Required match-result/replay reporting remains governed by the official rulebook
 
-## Data still intentionally empty
+## Data intentionally not fabricated
 
-The site does not invent values for:
+The website does not invent values for:
 
-- Discord invite URL
-- current season and week
+- permanent Discord invite URL
+- current season/week
 - team-by-team fixtures
 - standings rows
-- team/player records and statistics
+- active rosters
+- player records/statistics
 - power rankings
 - champion/history records
-- unresolved public FAQ wording
 
-Those values must be supplied from verified league sources or the bot-owned export.
+Those values must come from verified league sources or the bot-owned export.
 
-## Domain and HTTPS
+## Domain
 
-GitHub Pages is configured from `main` at the repository root. The custom domain is `showdown2v2.live`, DNS passes GitHub's custom-domain check, and TLS provisioning has been initiated. Enable **Enforce HTTPS** in GitHub Pages as soon as GitHub makes the control available after certificate issuance completes.
+GitHub Pages deploys from `main` at repository root. Custom domain: `showdown2v2.live`.
 
-## Brand / platform note
+## Platform note
 
 Supersonic Showdown is an independent community competition and is not affiliated with, endorsed by, or sponsored by Psyonix or Epic Games.
