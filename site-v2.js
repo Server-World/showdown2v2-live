@@ -3,9 +3,9 @@ const esc=v=>String(v??'—').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 const DEFAULT_DISCORD='https://discord.gg/efdQJsceKb';
 let league=null;
 function setNav(){const toggle=$('.mobile-toggle'),nav=$('.navlinks');if(toggle&&nav)toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));});}
-function brandLockup(){return '<img class="brand-logo" src="/assets/branding/ssl-logo.svg" alt="Supersonic Showdown logo" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'grid\'"><span class="brand-fallback">SS</span><span class="brand-copy"><b><span class="orange">S</span>UPERSONIC <span class="orange">S</span>HOWDOWN</b><strong><span class="orange">L</span>EAGUE <span class="orange">2</span><span class="blue">v</span><span class="orange">2</span></strong></span>';}
+function brandLockup(){return '<span class="brand-mark" aria-hidden="true"><span>SS</span></span><span class="brand-copy"><b><span class="orange">S</span>UPERSONIC <span class="orange">S</span>HOWDOWN</b><strong><span class="orange">L</span>EAGUE <span class="orange">2</span><span class="blue">v</span><span class="orange">2</span></strong></span>';}
 function applyBranding(){
-  $$('.brand').forEach(a=>{a.classList.add('brand-lockup');a.setAttribute('aria-label','Supersonic Showdown League 2v2 home');if(!a.querySelector('.brand-logo'))a.innerHTML=brandLockup();else if(!a.querySelector('.brand-copy .orange'))a.innerHTML=brandLockup();});
+  $$('.brand').forEach(a=>{a.classList.add('brand-lockup');a.setAttribute('aria-label','Supersonic Showdown League 2v2 home');a.innerHTML=brandLockup();});
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content','#07101D');
 }
 function activateDiscord(){const invite=league?.community?.discord_invite||DEFAULT_DISCORD;$$('a').forEach(a=>{const txt=(a.textContent||'').toLowerCase();if(txt.includes('discord')&&(txt.includes('pending')||txt.includes('invite')||txt.includes('join'))){a.href=invite;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Join Discord';a.classList.remove('disabled');}});$$('.chip.pending').forEach(x=>x.remove());}
