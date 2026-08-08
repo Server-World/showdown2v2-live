@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supersonic Showdown League 2v2</title>
+<meta name="description" content="Supersonic Showdown is a 2v2 competitive league with tiered divisions, tracked stats, and scheduled match nights.">
+<style>
+  :root{
+    --canvas:#0B1220;
+    --surface:#121A2B;
+    --raised:#18223A;
+    --border:rgba(255,255,255,.14);
+    --border-strong:rgba(255,255,255,.24);
+    --text:#FFFFFF;
+    --muted:rgba(255,255,255,.70);
+    --faint:rgba(255,255,255,.52);
+    --orange:#FF9F43;
+    --blue:#49C7FF;
+    --green:#55D68B;
+    --red:#FF8A80;
+    --yellow:#FFD166;
+    --pink:#FF69B4;
+    --purple:#BD7CFF;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--canvas);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+
+  /* ---------- draft strip ---------- */
+  .draft{
+    background:rgba(255,209,102,.10);
+    border-bottom:1px solid rgba(255,209,102,.28);
+    color:var(--yellow);
+    font-size:13px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    text-align:center;
+    padding:8px 16px;
+    font-weight:600;
+  }
+
+  /* ---------- wordmark ---------- */
+  .mark{display:inline-block;line-height:1;text-decoration:none}
+  .mark .l1{
+    display:block;
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:.03em;
+  }
+  .mark .l2{
+    display:block;
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:.20em;
+    margin-top:3px;
+  }
+  .o{color:var(--orange)}
+  .b{color:var(--blue)}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:40;
+    background:rgba(11,18,32,.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 32px;max-width:1120px;margin:0 auto}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{
+    color:var(--muted);text-decoration:none;font-size:15px;font-weight:500;
+    padding:8px 0;border-bottom:2px solid transparent;
+  }
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--text);border-bottom-color:var(--orange)}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:44px;padding:12px 22px;
+    font-size:15px;font-weight:700;letter-spacing:.02em;
+    text-decoration:none;border:1px solid transparent;cursor:pointer;
+    clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  }
+  .btn-primary{background:var(--orange);color:#141005}
+  .btn-primary:hover{background:#ffb066}
+  .btn-ghost{background:transparent;color:var(--text);border-color:var(--border-strong)}
+  .btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+  .btn-sm{min-height:40px;padding:9px 18px;font-size:14px}
+  .lbl-short{display:none}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+  /* ---------- placeholder marker ---------- */
+  .ph{
+    position:relative;
+    outline:1px dashed rgba(255,209,102,.75);
+    outline-offset:3px;
+    background:rgba(255,209,102,.07);
+    -webkit-box-decoration-break:clone;
+    box-decoration-break:clone;
+  }
+  .btn.ph{
+    background:var(--orange);
+    color:#141005;
+    outline:2px dashed rgba(20,16,5,.55);
+    outline-offset:3px;
+  }
+  .btn-ghost.ph,.foot-links a.ph{
+    background:rgba(255,209,102,.07);
+    color:var(--text);
+    outline:1px dashed rgba(255,209,102,.75);
+  }
+  .ph-tag{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.08em;
+    color:var(--yellow);
+    background:rgba(255,209,102,.12);
+    border:1px solid rgba(255,209,102,.35);
+    padding:2px 7px;
+    margin-left:8px;
+    vertical-align:middle;
+    white-space:nowrap;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:64px 0 56px;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(900px 380px at 18% -10%,rgba(73,199,255,.16),transparent 62%),
+      radial-gradient(760px 340px at 88% 6%,rgba(255,159,67,.14),transparent 60%);
+    pointer-events:none;
+  }
+  .hero-in{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .eyebrow{
+    display:inline-block;font-size:13px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--blue);
+    border-left:3px solid var(--blue);padding-left:12px;margin-bottom:20px;
+  }
+  h1{
+    font-size:clamp(38px,5.2vw,60px);
+    line-height:1.04;
+    letter-spacing:-.02em;
+    font-weight:800;
+    margin:0 0 20px;
+  }
+  .lede{font-size:18px;line-height:1.6;color:var(--muted);margin:0 0 32px;max-width:56ch}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .cta-note{font-size:13px;color:var(--faint);margin-top:16px}
+
+  /* ---------- status card ---------- */
+  .status{
+    background:var(--surface);
+    border:1px solid var(--border);
+    clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px);
+    padding:28px;
+  }
+  .status h2{
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--faint);margin:0 0 20px;font-weight:700;
+  }
+  .status-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .status-row:last-of-type{border-bottom:0}
+  .status-k{font-size:14px;color:var(--muted)}
+  .status-v{font-size:17px;font-weight:700;text-align:right}
+  .live-dot{display:inline-block;width:8px;height:8px;background:var(--green);margin-right:8px;vertical-align:middle;border-radius:50%}
+  .freshness{
+    margin-top:20px;padding-top:16px;border-top:1px solid var(--border);
+    font-size:12px;color:var(--faint);font-family:var(--mono);line-height:1.6;
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:72px 0}
+  .sec-head{max-width:720px;margin:0 0 44px}
+  .sec-label{
+    font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange);margin:0 0 12px;
+  }
+  h2.sec-title{font-size:clamp(27px,3.4vw,38px);line-height:1.15;letter-spacing:-.01em;margin:0 0 14px;font-weight:800}
+  .sec-sub{font-size:17px;color:var(--muted);margin:0;line-height:1.6}
+  .alt{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+
+  /* ---------- tiers ---------- */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tier{
+    background:var(--raised);
+    border:1px solid var(--border);
+    border-top:3px solid var(--tc);
+    padding:22px 20px;
+  }
+  .tier-name{font-size:19px;font-weight:800;letter-spacing:.01em;margin:0 0 8px;color:var(--tc)}
+  .tier-name .badge{
+    display:inline-block;width:9px;height:9px;background:var(--tc);
+    margin-right:9px;vertical-align:baseline;
+    clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+  }
+  .tier-desc{font-size:14px;color:var(--muted);margin:0;line-height:1.55}
+
+  /* ---------- steps ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+  .step{border-left:2px solid var(--border);padding:4px 0 4px 20px}
+  .step-n{
+    font-family:var(--mono);font-size:13px;font-weight:700;color:var(--orange);
+    letter-spacing:.1em;margin:0 0 10px;
+  }
+  .step h3{font-size:17px;margin:0 0 8px;font-weight:700;line-height:1.3}
+  .step p{font-size:14px;color:var(--muted);margin:0;line-height:1.6}
+
+  /* ---------- split feature ---------- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+ 
+  .flist{list-style:none;margin:0;padding:0}
+  .flist li{padding:16px 0;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start}
+  .flist li:last-child{border-bottom:0}
+  .tick{color:var(--green);font-weight:800;flex:none;font-size:15px;line-height:1.5}
+  .flist strong{display:block;font-size:16px;margin-bottom:3px}
+  .flist span.d{font-size:14px;color:var(--muted);line-height:1.55}
+  .panel{
+    background:var(--raised);border:1px solid var(--border);padding:26px;
+    clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+  }
+  .panel h3{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 18px;font-weight:700}
+  .kv{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
+  .kv:last-child{border-bottom:0}
+  .kv span:first-child{color:var(--muted)}
+  .kv span:last-child{font-weight:700;font-family:var(--mono);font-size:13px}
+
+  /* ---------- faq ---------- */
+  .faq{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px}
+  .qa{border-top:1px solid var(--border);padding:20px 0}
+  .qa h3{font-size:16px;margin:0 0 9px;font-weight:700;line-height:1.35}
+  .qa p{font-size:14px;color:var(--muted);margin:0;line-height:1.6}
+
+  /* ---------- final cta ---------- */
+  .final{text-align:center;padding:80px 0}
+  .final h2{font-size:clamp(28px,3.6vw,40px);margin:0 0 16px;font-weight:800;letter-spacing:-.01em}
+  .final p{font-size:17px;color:var(--muted);margin:0 auto 30px;max-width:52ch}
+  .final .cta-row{justify-content:center}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--border);padding:40px 0 48px;background:var(--surface)}
+  .foot-in{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:flex-start}
+  .foot-links{display:flex;gap:26px;flex-wrap:wrap}
+  .foot-links a{color:var(--muted);text-decoration:none;font-size:14px}
+  .foot-links a:hover{color:var(--orange)}
+  .foot-note{font-size:12px;color:var(--faint);margin:22px 0 0;line-height:1.7;max-width:70ch}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .hero-in,.split{grid-template-columns:1fr;gap:36px}
+    .tiers{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .faq{grid-template-columns:1fr;gap:0}
+    .nav-links{display:none}
+  }
+  @media (max-width:560px){
+    .wrap,.nav-in{padding-left:20px;padding-right:20px}
+    .tiers,.steps{grid-template-columns:1fr}
+    section{padding:52px 0}
+    .hero{padding:44px 0 40px}
+    .cta-row .btn{width:100%}
+    .status{padding:22px}
+    .nav-in{padding-top:12px;padding-bottom:12px;gap:12px}
+    .mark .l1{font-size:14px;letter-spacing:.02em}
+    .mark .l2{font-size:17px;letter-spacing:.14em;margin-top:2px}
+    .nav-in .btn{padding:9px 14px;font-size:13px;min-height:40px}
+    .lbl-full{display:none}
+    .lbl-short{display:inline}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="draft">Draft v0.1 &middot; copy pending Tony&rsquo;s approval &middot; placeholders marked in amber</div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="mark" href="#top" aria-label="Supersonic Showdown League 2v2 home">
+      <span class="l1"><span class="o">S</span>upersonic <span class="o">S</span>howdown</span>
+      <span class="l2"><span class="o">L</span>EAGUE <span class="o">2</span><span class="b">v</span><span class="o">2</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#tiers">Tiers</a>
+      <a href="#how">How it works</a>
+      <a href="#league">The league</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary btn-sm ph" href="#" data-ph="discord"><span class="lbl-full">Join the Discord</span><span class="lbl-short">Discord</span></a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-in">
+      <div>
+        <span class="eyebrow">Competitive 2v2 &middot; Tiered divisions</span>
+        <h1>A real league for<br>two&#8209;player teams.</h1>
+        <p class="lede">Six skill tiers, scheduled match nights, and every result tracked automatically. Bring a teammate, get placed where you actually belong, and play people at your level.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary ph" href="#" data-ph="discord">Join the Discord</a>
+          <a class="btn btn-ghost" href="#how">See how it works</a>
+        </div>
+        <p class="cta-note">Free to join. Signups, match nights, and reporting all run in Discord.</p>
+      </div>
+
+      <aside class="status" aria-label="Current season status">
+        <h2>Season status</h2>
+        <div class="status-row">
+          <span class="status-k">Season</span>
+          <span class="status-v ph" data-ph="season">Season &mdash;</span>
+        </div>
+        <div class="status-row">
+          <span class="status-k">Current week</span>
+          <span class="status-v ph" data-ph="week">Week &mdash;</span>
+        </div>
+        <div class="status-row">
+          <span class="status-k">Match nights</span>
+          <span class="status-v ph" data-ph="nights">&mdash;</span>
+        </div>
+        <div class="status-row">
+          <span class="status-k">Signups</span>
+          <span class="status-v"><span class="live-dot"></span>Open</span>
+        </div>
+        <p class="freshness">Source: SSL Bot &middot; PostgreSQL<br>Updated: pending first scheduled export</p>
+      </aside>
+    </div>
+  </div>
+
+  <!-- TIERS -->
+  <section id="tiers" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-label">Divisions</p>
+        <h2 class="sec-title">Six tiers, so every match is worth playing</h2>
+        <p class="sec-sub">Placement is set by the bot from your tracked rating &mdash; not by self&#8209;reporting. You move as your results move.</p>
+      </div>
+      <div class="tiers">
+        <div class="tier" style="--tc:#FF69B4"><p class="tier-name"><span class="badge"></span>Mythic</p><p class="tier-desc">The top of the ladder. The smallest field and the hardest schedule in the league.</p></div>
+        <div class="tier" style="--tc:#BD7CFF"><p class="tier-name"><span class="badge"></span>Legend</p><p class="tier-desc">Established duos with a track record. One tier below the ceiling, and closing.</p></div>
+        <div class="tier" style="--tc:#49C7FF"><p class="tier-name"><span class="badge"></span>Elite</p><p class="tier-desc">Strong, consistent teams. Rotations are clean and mistakes get punished.</p></div>
+        <div class="tier" style="--tc:#FF9F43"><p class="tier-name"><span class="badge"></span>Contender</p><p class="tier-desc">The competitive middle. Where most teams land and where the ladder is tightest.</p></div>
+        <div class="tier" style="--tc:#55D68B"><p class="tier-name"><span class="badge"></span>Rookie</p><p class="tier-desc">Newer duos finding their footing. Real matches, real stats, no sharks.</p></div>
+        <div class="tier" style="--tc:#FF8A80"><p class="tier-name"><span class="badge"></span>Amateur</p><p class="tier-desc">The entry point. Learn the format, build a record, and climb from here.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-label">Getting started</p>
+        <h2 class="sec-title">Four steps from lurker to rostered</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <p class="step-n">01</p>
+          <h3>Join the Discord</h3>
+          <p>Everything runs there &mdash; signups, scheduling, results, and support.</p>
+        </div>
+        <div class="step">
+          <p class="step-n">02</p>
+          <h3>Register with the bot</h3>
+          <p>One command links your account so results attach to the right player.</p>
+        </div>
+        <div class="step">
+          <p class="step-n">03</p>
+          <h3>Get placed</h3>
+          <p>The bot assigns your tier from tracked rating. No self&#8209;reported ranks.</p>
+        </div>
+        <div class="step">
+          <p class="step-n">04</p>
+          <h3>Play match night</h3>
+          <p>Show up with your teammate. Results are recorded and your record updates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAGUE -->
+  <section id="league" class="alt">
+    <div class="wrap split">
+      <div>
+        <p class="sec-label">Why it holds up</p>
+        <h2 class="sec-title">Run like a league, not a group chat</h2>
+        <p class="sec-sub" style="margin-bottom:28px">The league is operated by a purpose&#8209;built bot. Records, tiers, and standings come from one system &mdash; so what you see is what actually happened.</p>
+        <ul class="flist">
+          <li><span class="tick">&#10003;</span><div><strong>Automatic result tracking</strong><span class="d">Matches are recorded and records update without anyone maintaining a spreadsheet.</span></div></li>
+          <li><span class="tick">&#10003;</span><div><strong>Player cards<span class="ph-tag">VERIFY SHIPPED</span></strong><span class="d">Your tier, record, and recent form in one shareable card.</span></div></li>
+          <li><span class="tick">&#10003;</span><div><strong>Roster rules that are enforced<span class="ph-tag">VERIFY SHIPPED</span></strong><span class="d">Substitutions and eligibility are checked by the bot, consistently, for everyone.</span></div></li>
+          <li><span class="tick">&#10003;</span><div><strong>One source of truth</strong><span class="d">Standings on this site are published from the same database the bot uses. Nothing is retyped.</span></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Standings &mdash; preview</h3>
+        <div class="kv"><span>1.</span><span class="ph" data-ph="standings">Team name &middot; 0&ndash;0</span></div>
+        <div class="kv"><span>2.</span><span class="ph" data-ph="standings">Team name &middot; 0&ndash;0</span></div>
+        <div class="kv"><span>3.</span><span class="ph" data-ph="standings">Team name &middot; 0&ndash;0</span></div>
+        <div class="kv"><span>4.</span><span class="ph" data-ph="standings">Team name &middot; 0&ndash;0</span></div>
+        <div class="kv"><span>5.</span><span class="ph" data-ph="standings">Team name &middot; 0&ndash;0</span></div>
+        <p class="freshness" style="margin-top:18px">This block renders from a scheduled read&#8209;only export.<br>No live database connection is made from this page.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-label">Questions</p>
+        <h2 class="sec-title">Before you sign up</h2>
+      </div>
+      <div class="faq">
+        <div class="qa">
+          <h3>Do I need to be in the Discord?</h3>
+          <p>Yes. Signups, scheduling, match reporting, and support all happen there. This site is the public record, not the place you play.</p>
+        </div>
+        <div class="qa">
+          <h3>Do I need my own teammate?</h3>
+          <p><span class="ph" data-ph="copy">Pending &mdash; are solo players matched with a partner, or must they bring one?</span></p>
+        </div>
+        <div class="qa">
+          <h3>How is my tier decided?</h3>
+          <p>The bot places you from your tracked rating and updates it as your results come in. Tiers are not self&#8209;selected and are not set by staff opinion.</p>
+        </div>
+        <div class="qa">
+          <h3>What does it cost?</h3>
+          <p><span class="ph" data-ph="copy">Pending &mdash; confirm the league is free and whether any paid elements exist.</span></p>
+        </div>
+        <div class="qa">
+          <h3>What if I miss a match night?</h3>
+          <p><span class="ph" data-ph="copy">Pending &mdash; confirm forfeit, reschedule, and substitute rules from the rulebook.</span></p>
+        </div>
+        <div class="qa">
+          <h3>When does the next season start?</h3>
+          <p><span class="ph" data-ph="copy">Pending &mdash; confirm season cadence and next start date.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final alt">
+    <div class="wrap">
+      <h2>Grab a teammate.</h2>
+      <p>Signups are open. Get registered, get placed, and play your first match night this week.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary ph" href="#" data-ph="discord">Join the Discord</a>
+        <a class="btn btn-ghost" href="#tiers">Check the tiers</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="mark" href="#top">
+      <span class="l1"><span class="o">S</span>upersonic <span class="o">S</span>howdown</span>
+      <span class="l2"><span class="o">L</span>EAGUE <span class="o">2</span><span class="b">v</span><span class="o">2</span></span>
+    </a>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#tiers">Tiers</a>
+      <a href="#how">How it works</a>
+      <a href="#league">The league</a>
+      <a href="#faq">FAQ</a>
+      <a href="#" class="ph" data-ph="discord">Discord</a>
+    </nav>
+  </div>
+  <div class="wrap">
+    <p class="foot-note">Supersonic Showdown League 2v2 &middot; showdown2v2.live<br>An independent community league. Not affiliated with, endorsed by, or sponsored by any game publisher.</p>
+  </div>
+</footer>
+
+</body>
+</html>
