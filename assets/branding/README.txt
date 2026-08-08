@@ -1,1 +1,1 @@
-Primary temporary Supersonic Showdown logo supplied by Victor on 2026-08-08. Binary logo asset is being staged separately.
+Primary temporary Supersonic Showdown logo supplied by Victor on 2026-08-08 and installed as assets/branding/ssl-logo.svg for public website use. Replace only when a new approved league logo is explicitly selected.
