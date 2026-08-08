@@ -29,7 +29,7 @@ The bot/database remain the single source of truth. The site publishes verified 
 ## Shared files
 
 - `site-v2.css` — shared responsive competition design system
-- `site-v2.js` — shared read-only data renderer
+- `site-v2.js` — shared read-only data renderer and global public-state handling
 - `data/league.json` — public league snapshot contract
 - `assets/branding/` — website branding assets
 - `.nojekyll` — disables Jekyll processing
@@ -38,6 +38,12 @@ The bot/database remain the single source of truth. The site publishes verified 
 Legacy `styles.css` and `app.js` may remain temporarily while the V2 migration is verified; current public pages use `site-v2.css` and `site-v2.js`.
 
 No framework, package manager, build step, external font, CDN, analytics package, or direct database connection is required.
+
+## Public Discord
+
+Canonical invite: `https://discord.gg/efdQJsceKb`
+
+The shared renderer activates this invite across every public Join Discord control.
 
 ## Corrected rulebook schedule
 
@@ -54,7 +60,6 @@ The earlier draft incorrectly published stale `10:00 PM / 10:45 PM EST` values. 
 
 The website does not invent values for:
 
-- permanent Discord invite URL
 - current season/week
 - team-by-team fixtures
 - standings rows
@@ -63,7 +68,7 @@ The website does not invent values for:
 - power rankings
 - champion/history records
 
-Those values must come from verified league sources or the bot-owned export.
+Those values must come from verified league sources or the bot-owned export. Until they are published, the public UI uses clean empty states instead of fake teams, fake records, or visible development placeholders.
 
 ## Domain
 
