@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "generated_at": null,
   "source_of_truth": "SSL Bot + PostgreSQL",
   "season": {
@@ -9,9 +9,12 @@
   },
   "competition": {
     "format": "2v2",
-    "official_match_day": "Saturday",
-    "official_match_time": "10:00 PM EST",
-    "official_stream_time": "10:45 PM EST",
+    "core_divisions": ["Amateur", "Rookie", "Contender", "Elite", "Legend"],
+    "core_match_day": "Saturday",
+    "core_match_time": "8:00 PM EST",
+    "mythic_schedule": "Open scheduling Monday-Sunday; weekly deadline Sunday 11:59 PM EST",
+    "official_stream_day": "Saturday",
+    "official_stream_time": "9:30 PM EST",
     "default_region": "US-East",
     "score_and_replay_deadline_hours": 24,
     "allowed_maps": [
