@@ -43,10 +43,17 @@ Do not use legacy files for new work unless the current pages still reference th
 
 ## Brand assets in this repository
 
-- `assets/branding/ssl-logo.svg` — current temporary public Supersonic Showdown logo supplied by Victor on 2026-08-08.
+- `assets/branding/ssl-logo.svg` — current temporary Supersonic Showdown shield/car/flame/ball logo supplied by Victor on 2026-08-08.
 - `assets/branding/README.txt` — logo status and replacement rule.
 
-Important: Tony says the final logo should be done, but it is not live/available yet. Keep using `assets/branding/ssl-logo.svg` as the current temporary public identity until Tony explicitly supplies and approves a replacement.
+Important: the live site must use the Supersonic Showdown League 2v2 brand treatment, not a generic esports template. The brand lockup is:
+
+- Line 1: Supersonic Showdown
+- Line 2: League 2v2
+- Orange accents: first S in Supersonic, first S in Showdown, L in League, both 2 characters
+- Blue accent: lowercase v in 2v2
+
+Tony says the final logo should be done, but it is not live/available yet. Keep using `assets/branding/ssl-logo.svg` as the current temporary public identity until Tony explicitly supplies and approves a replacement.
 
 ## Brand assets documented outside this website repo
 
@@ -87,7 +94,7 @@ From the current website docs and public data contract:
 
 ## Design tokens
 
-Current website should follow the V5 card direction:
+Current website must follow the V5 card direction:
 
 - Arena Navy: `#07101D`
 - Raised Navy: `#0D1A2B`
@@ -116,6 +123,7 @@ When another GPT or coding assistant works on this repo:
 4. Keep the site static and GitHub Pages-compatible.
 5. Do not add a backend, auth, database, package manager, external services, analytics, or build pipeline unless Victor/Tony explicitly approve it.
 6. Use `assets/branding/ssl-logo.svg` until Tony supplies the final approved logo.
-7. Keep all pages production-clean: no developer placeholder language like "pending export" or "awaiting data" visible to visitors.
-8. Keep unavailable competitive data hidden or represented by clean public empty states.
-9. Preserve the domain `showdown2v2.live` and CNAME unless Victor/Tony explicitly change it.
+7. Do not use generic placeholder brand copy like "This is where the league lives" as the primary identity. Use Supersonic Showdown League 2v2.
+8. Keep all pages production-clean: no developer placeholder language like "pending export" or "awaiting data" visible to visitors.
+9. Keep unavailable competitive data hidden or represented by clean public empty states.
+10. Preserve the domain `showdown2v2.live` and CNAME unless Victor/Tony explicitly change it.
