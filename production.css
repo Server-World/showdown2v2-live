@@ -2,6 +2,8 @@
 :root{--font-ui:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--font-display:"Arial Black",Inter,Arial,sans-serif}
 html{font-size:17px;scroll-behavior:smooth}
 body{font-family:var(--font-ui);font-weight:500;line-height:1.65;letter-spacing:0;color:#f2f7fc;background:#07101d;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.skip-link{position:fixed;left:14px;top:10px;z-index:9999;padding:10px 14px;border:2px solid #49c7ff;border-radius:8px;background:#07101d;color:#fff;font-weight:900;transform:translateY(-180%);opacity:0;pointer-events:none;transition:transform .15s ease,opacity .15s ease}
+.skip-link:focus{transform:translateY(0);opacity:1;pointer-events:auto}
 p,.muted,.hero p,.intro p,.card p,.notice p,.footer p{color:#c9d6e4;font-size:1rem;line-height:1.72}
 h1,h2,h3,.display,.hero h1,.section-title,.eyebrow,.kicker{font-family:var(--font-display);font-style:normal;font-stretch:normal;text-transform:none;letter-spacing:-.025em;line-height:1.08}
 .hero-copy{position:relative;z-index:2;min-width:0;max-width:100%}
@@ -16,7 +18,6 @@ h2,.section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900}h3{font-size:
 .nav-links a,.btn,.button{font-family:var(--font-ui);font-size:.92rem;font-weight:800;letter-spacing:0;text-transform:none}.nav-links a{color:#d5e0eb}.nav-links a:hover,.nav-links a[aria-current="page"]{color:#fff}
 .stat strong,.score,.rank{font-family:var(--font-ui);font-weight:900;letter-spacing:-.02em}
 .card,.panel,.hero-logo{border-radius:14px}
-/* Action hierarchy audit: clear separation, stronger contrast, larger targets */
 .hero-actions,.page-actions,.section-actions,.nav-actions{display:flex;align-items:center;flex-wrap:wrap;gap:14px}
 .page-actions{margin-top:26px}.section-actions{margin-top:8px}
 .btn{min-height:48px;padding:0 20px;border:2px solid #49647e;border-radius:10px;background:#14263b;color:#f8fbff;box-shadow:0 8px 20px rgba(0,0,0,.24);white-space:nowrap}
