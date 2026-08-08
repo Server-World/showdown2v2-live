@@ -69,7 +69,7 @@ You may use these facts:
 - Official streamed games: Saturday at 9:30 PM EST
 - Default region: US-East unless both teams agree otherwise
 - Score/replay reporting deadline: 24 hours
-- Discord invite: <https://discord.gg/efdQJsceKb>
+- Discord invite: https://discord.gg/efdQJsceKb
 
 ## Design direction
 

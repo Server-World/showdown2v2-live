@@ -4,8 +4,8 @@ Use this file as the AI/GPT handoff map for where website assets live and what i
 
 ## Public domain
 
-- Production domain: <https://showdown2v2.live>
-- Canonical Discord invite: <https://discord.gg/efdQJsceKb>
+- Production domain: https://showdown2v2.live
+- Canonical Discord invite: https://discord.gg/efdQJsceKb
 
 ## Repository
 
@@ -83,7 +83,7 @@ From the current website docs and public data contract:
 - Official streamed games: Saturday at 9:30 PM EST
 - Default region: US-East unless both teams agree otherwise
 - Score/replay reporting deadline: 24 hours
-- Canonical Discord invite: <https://discord.gg/efdQJsceKb>
+- Canonical Discord invite: https://discord.gg/efdQJsceKb
 
 ## Design tokens
 
