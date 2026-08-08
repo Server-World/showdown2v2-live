@@ -1,36 +1,70 @@
 # Supersonic Showdown League Website
 
-**Status: Draft v0.1 — not published. Copy is not approved.**
+**Status: V1 competition hub live on GitHub Pages. Competitive data integration is still in progress.**
 
-This repository contains the draft public-facing Supersonic Showdown League website.
+This repository contains the public-facing Supersonic Showdown League 2v2 website at `showdown2v2.live`.
 
-## Site structure
+## Architecture
 
-The site is a single self-contained `index.html`. It requires no build step and has no dependencies.
+The website is a static GitHub Pages deployment. It does not connect directly to PostgreSQL and it does not decide competitive facts.
 
-## Domain
+The authority chain is:
 
-`showdown2v2.live` is registered but deliberately not attached to this site. There is intentionally no `CNAME` file. Do not add one until the public copy is approved.
+`SSL Bot / PostgreSQL` → scheduled read-only export → `data/league.json` → website UI
 
-## Placeholders
+The bot/database remain the single source of truth. The site publishes verified output only.
 
-| Marker | Needs | Source |
-| --- | --- | --- |
-| `data-ph="discord"` | Discord invite URL — 4 places: nav, hero, final CTA, footer | Victor or Tony |
-| `data-ph="season"` / `"week"` / `"nights"` | Season number, current week, match nights | Bot |
-| `data-ph="standings"` | Real standings rows | Blocked on pending DB migration |
-| `data-ph="copy"` | Four unanswered FAQ answers | Official League Rulebook in Notion |
+## Files
 
-Note: old “Season 4 Week 6” is **not confirmed** and must not be used.
+- `index.html` — competition-hub markup and public league content
+- `styles.css` — responsive esports visual system and six-tier color system
+- `app.js` — client-side rendering for the read-only league snapshot
+- `data/league.json` — public data contract; currently contains confirmed rulebook facts plus empty arrays for unverified competitive data
+- `.nojekyll` — prevents Jekyll processing
+- `CNAME` — custom domain: `showdown2v2.live`
 
-## Capability verification
+No framework, package manager, build step, external font, CDN, analytics package, or direct database connection is required.
 
-Two lines in the markup tagged `VERIFY SHIPPED` — “Player cards” and “Roster rules that are enforced” — must be verified against the bot as it is actually running today, not as it will run after the pending migration. If either capability is not live, delete that line from the markup rather than soften or reword it.
+## Current competition surfaces
 
-## Publishing sequence
+- The Arena / Match Center
+- Standings Hub with six tier tabs
+- Division identities: Mythic, Legend, Elite, Contender, Rookie, Amateur
+- Schedule & Match Rules
+- Team Directory shell
+- Player Card shell
+- SSL Power Index shell
+- Hall of Champions / records shell
+- News & Highlights
+- League onboarding / FAQ
 
-1. GitHub Pages from `main` / root.
-2. Verify the `github.io` site renders.
-3. Finish copy.
-4. Tony approves.
-5. Only then add the custom domain, `CNAME`, and DNS.
+## Confirmed rulebook facts currently published
+
+- Official league matches: Saturdays at 10:00 PM EST
+- Official streamed games: Saturdays at 10:45 PM EST
+- Format: 2v2 with default server settings and bots off
+- Default region: US-East unless both teams agree otherwise
+- Both teams report scores and submit replays within 24 hours
+
+## Data still intentionally empty
+
+The site does not invent values for:
+
+- Discord invite URL
+- current season and week
+- team-by-team fixtures
+- standings rows
+- team/player records and statistics
+- power rankings
+- champion/history records
+- unresolved public FAQ wording
+
+Those values must be supplied from verified league sources or the bot-owned export.
+
+## Domain and HTTPS
+
+GitHub Pages is configured from `main` at the repository root. The custom domain is `showdown2v2.live`, DNS passes GitHub's custom-domain check, and TLS provisioning has been initiated. Enable **Enforce HTTPS** in GitHub Pages as soon as GitHub makes the control available after certificate issuance completes.
+
+## Brand / platform note
+
+Supersonic Showdown is an independent community competition and is not affiliated with, endorsed by, or sponsored by Psyonix or Epic Games.
