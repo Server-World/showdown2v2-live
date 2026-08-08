@@ -2,42 +2,57 @@
 
 Date: 2026-08-08
 
-## Visitor test
+## Public-copy rule
 
-A new visitor should be able to answer these questions within the first screen:
+The website is for players, captains, viewers, and new visitors. It must not explain internal workflow, bot architecture, staff process, project history, or why the site was built.
+
+Avoid public phrases like:
+
+- A newcomer should not need to know...
+- internal project history
+- staff workflow
+- bot/database authority chain
+- verified export pipeline
+- source reconciliation
+- public data promise
+- no fake data
+
+Those may be true internally, but they do not belong in player-facing copy.
+
+## Player-facing questions the site should answer
 
 1. What is this? — A structured Rocket League 2v2 league.
-2. Why should I care? — It offers organized divisions, match nights, standings, teams, player identity, history, and a Discord community.
-3. What do I do next? — Join the Discord or browse the league pages.
-4. Is the data trustworthy? — Public league facts come from verified league sources; Discord/SSL Bot remain authoritative.
-5. Is this active? — The site presents match-night rhythm and public league structure now, with standings/player data publishing only after verified export.
-
-## Problems found
-
-- The prior hero did not clearly explain the league to a brand-new visitor.
-- The wrong logo/placeholder mark made the site feel inconsistent and unfinished.
-- Several page labels sounded like internal build status rather than public-facing product copy.
-- The homepage needed a stronger reason to join, a clearer league promise, and a safer explanation of what data is not public yet.
-- The brand needed to be wordmark-first until Tony supplies the real approved logo.
+2. Why should I join? — Organized match nights, divisions, teams, records, and community competition.
+3. What do I do next? — Join Discord.
+4. When do matches happen? — Core divisions Saturday 8:00 PM EST; Mythic open scheduling; official stream Saturday 9:30 PM EST.
+5. What can I browse? — Teams, standings, matches, players, stats, league rules, and history as those sections go live.
 
 ## Corrections made
 
-- Removed visible incorrect logo treatment from the site.
-- Switched the public site to a wordmark-first brand presentation until the real logo is available.
-- Rewrote the homepage hero around a new visitor journey: what the league is, who it is for, and what to do next.
-- Added a stronger value proposition section: organized match nights, divisions, standings/history, player identity, and Discord operations.
-- Added a public data honesty section so unavailable standings/player data does not look broken or fake.
-- Improved CTA language around joining Discord.
-- Preserved the static GitHub Pages architecture and did not add any backend, database, framework, analytics, or fake data.
+- Removed internal-facing visitor explanation from the homepage.
+- Replaced project/process language with player-facing benefits.
+- Reworded empty-data areas so they feel like upcoming public features, not internal system state.
+- Removed visible incorrect logo treatment and kept a wordmark-first identity until Tony provides the real approved logo.
+- Kept the site static, safe, and honest without exposing internal architecture language to players.
 
-## Current brand rule
+## Remaining copy pass needed
 
-Use the wordmark-only Supersonic Showdown League 2v2 treatment until Tony supplies the real approved bot/logo file.
+A full sitewide HTML copy pass should remove or soften internal terms on subpages, especially:
 
-Do not display the old temporary SS shield/car/flame image as the final brand.
+- verified league data
+- public snapshot
+- data authority
+- source reconciliation
+- bot/PostgreSQL references
+- internal implementation or workflow wording
 
-## Remaining blockers
+Preferred public alternatives:
 
-- Tony must supply/approve the actual final logo.
-- Verified standings, rosters, player stats, match results, and history need the approved league data export before the site can publish them.
-- Once the final logo is supplied, replace the wordmark-only hero support panel with the approved visual identity.
+- Official league updates
+- Posted standings
+- Season records
+- League history
+- Match results
+- Player cards
+- Coming soon
+- Join Discord for the latest updates
