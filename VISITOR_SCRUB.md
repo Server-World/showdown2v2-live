@@ -6,18 +6,9 @@ Date: 2026-08-08
 
 The website is for players, captains, viewers, and new visitors. It must not explain internal workflow, bot architecture, staff process, project history, or why the site was built.
 
-Avoid public phrases like:
+## Logo rule
 
-- A newcomer should not need to know...
-- internal project history
-- staff workflow
-- bot/database authority chain
-- verified export pipeline
-- source reconciliation
-- public data promise
-- no fake data
-
-Those may be true internally, but they do not belong in player-facing copy.
+Use the current bot logo at `/assets/branding/ssl-logo.svg` as the temporary public brand mark. Tony is expected to build the final logo direction around this identity, so the site should show it consistently in the header, hero brand card, and footer until a replacement is explicitly approved.
 
 ## Player-facing questions the site should answer
 
@@ -29,30 +20,7 @@ Those may be true internally, but they do not belong in player-facing copy.
 
 ## Corrections made
 
-- Removed internal-facing visitor explanation from the homepage.
-- Replaced project/process language with player-facing benefits.
+- Restored the current bot logo as the temporary public brand mark.
+- Kept homepage copy player-facing instead of internal-facing.
 - Reworded empty-data areas so they feel like upcoming public features, not internal system state.
-- Removed visible incorrect logo treatment and kept a wordmark-first identity until Tony provides the real approved logo.
 - Kept the site static, safe, and honest without exposing internal architecture language to players.
-
-## Remaining copy pass needed
-
-A full sitewide HTML copy pass should remove or soften internal terms on subpages, especially:
-
-- verified league data
-- public snapshot
-- data authority
-- source reconciliation
-- bot/PostgreSQL references
-- internal implementation or workflow wording
-
-Preferred public alternatives:
-
-- Official league updates
-- Posted standings
-- Season records
-- League history
-- Match results
-- Player cards
-- Coming soon
-- Join Discord for the latest updates
