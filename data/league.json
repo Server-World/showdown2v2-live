@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "generated_at": null,
+  "source_of_truth": "SSL Bot + PostgreSQL",
+  "season": {
+    "name": null,
+    "week": null,
+    "status": null
+  },
+  "competition": {
+    "format": "2v2",
+    "official_match_day": "Saturday",
+    "official_match_time": "10:00 PM EST",
+    "official_stream_time": "10:45 PM EST",
+    "default_region": "US-East",
+    "score_and_replay_deadline_hours": 24,
+    "allowed_maps": [
+      "Beckwith Park",
+      "Champions Field",
+      "DFH Stadium",
+      "Forbidden Temple",
+      "Drift Woods"
+    ]
+  },
+  "match_night": {
+    "active": false,
+    "matches": []
+  },
+  "standings": {
+    "mythic": [],
+    "legend": [],
+    "elite": [],
+    "contender": [],
+    "rookie": [],
+    "amateur": []
+  },
+  "teams": [],
+  "players": [],
+  "power_rankings": [],
+  "champions": [],
+  "news": []
+}
