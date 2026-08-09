@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T19:30:03.094022Z",
+  "generated_at": "2026-08-09T19:40:03.454606Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -37,17 +37,6 @@
   "match_night": {
     "active": false,
     "matches": [
-      {
-        "tier": "Contender",
-        "home": "Wheels of Fortune",
-        "away": "Chimera",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
       {
         "tier": "Mythic",
         "home": "Neon Demons",
@@ -294,6 +283,17 @@
         "tier": "Contender",
         "home": "Electro Pulse",
         "away": "Druids",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Contender",
+        "home": "Chimera",
+        "away": "Frostbite Phantoms",
         "score": "0-3",
         "status": "Final",
         "date": "2026-07-11",
@@ -621,9 +621,9 @@
         "win_pct": "66.7%",
         "games_won": 8,
         "games_lost": 4,
-        "goals_for": 37,
-        "goals_against": 37,
-        "differential": 0,
+        "goals_for": 83,
+        "goals_against": 72,
+        "differential": 11,
         "streak": null
       },
       {
@@ -651,9 +651,9 @@
         "win_pct": "0%",
         "games_won": 1,
         "games_lost": 9,
-        "goals_for": 19,
-        "goals_against": 39,
-        "differential": -20,
+        "goals_for": 34,
+        "goals_against": 78,
+        "differential": -44,
         "streak": null
       },
       {
