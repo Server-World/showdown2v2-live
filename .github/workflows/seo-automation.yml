@@ -1,0 +1,99 @@
+name: SEO static render and IndexNow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "league.json"
+      - "data/player-card-hitman.json"
+      - "**/*.html"
+      - "sitemap.xml"
+      - "assets/branding/ssl-social-card.svg"
+      - "scripts/seo_static.py"
+      - ".github/workflows/seo-automation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-static-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  optimize:
+    if: github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, '[seo-static]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Render crawlable league snapshots and metadata
+        run: python3 scripts/seo_static.py
+
+      - name: Validate generated files
+        run: |
+          python3 -m json.tool data/player-card-hitman.json >/dev/null
+          python3 - <<'PY'
+          import pathlib, xml.etree.ElementTree as ET
+          ET.parse("sitemap.xml")
+          for path in pathlib.Path(".").glob("**/*.html"):
+              text = path.read_text(encoding="utf-8")
+              if path.name != "404.html":
+                  assert '<link rel="canonical"' in text, path
+                  assert '<meta name="description"' in text, path
+                  assert 'property="og:image"' in text, path
+          print("SEO validation passed")
+          PY
+          git diff --check
+
+      - name: Commit generated static SEO content
+        id: commit
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html matches/index.html standings/index.html teams/index.html players/index.html stats/index.html history/index.html league/index.html news/index.html sitemap.xml
+          git commit -m "[seo-static] Render crawlable league snapshots"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Notify IndexNow search engines
+        continue-on-error: true
+        env:
+          INDEXNOW_KEY: a5996eb1e9a87c85ca184f9925765c72
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.error, urllib.request, xml.etree.ElementTree as ET
+          host = "showdown2v2.live"
+          key = os.environ["INDEXNOW_KEY"]
+          root = ET.parse("sitemap.xml").getroot()
+          ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          urls = [n.text for n in root.findall("s:url/s:loc", ns) if n.text]
+          payload = json.dumps({
+              "host": host,
+              "key": key,
+              "keyLocation": f"https://{host}/{key}.txt",
+              "urlList": urls,
+          }).encode("utf-8")
+          request = urllib.request.Request(
+              "https://api.indexnow.org/indexnow",
+              data=payload,
+              headers={"Content-Type": "application/json; charset=utf-8"},
+              method="POST",
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=20) as response:
+                  print("IndexNow response:", response.status)
+          except urllib.error.HTTPError as exc:
+              print("IndexNow HTTP response:", exc.code, exc.read().decode("utf-8", "replace"))
+          except Exception as exc:
+              print("IndexNow notification warning:", exc)
+          PY
