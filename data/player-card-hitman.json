@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "record_type": "review_fixture",
+  "source_label": "Player Card V5 review fixture",
+  "authoritative_source": "SSL Bot + PostgreSQL",
+  "player": {
+    "gamertag": "HI7MAN305",
+    "initials": "H7",
+    "franchise": "Galaxy Guardians",
+    "franchise_tag": "GLO",
+    "team": "Guardians Celestial",
+    "role": "Starter",
+    "roster_status": "Active roster",
+    "tier": "Legend",
+    "locked_mmr": 1475,
+    "eligible": true,
+    "eligibility_label": "Eligible to play",
+    "tracker": "Available in SSL Bot"
+  },
+  "season": {
+    "name": "Season 2",
+    "week": 6,
+    "slp": 125,
+    "iron_man": {
+      "current": 4,
+      "target": 6,
+      "badge": "Gold Badge"
+    },
+    "stats": {
+      "games": 12,
+      "goals": 8,
+      "assists": 9,
+      "saves": 17,
+      "shots": 25,
+      "score": 4200,
+      "mvps": 2
+    }
+  },
+  "career": {
+    "games": 80,
+    "wins": 44,
+    "losses": 36,
+    "goals": 60,
+    "assists": 51,
+    "saves": 92,
+    "shots": 180,
+    "score": 31000,
+    "mvps": 11
+  },
+  "latest_match": null,
+  "achievements": [
+    {
+      "label": "Iron Man",
+      "value": "Gold Badge",
+      "detail": "4 of 6 tracked weeks",
+      "kind": "badge"
+    },
+    {
+      "label": "Season MVPs",
+      "value": "2",
+      "detail": "Recorded season total",
+      "kind": "season"
+    },
+    {
+      "label": "Career MVPs",
+      "value": "11",
+      "detail": "Recorded career total",
+      "kind": "career"
+    }
+  ]
+}
