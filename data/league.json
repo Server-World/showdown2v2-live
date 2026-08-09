@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T04:00:03.251904Z",
+  "generated_at": "2026-08-09T04:20:02.913653Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -93,17 +93,6 @@
         "phase": "regular_season"
       },
       {
-        "tier": "Elite",
-        "home": "Crusaders",
-        "away": "Cerberus",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
         "tier": "Legend",
         "home": "Arctic Wolves",
         "away": "Warlocks",
@@ -148,31 +137,9 @@
         "phase": "regular_season"
       },
       {
-        "tier": "Mythic",
-        "home": "Oath",
-        "away": "Hydras",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
         "tier": "Rookie",
         "home": "Polar Bears",
         "away": "Rangers",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Rookie",
-        "home": "Whiff Wizards",
-        "away": "Gargoyle",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-08",
@@ -300,6 +267,39 @@
         "time": "10PM EST",
         "week": 1,
         "phase": "preseason"
+      },
+      {
+        "tier": "Legend",
+        "home": "Lich Lords",
+        "away": "Arctic Wolves",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Mythic",
+        "home": "Rogues",
+        "away": "Hydras",
+        "score": "3-2",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Mythic",
+        "home": "Neon Demons",
+        "away": "Oath",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
       }
     ]
   },
@@ -307,6 +307,21 @@
     "mythic": [
       {
         "rank": 1,
+        "team": "Oath",
+        "franchise": "Solace Path",
+        "franchise_tag": "SP",
+        "wins": 3,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 9,
+        "games_lost": 7,
+        "goals_for": 60,
+        "goals_against": 42,
+        "differential": 18,
+        "streak": null
+      },
+      {
+        "rank": 2,
         "team": "Glacier Giants",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
@@ -321,7 +336,7 @@
         "streak": null
       },
       {
-        "rank": 2,
+        "rank": 3,
         "team": "Neon Demons",
         "franchise": "Glow Stick Gang",
         "franchise_tag": "GLO",
@@ -336,7 +351,7 @@
         "streak": null
       },
       {
-        "rank": 3,
+        "rank": 4,
         "team": "Nightwalkers",
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
@@ -348,21 +363,6 @@
         "goals_for": 25,
         "goals_against": 15,
         "differential": 10,
-        "streak": null
-      },
-      {
-        "rank": 4,
-        "team": "Oath",
-        "franchise": "Solace Path",
-        "franchise_tag": "SP",
-        "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 6,
-        "games_lost": 6,
-        "goals_for": 40,
-        "goals_against": 32,
-        "differential": 8,
         "streak": null
       },
       {
@@ -386,13 +386,13 @@
         "franchise": "Ficticious esports",
         "franchise_tag": "FCT",
         "wins": 0,
-        "losses": 3,
+        "losses": 4,
         "win_pct": "0%",
-        "games_won": 3,
-        "games_lost": 9,
-        "goals_for": 27,
-        "goals_against": 54,
-        "differential": -27,
+        "games_won": 4,
+        "games_lost": 12,
+        "goals_for": 37,
+        "goals_against": 74,
+        "differential": -37,
         "streak": null
       }
     ],
@@ -510,17 +510,32 @@
         "franchise": "Ficticious esports",
         "franchise_tag": "FCT",
         "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 8,
-        "games_lost": 3,
-        "goals_for": 30,
-        "goals_against": 28,
-        "differential": 2,
+        "losses": 2,
+        "win_pct": "50%",
+        "games_won": 9,
+        "games_lost": 6,
+        "goals_for": 33,
+        "goals_against": 39,
+        "differential": -6,
         "streak": null
       },
       {
         "rank": 3,
+        "team": "Crusaders",
+        "franchise": "Solace Path",
+        "franchise_tag": "SP",
+        "wins": 2,
+        "losses": 2,
+        "win_pct": "50%",
+        "games_won": 7,
+        "games_lost": 7,
+        "goals_for": 44,
+        "goals_against": 35,
+        "differential": 9,
+        "streak": null
+      },
+      {
+        "rank": 4,
         "team": "Paladins",
         "franchise": "D20",
         "franchise_tag": "D20",
@@ -535,7 +550,7 @@
         "streak": null
       },
       {
-        "rank": 4,
+        "rank": 5,
         "team": "Icicle Dragons",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
@@ -547,21 +562,6 @@
         "goals_for": 36,
         "goals_against": 42,
         "differential": -6,
-        "streak": null
-      },
-      {
-        "rank": 5,
-        "team": "Crusaders",
-        "franchise": "Solace Path",
-        "franchise_tag": "SP",
-        "wins": 1,
-        "losses": 2,
-        "win_pct": "33.3%",
-        "games_won": 4,
-        "games_lost": 6,
-        "goals_for": 33,
-        "goals_against": 32,
-        "differential": 1,
         "streak": null
       },
       {
@@ -675,6 +675,21 @@
     "rookie": [
       {
         "rank": 1,
+        "team": "Gargoyle",
+        "franchise": "Ficticious esports",
+        "franchise_tag": "FCT",
+        "wins": 3,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 11,
+        "games_lost": 4,
+        "goals_for": 46,
+        "goals_against": 29,
+        "differential": 17,
+        "streak": null
+      },
+      {
+        "rank": 2,
         "team": "House Head",
         "franchise": "Glow Stick Gang",
         "franchise_tag": "GLO",
@@ -689,7 +704,7 @@
         "streak": null
       },
       {
-        "rank": 2,
+        "rank": 3,
         "team": "Polar Bears",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
@@ -701,21 +716,6 @@
         "goals_for": 49,
         "goals_against": 29,
         "differential": 20,
-        "streak": null
-      },
-      {
-        "rank": 3,
-        "team": "Gargoyle",
-        "franchise": "Ficticious esports",
-        "franchise_tag": "FCT",
-        "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 8,
-        "games_lost": 4,
-        "goals_for": 28,
-        "goals_against": 24,
-        "differential": 4,
         "streak": null
       },
       {
@@ -754,13 +754,13 @@
         "franchise": "Solace Path",
         "franchise_tag": "SP",
         "wins": 0,
-        "losses": 3,
+        "losses": 4,
         "win_pct": "0%",
         "games_won": 1,
-        "games_lost": 9,
-        "goals_for": 22,
-        "goals_against": 50,
-        "differential": -28,
+        "games_lost": 12,
+        "goals_for": 27,
+        "goals_against": 68,
+        "differential": -41,
         "streak": null
       }
     ],
