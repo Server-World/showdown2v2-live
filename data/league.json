@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T02:40:03.929188Z",
+  "generated_at": "2026-08-09T02:50:03.316939Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -41,17 +41,6 @@
         "tier": "Amateur",
         "home": "Snowy Owls",
         "away": "Bards",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Amateur",
-        "home": "The Light Force",
-        "away": "Lost Souls",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-08",
@@ -294,6 +283,17 @@
         "tier": "Elite",
         "home": "The Wubbz",
         "away": "Crusaders",
+        "score": "3-1",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Elite",
+        "home": "Ebon Watch",
+        "away": "Icicle Dragons",
         "score": "3-1",
         "status": "Final",
         "date": "2026-06-27",
@@ -767,6 +767,21 @@
     "amateur": [
       {
         "rank": 1,
+        "team": "Lost Souls",
+        "franchise": "GraveWardens",
+        "franchise_tag": "GWS",
+        "wins": 3,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 11,
+        "games_lost": 8,
+        "goals_for": 61,
+        "goals_against": 53,
+        "differential": 8,
+        "streak": null
+      },
+      {
+        "rank": 2,
         "team": "Squires",
         "franchise": "Solace Path",
         "franchise_tag": "SP",
@@ -781,33 +796,18 @@
         "streak": null
       },
       {
-        "rank": 2,
+        "rank": 3,
         "team": "The Light Force",
         "franchise": "Glow Stick Gang",
         "franchise_tag": "GLO",
         "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 8,
-        "games_lost": 5,
-        "goals_for": 33,
-        "goals_against": 33,
-        "differential": 0,
-        "streak": null
-      },
-      {
-        "rank": 3,
-        "team": "Lost Souls",
-        "franchise": "GraveWardens",
-        "franchise_tag": "GWS",
-        "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 8,
-        "games_lost": 7,
-        "goals_for": 46,
-        "goals_against": 42,
-        "differential": 4,
+        "losses": 2,
+        "win_pct": "50%",
+        "games_won": 9,
+        "games_lost": 8,
+        "goals_for": 44,
+        "goals_against": 48,
+        "differential": -4,
         "streak": null
       },
       {
