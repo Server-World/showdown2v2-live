@@ -1,0 +1,32 @@
+/* Home hero: competitive league panel (Option B) */
+.competition-stage{min-height:470px;display:flex;align-items:center;justify-content:center;position:relative}
+.competition-stage:before{content:"";position:absolute;width:410px;height:410px;border:1px solid rgba(73,199,255,.11);border-radius:50%;filter:drop-shadow(0 0 45px rgba(73,199,255,.06))}
+.competition-panel{position:relative;width:min(500px,100%);padding:28px 30px 26px;overflow:hidden;border:1px solid rgba(73,199,255,.3);background:linear-gradient(155deg,rgba(13,34,54,.96),rgba(5,14,24,.96));box-shadow:0 34px 90px rgba(0,0,0,.48);clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,32px 100%,0 calc(100% - 32px))}
+.competition-panel:before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--cyan,#49c7ff) 0 72%,var(--orange,#ff9f43) 72%)}
+.competition-panel:after{content:"";position:absolute;right:-90px;top:85px;width:240px;height:240px;border:1px solid rgba(73,199,255,.09);border-radius:50%;box-shadow:0 0 0 32px rgba(73,199,255,.018),0 0 0 64px rgba(73,199,255,.012);pointer-events:none}
+.competition-brand{position:relative;z-index:1;display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:14px;align-items:center;padding-bottom:20px;border-bottom:1px solid rgba(154,190,219,.15)}
+.competition-logo{width:78px;height:54px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
+.competition-lockup{display:grid;gap:3px;text-transform:uppercase;line-height:1}
+.competition-lockup span{font-size:.72rem;font-weight:900;letter-spacing:.13em;color:#dcecff}
+.competition-lockup strong{font-size:1.05rem;font-weight:950;letter-spacing:.1em;color:#fff}
+.competition-lockup .orange{color:var(--orange,#ff9f43)}
+.competition-lockup .blue{color:var(--cyan,#49c7ff)}
+.competition-tag{padding:7px 9px;border:1px solid rgba(85,214,139,.32);border-radius:999px;background:rgba(85,214,139,.07);color:#92edb6;font-size:.58rem;font-weight:900;letter-spacing:.11em;white-space:nowrap}
+.competition-copy{position:relative;z-index:1;padding:26px 0 20px}
+.competition-copy .mini{display:block;margin-bottom:8px;color:var(--cyan,#49c7ff);font-size:.68rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.competition-copy h2{margin:0;font-size:clamp(2.15rem,3.5vw,3.25rem);line-height:.94;letter-spacing:-.055em}
+.competition-copy h2 span{color:var(--orange,#ff9f43)}
+.competition-copy p{max-width:420px;margin:15px 0 0!important;color:#b7c7d7!important;font-size:.92rem!important;line-height:1.58!important}
+.division-strip{position:relative;z-index:1;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:2px 0 18px}
+.division-strip span{display:grid;place-items:center;min-height:36px;border:1px solid rgba(154,190,219,.14);background:#081725;color:#dce9f4;font-size:.62rem;font-weight:950;letter-spacing:.07em}
+.division-strip .myt{border-bottom-color:#ff69b4}.division-strip .leg{border-bottom-color:#bd7cff}.division-strip .eli{border-bottom-color:#49c7ff}.division-strip .con{border-bottom-color:#ff9f43}.division-strip .roo{border-bottom-color:#55d68b}.division-strip .ama{border-bottom-color:#ff8a80}
+.competition-info{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.competition-info article{min-height:78px;padding:12px 13px;border:1px solid rgba(154,190,219,.14);background:rgba(6,18,31,.78)}
+.competition-info small{display:block;color:#7f95aa;font-size:.58rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+.competition-info strong{display:block;margin-top:5px;color:#fff;font-size:.9rem;line-height:1.25}
+.competition-foot{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(154,190,219,.14)}
+.competition-foot strong{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+.competition-foot a{color:var(--cyan,#49c7ff);font-size:.78rem;font-weight:900}
+.competition-foot a:hover{color:#fff}
+@media(max-width:980px){.competition-stage{min-height:420px}.competition-panel{width:min(620px,100%)}}
+@media(max-width:620px){.competition-panel{padding:24px 20px 22px}.competition-brand{grid-template-columns:64px 1fr}.competition-logo{width:64px;height:48px}.competition-tag{grid-column:1/-1;justify-self:start}.division-strip{grid-template-columns:repeat(3,1fr)}.competition-info{grid-template-columns:1fr}.competition-foot{align-items:flex-start;flex-direction:column}}
