@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T18:50:03.080261Z",
+  "generated_at": "2026-08-09T19:30:03.094022Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -37,6 +37,17 @@
   "match_night": {
     "active": false,
     "matches": [
+      {
+        "tier": "Contender",
+        "home": "Wheels of Fortune",
+        "away": "Chimera",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-08",
+        "time": "10PM EST",
+        "week": 6,
+        "phase": "regular_season"
+      },
       {
         "tier": "Mythic",
         "home": "Neon Demons",
@@ -283,17 +294,6 @@
         "tier": "Contender",
         "home": "Electro Pulse",
         "away": "Druids",
-        "score": "0-3",
-        "status": "Final",
-        "date": "2026-07-11",
-        "time": "10PM EST",
-        "week": 2,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Contender",
-        "home": "Chimera",
-        "away": "Frostbite Phantoms",
         "score": "0-3",
         "status": "Final",
         "date": "2026-07-11",
@@ -616,14 +616,14 @@
         "team": "Chimera",
         "franchise": "Ficticious esports",
         "franchise_tag": "FCT",
-        "wins": 3,
+        "wins": 2,
         "losses": 1,
-        "win_pct": "75%",
-        "games_won": 11,
+        "win_pct": "66.7%",
+        "games_won": 8,
         "games_lost": 4,
-        "goals_for": 71,
-        "goals_against": 43,
-        "differential": 28,
+        "goals_for": 37,
+        "goals_against": 37,
+        "differential": 0,
         "streak": null
       },
       {
@@ -647,13 +647,13 @@
         "franchise": "Solace Path",
         "franchise_tag": "SP",
         "wins": 0,
-        "losses": 4,
+        "losses": 3,
         "win_pct": "0%",
         "games_won": 1,
-        "games_lost": 12,
-        "goals_for": 25,
-        "goals_against": 73,
-        "differential": -48,
+        "games_lost": 9,
+        "goals_for": 19,
+        "goals_against": 39,
+        "differential": -20,
         "streak": null
       },
       {
