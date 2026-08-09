@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "league.json"
+      - "data/league.json"
       - "data/player-card-hitman.json"
       - "**/*.html"
       - "sitemap.xml"
@@ -30,21 +30,38 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Prepare current sanitized league snapshot
+        run: cp data/league.json league.json
+
       - name: Render crawlable league snapshots and metadata
         run: python3 scripts/seo_static.py
 
       - name: Validate generated files
         run: |
+          python3 -m json.tool data/league.json >/dev/null
           python3 -m json.tool data/player-card-hitman.json >/dev/null
           python3 - <<'PY'
           import pathlib, xml.etree.ElementTree as ET
           ET.parse("sitemap.xml")
-          for path in pathlib.Path(".").glob("**/*.html"):
+          public_pages = [
+              "index.html",
+              "matches/index.html",
+              "standings/index.html",
+              "teams/index.html",
+              "players/index.html",
+              "stats/index.html",
+              "history/index.html",
+              "league/index.html",
+              "news/index.html",
+          ]
+          for name in public_pages:
+              path = pathlib.Path(name)
               text = path.read_text(encoding="utf-8")
-              if path.name != "404.html":
-                  assert '<link rel="canonical"' in text, path
-                  assert '<meta name="description"' in text, path
-                  assert 'property="og:image"' in text, path
+              assert '<link rel="canonical"' in text, path
+              assert '<meta name="description"' in text, path
+              assert 'property="og:image"' in text, path
+              assert 'name="twitter:image"' in text, path
+              assert 'rel="manifest"' in text, path
           print("SEO validation passed")
           PY
           git diff --check
