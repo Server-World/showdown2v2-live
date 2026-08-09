@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T02:50:03.316939Z",
+  "generated_at": "2026-08-09T03:10:03.742863Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -182,17 +182,6 @@
       },
       {
         "tier": "Rookie",
-        "home": "House Head",
-        "away": "Cryptborn",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Rookie",
         "home": "Whiff Wizards",
         "away": "Gargoyle",
         "score": null,
@@ -295,6 +284,17 @@
         "home": "Ebon Watch",
         "away": "Icicle Dragons",
         "score": "3-1",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Legend",
+        "home": "Warlocks",
+        "away": "Draconic",
+        "score": "3-0",
         "status": "Final",
         "date": "2026-06-27",
         "time": "10PM EST",
@@ -675,6 +675,21 @@
     "rookie": [
       {
         "rank": 1,
+        "team": "House Head",
+        "franchise": "Glow Stick Gang",
+        "franchise_tag": "GLO",
+        "wins": 3,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 10,
+        "games_lost": 7,
+        "goals_for": 44,
+        "goals_against": 52,
+        "differential": -8,
+        "streak": null
+      },
+      {
+        "rank": 2,
         "team": "Polar Bears",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
@@ -689,7 +704,7 @@
         "streak": null
       },
       {
-        "rank": 2,
+        "rank": 3,
         "team": "Gargoyle",
         "franchise": "Ficticious esports",
         "franchise_tag": "FCT",
@@ -704,7 +719,7 @@
         "streak": null
       },
       {
-        "rank": 3,
+        "rank": 4,
         "team": "Rangers",
         "franchise": "D20",
         "franchise_tag": "D20",
@@ -719,22 +734,22 @@
         "streak": null
       },
       {
-        "rank": 4,
-        "team": "House Head",
-        "franchise": "Glow Stick Gang",
-        "franchise_tag": "GLO",
-        "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 7,
-        "games_lost": 5,
-        "goals_for": 27,
-        "goals_against": 35,
-        "differential": -8,
+        "rank": 5,
+        "team": "Cryptborn",
+        "franchise": "GraveWardens",
+        "franchise_tag": "GWS",
+        "wins": 0,
+        "losses": 4,
+        "win_pct": "0%",
+        "games_won": 2,
+        "games_lost": 12,
+        "goals_for": 18,
+        "goals_against": 28,
+        "differential": -10,
         "streak": null
       },
       {
-        "rank": 5,
+        "rank": 6,
         "team": "Whiff Wizards",
         "franchise": "Solace Path",
         "franchise_tag": "SP",
@@ -746,21 +761,6 @@
         "goals_for": 22,
         "goals_against": 50,
         "differential": -28,
-        "streak": null
-      },
-      {
-        "rank": 6,
-        "team": "Cryptborn",
-        "franchise": "GraveWardens",
-        "franchise_tag": "GWS",
-        "wins": 0,
-        "losses": 3,
-        "win_pct": "0%",
-        "games_won": 0,
-        "games_lost": 9,
-        "goals_for": 1,
-        "goals_against": 11,
-        "differential": -10,
         "streak": null
       }
     ],
