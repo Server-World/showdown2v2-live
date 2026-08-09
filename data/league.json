@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T06:20:03.056865Z",
+  "generated_at": "2026-08-09T17:10:02.911512Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -63,17 +63,6 @@
         "tier": "Elite",
         "home": "The Wubbz",
         "away": "Ebon Watch",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Legend",
-        "home": "Arctic Wolves",
-        "away": "Warlocks",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-08",
@@ -300,6 +289,17 @@
         "time": "10PM EST",
         "week": 1,
         "phase": "preseason"
+      },
+      {
+        "tier": "Amateur",
+        "home": "The Light Force",
+        "away": "Bards",
+        "score": "3-1",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
       }
     ]
   },
@@ -414,6 +414,21 @@
       },
       {
         "rank": 2,
+        "team": "Arctic Wolves",
+        "franchise": "Frozen",
+        "franchise_tag": "FRZ",
+        "wins": 3,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 11,
+        "games_lost": 6,
+        "goals_for": 54,
+        "goals_against": 56,
+        "differential": -2,
+        "streak": null
+      },
+      {
+        "rank": 3,
         "team": "Lich Lords",
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
@@ -425,21 +440,6 @@
         "goals_for": 65,
         "goals_against": 43,
         "differential": 22,
-        "streak": null
-      },
-      {
-        "rank": 3,
-        "team": "Arctic Wolves",
-        "franchise": "Frozen",
-        "franchise_tag": "FRZ",
-        "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 8,
-        "games_lost": 6,
-        "goals_for": 54,
-        "goals_against": 56,
-        "differential": -2,
         "streak": null
       },
       {
@@ -478,10 +478,10 @@
         "franchise": "D20",
         "franchise_tag": "D20",
         "wins": 0,
-        "losses": 3,
+        "losses": 4,
         "win_pct": "0%",
         "games_won": 4,
-        "games_lost": 9,
+        "games_lost": 12,
         "goals_for": 36,
         "goals_against": 41,
         "differential": -5,
