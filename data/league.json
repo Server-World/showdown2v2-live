@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T18:30:03.510071Z",
+  "generated_at": "2026-08-09T18:50:03.080261Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -514,9 +514,9 @@
         "win_pct": "50%",
         "games_won": 9,
         "games_lost": 6,
-        "goals_for": 33,
-        "goals_against": 39,
-        "differential": -6,
+        "goals_for": 37,
+        "goals_against": 38,
+        "differential": -1,
         "streak": null
       },
       {
@@ -544,9 +544,9 @@
         "win_pct": "50%",
         "games_won": 7,
         "games_lost": 7,
-        "goals_for": 44,
-        "goals_against": 35,
-        "differential": 9,
+        "goals_for": 43,
+        "goals_against": 39,
+        "differential": 4,
         "streak": null
       },
       {
