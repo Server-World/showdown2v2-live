@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T00:00:03.091071Z",
+  "generated_at": "2026-08-09T02:40:03.929188Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -83,17 +83,6 @@
       },
       {
         "tier": "Contender",
-        "home": "Electro Pulse",
-        "away": "Skeletons",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Contender",
         "home": "Wheels of Fortune",
         "away": "Chimera",
         "score": null,
@@ -140,17 +129,6 @@
         "tier": "Legend",
         "home": "Arctic Wolves",
         "away": "Warlocks",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Legend",
-        "home": "Techno Tribe",
-        "away": "Lich Lords",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-08",
@@ -300,6 +278,28 @@
         "time": "10PM EST",
         "week": 1,
         "phase": "preseason"
+      },
+      {
+        "tier": "Elite",
+        "home": "Paladins",
+        "away": "Cerberus",
+        "score": "3-2",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Elite",
+        "home": "The Wubbz",
+        "away": "Crusaders",
+        "score": "3-1",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
       }
     ]
   },
@@ -399,6 +399,21 @@
     "legend": [
       {
         "rank": 1,
+        "team": "Lich Lords",
+        "franchise": "GraveWardens",
+        "franchise_tag": "GWS",
+        "wins": 3,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 10,
+        "games_lost": 5,
+        "goals_for": 65,
+        "goals_against": 43,
+        "differential": 22,
+        "streak": null
+      },
+      {
+        "rank": 2,
         "team": "Draconic",
         "franchise": "Ficticious esports",
         "franchise_tag": "FCT",
@@ -413,7 +428,7 @@
         "streak": null
       },
       {
-        "rank": 2,
+        "rank": 3,
         "team": "Arctic Wolves",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
@@ -425,21 +440,6 @@
         "goals_for": 54,
         "goals_against": 56,
         "differential": -2,
-        "streak": null
-      },
-      {
-        "rank": 3,
-        "team": "Lich Lords",
-        "franchise": "GraveWardens",
-        "franchise_tag": "GWS",
-        "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 7,
-        "games_lost": 5,
-        "goals_for": 49,
-        "goals_against": 40,
-        "differential": 9,
         "streak": null
       },
       {
@@ -463,13 +463,13 @@
         "franchise": "Glow Stick Gang",
         "franchise_tag": "GLO",
         "wins": 1,
-        "losses": 2,
-        "win_pct": "33.3%",
+        "losses": 3,
+        "win_pct": "25%",
         "games_won": 3,
-        "games_lost": 8,
-        "goals_for": 32,
-        "goals_against": 38,
-        "differential": -6,
+        "games_lost": 11,
+        "goals_for": 35,
+        "goals_against": 54,
+        "differential": -19,
         "streak": null
       },
       {
@@ -583,6 +583,21 @@
     "contender": [
       {
         "rank": 1,
+        "team": "Electro Pulse",
+        "franchise": "Glow Stick Gang",
+        "franchise_tag": "GLO",
+        "wins": 4,
+        "losses": 0,
+        "win_pct": "100%",
+        "games_won": 12,
+        "games_lost": 4,
+        "goals_for": 38,
+        "goals_against": 34,
+        "differential": 4,
+        "streak": null
+      },
+      {
+        "rank": 2,
         "team": "Druids",
         "franchise": "D20",
         "franchise_tag": "D20",
@@ -594,21 +609,6 @@
         "goals_for": 32,
         "goals_against": 25,
         "differential": 7,
-        "streak": null
-      },
-      {
-        "rank": 2,
-        "team": "Electro Pulse",
-        "franchise": "Glow Stick Gang",
-        "franchise_tag": "GLO",
-        "wins": 3,
-        "losses": 0,
-        "win_pct": "100%",
-        "games_won": 9,
-        "games_lost": 4,
-        "goals_for": 38,
-        "goals_against": 34,
-        "differential": 4,
         "streak": null
       },
       {
@@ -662,10 +662,10 @@
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
         "wins": 0,
-        "losses": 3,
+        "losses": 4,
         "win_pct": "0%",
         "games_won": 1,
-        "games_lost": 9,
+        "games_lost": 12,
         "goals_for": 11,
         "goals_against": 6,
         "differential": 5,
