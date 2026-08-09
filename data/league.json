@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T04:20:02.913653Z",
+  "generated_at": "2026-08-09T04:30:03.117404Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -60,17 +60,6 @@
         "phase": "regular_season"
       },
       {
-        "tier": "Contender",
-        "home": "Wheels of Fortune",
-        "away": "Chimera",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
         "tier": "Elite",
         "home": "Icicle Dragons",
         "away": "Paladins",
@@ -96,17 +85,6 @@
         "tier": "Legend",
         "home": "Arctic Wolves",
         "away": "Warlocks",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Legend",
-        "home": "Reforged",
-        "away": "Draconic",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-08",
@@ -300,6 +278,28 @@
         "time": "10PM EST",
         "week": 1,
         "phase": "preseason"
+      },
+      {
+        "tier": "Mythic",
+        "home": "Nightwalkers",
+        "away": "Glacier Giants",
+        "score": "3-0",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Rookie",
+        "home": "Rangers",
+        "away": "Gargoyle",
+        "score": "3-2",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
       }
     ]
   },
@@ -399,6 +399,21 @@
     "legend": [
       {
         "rank": 1,
+        "team": "Draconic",
+        "franchise": "Ficticious esports",
+        "franchise_tag": "FCT",
+        "wins": 4,
+        "losses": 0,
+        "win_pct": "100%",
+        "games_won": 12,
+        "games_lost": 1,
+        "goals_for": 39,
+        "goals_against": 23,
+        "differential": 16,
+        "streak": null
+      },
+      {
+        "rank": 2,
         "team": "Lich Lords",
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
@@ -410,21 +425,6 @@
         "goals_for": 65,
         "goals_against": 43,
         "differential": 22,
-        "streak": null
-      },
-      {
-        "rank": 2,
-        "team": "Draconic",
-        "franchise": "Ficticious esports",
-        "franchise_tag": "FCT",
-        "wins": 3,
-        "losses": 0,
-        "win_pct": "100%",
-        "games_won": 9,
-        "games_lost": 1,
-        "goals_for": 28,
-        "goals_against": 18,
-        "differential": 10,
         "streak": null
       },
       {
@@ -448,13 +448,13 @@
         "franchise": "Solace Path",
         "franchise_tag": "SP",
         "wins": 1,
-        "losses": 2,
-        "win_pct": "33.3%",
+        "losses": 3,
+        "win_pct": "25%",
         "games_won": 4,
-        "games_lost": 6,
-        "goals_for": 14,
-        "goals_against": 20,
-        "differential": -6,
+        "games_lost": 9,
+        "goals_for": 19,
+        "goals_against": 31,
+        "differential": -12,
         "streak": null
       },
       {
@@ -598,6 +598,21 @@
       },
       {
         "rank": 2,
+        "team": "Chimera",
+        "franchise": "Ficticious esports",
+        "franchise_tag": "FCT",
+        "wins": 3,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 11,
+        "games_lost": 4,
+        "goals_for": 71,
+        "goals_against": 43,
+        "differential": 28,
+        "streak": null
+      },
+      {
+        "rank": 3,
         "team": "Druids",
         "franchise": "D20",
         "franchise_tag": "D20",
@@ -609,21 +624,6 @@
         "goals_for": 32,
         "goals_against": 25,
         "differential": 7,
-        "streak": null
-      },
-      {
-        "rank": 3,
-        "team": "Chimera",
-        "franchise": "Ficticious esports",
-        "franchise_tag": "FCT",
-        "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 8,
-        "games_lost": 4,
-        "goals_for": 37,
-        "goals_against": 37,
-        "differential": 0,
         "streak": null
       },
       {
@@ -647,13 +647,13 @@
         "franchise": "Solace Path",
         "franchise_tag": "SP",
         "wins": 0,
-        "losses": 3,
+        "losses": 4,
         "win_pct": "0%",
         "games_won": 1,
-        "games_lost": 9,
-        "goals_for": 19,
-        "goals_against": 39,
-        "differential": -20,
+        "games_lost": 12,
+        "goals_for": 25,
+        "goals_against": 73,
+        "differential": -48,
         "streak": null
       },
       {
