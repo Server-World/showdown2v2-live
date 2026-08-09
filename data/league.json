@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T17:40:03.784152Z",
+  "generated_at": "2026-08-09T18:20:03.126421Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -52,17 +52,6 @@
         "tier": "Elite",
         "home": "Icicle Dragons",
         "away": "Paladins",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Mythic",
-        "home": "Glacier Giants",
-        "away": "Rogues",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-08",
@@ -300,6 +289,17 @@
         "time": "10PM EST",
         "week": 2,
         "phase": "preseason"
+      },
+      {
+        "tier": "Amateur",
+        "home": "Lost Souls",
+        "away": "Squires",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
       }
     ]
   },
@@ -307,6 +307,21 @@
     "mythic": [
       {
         "rank": 1,
+        "team": "Glacier Giants",
+        "franchise": "Frozen",
+        "franchise_tag": "FRZ",
+        "wins": 3,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 10,
+        "games_lost": 3,
+        "goals_for": 29,
+        "goals_against": 35,
+        "differential": -6,
+        "streak": null
+      },
+      {
+        "rank": 2,
         "team": "Oath",
         "franchise": "Solace Path",
         "franchise_tag": "SP",
@@ -318,21 +333,6 @@
         "goals_for": 60,
         "goals_against": 42,
         "differential": 18,
-        "streak": null
-      },
-      {
-        "rank": 2,
-        "team": "Glacier Giants",
-        "franchise": "Frozen",
-        "franchise_tag": "FRZ",
-        "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 7,
-        "games_lost": 3,
-        "goals_for": 27,
-        "goals_against": 28,
-        "differential": -1,
         "streak": null
       },
       {
@@ -371,13 +371,13 @@
         "franchise": "D20",
         "franchise_tag": "D20",
         "wins": 1,
-        "losses": 2,
-        "win_pct": "33.3%",
+        "losses": 3,
+        "win_pct": "25%",
         "games_won": 5,
-        "games_lost": 6,
-        "goals_for": 8,
-        "goals_against": 17,
-        "differential": -9,
+        "games_lost": 9,
+        "goals_for": 15,
+        "goals_against": 19,
+        "differential": -4,
         "streak": null
       },
       {
