@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T18:20:03.126421Z",
+  "generated_at": "2026-08-09T18:30:03.510071Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -37,28 +37,6 @@
   "match_night": {
     "active": false,
     "matches": [
-      {
-        "tier": "Amateur",
-        "home": "Snowy Owls",
-        "away": "Bards",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Elite",
-        "home": "Icicle Dragons",
-        "away": "Paladins",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
       {
         "tier": "Mythic",
         "home": "Neon Demons",
@@ -300,6 +278,28 @@
         "time": "10PM EST",
         "week": 2,
         "phase": "preseason"
+      },
+      {
+        "tier": "Contender",
+        "home": "Electro Pulse",
+        "away": "Druids",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Contender",
+        "home": "Chimera",
+        "away": "Frostbite Phantoms",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
       }
     ]
   },
@@ -521,6 +521,21 @@
       },
       {
         "rank": 3,
+        "team": "Paladins",
+        "franchise": "D20",
+        "franchise_tag": "D20",
+        "wins": 2,
+        "losses": 2,
+        "win_pct": "50%",
+        "games_won": 9,
+        "games_lost": 7,
+        "goals_for": 37,
+        "goals_against": 39,
+        "differential": -2,
+        "streak": null
+      },
+      {
+        "rank": 4,
         "team": "Crusaders",
         "franchise": "Solace Path",
         "franchise_tag": "SP",
@@ -535,30 +550,15 @@
         "streak": null
       },
       {
-        "rank": 4,
-        "team": "Paladins",
-        "franchise": "D20",
-        "franchise_tag": "D20",
-        "wins": 1,
-        "losses": 2,
-        "win_pct": "33.3%",
-        "games_won": 6,
-        "games_lost": 7,
-        "goals_for": 37,
-        "goals_against": 39,
-        "differential": -2,
-        "streak": null
-      },
-      {
         "rank": 5,
         "team": "Icicle Dragons",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
         "wins": 1,
-        "losses": 2,
-        "win_pct": "33.3%",
+        "losses": 3,
+        "win_pct": "25%",
         "games_won": 5,
-        "games_lost": 8,
+        "games_lost": 11,
         "goals_for": 36,
         "goals_against": 42,
         "differential": -6,
@@ -830,10 +830,10 @@
         "team": "Snowy Owls",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
-        "wins": 1,
+        "wins": 2,
         "losses": 2,
-        "win_pct": "33.3%",
-        "games_won": 3,
+        "win_pct": "50%",
+        "games_won": 6,
         "games_lost": 7,
         "goals_for": 26,
         "goals_against": 27,
@@ -846,10 +846,10 @@
         "franchise": "D20",
         "franchise_tag": "D20",
         "wins": 0,
-        "losses": 3,
+        "losses": 4,
         "win_pct": "0%",
         "games_won": 3,
-        "games_lost": 9,
+        "games_lost": 12,
         "goals_for": 32,
         "goals_against": 54,
         "differential": -22,
