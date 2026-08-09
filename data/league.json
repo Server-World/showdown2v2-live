@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T17:10:02.911512Z",
+  "generated_at": "2026-08-09T17:40:03.784152Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -52,17 +52,6 @@
         "tier": "Elite",
         "home": "Icicle Dragons",
         "away": "Paladins",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Elite",
-        "home": "The Wubbz",
-        "away": "Ebon Watch",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-08",
@@ -300,6 +289,17 @@
         "time": "10PM EST",
         "week": 2,
         "phase": "preseason"
+      },
+      {
+        "tier": "Amateur",
+        "home": "Minotuar",
+        "away": "Snowy Owls",
+        "score": "2-3",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
       }
     ]
   },
@@ -494,14 +494,14 @@
         "team": "Ebon Watch",
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
-        "wins": 3,
+        "wins": 4,
         "losses": 0,
         "win_pct": "100%",
-        "games_won": 9,
-        "games_lost": 4,
-        "goals_for": 49,
-        "goals_against": 38,
-        "differential": 11,
+        "games_won": 12,
+        "games_lost": 5,
+        "goals_for": 63,
+        "goals_against": 50,
+        "differential": 13,
         "streak": null
       },
       {
@@ -570,13 +570,13 @@
         "franchise": "Glow Stick Gang",
         "franchise_tag": "GLO",
         "wins": 1,
-        "losses": 2,
-        "win_pct": "33.3%",
-        "games_won": 4,
-        "games_lost": 8,
-        "goals_for": 23,
-        "goals_against": 29,
-        "differential": -6,
+        "losses": 3,
+        "win_pct": "25%",
+        "games_won": 5,
+        "games_lost": 11,
+        "goals_for": 35,
+        "goals_against": 43,
+        "differential": -8,
         "streak": null
       }
     ],
