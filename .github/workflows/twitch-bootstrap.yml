@@ -62,10 +62,18 @@ jobs:
           import json
           from pathlib import Path
           data = json.loads(Path('/tmp/twitch-device.json').read_text())
-          url = data['verification_uri']
-          code = data['user_code']
-          print(f'::notice title=Twitch authorization required::{url} | code: {code}')
+          Path('data/twitch-device-approval.json').write_text(json.dumps({
+              'verification_uri': data['verification_uri'],
+              'user_code': data['user_code'],
+              'expires_in': data['expires_in']
+          }, indent=2) + '\n')
           PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/twitch-device-approval.json
+          git commit -m "[twitch-auth] Publish temporary device approval code"
+          git pull --rebase origin main
+          git push origin main
       - name: Wait for Twitch approval
         if: steps.request.outputs.requested == 'true'
         run: python3 scripts/twitch_device_bootstrap.py poll
@@ -93,10 +101,11 @@ jobs:
           bootstrap = json.loads(bootstrap_path.read_text())
           bootstrap['requested'] = False
           bootstrap_path.write_text(json.dumps(bootstrap, indent=2) + '\n')
+          Path('data/twitch-device-approval.json').unlink(missing_ok=True)
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/.twitch-refresh.enc data/twitch-control.json data/twitch-bootstrap.json
+          git add -A data/.twitch-refresh.enc data/twitch-control.json data/twitch-bootstrap.json data/twitch-device-approval.json
           git commit -m "[twitch-auth] Authorize SSL Twitch manager"
           git pull --rebase origin main
           git push origin main
