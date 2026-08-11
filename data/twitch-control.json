@@ -1,0 +1,24 @@
+{
+  "enabled": false,
+  "channel": "supersonicshowdownleague",
+  "title": "Supersonic Showdown League 2v2 | Season 2 | Official Match Night",
+  "category": "Rocket League",
+  "language": "en",
+  "tags": [
+    "RocketLeague",
+    "Competitive",
+    "2v2",
+    "League",
+    "Esports",
+    "Community"
+  ],
+  "schedule": {
+    "enabled": true,
+    "day": "Saturday",
+    "time": "21:30",
+    "timezone": "America/New_York",
+    "duration_minutes": 150,
+    "title": "Supersonic Showdown League 2v2 | Official Saturday Broadcast",
+    "recurring": true
+  }
+}

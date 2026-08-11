@@ -1,0 +1,81 @@
+name: Twitch channel manager
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - data/twitch-control.json
+      - scripts/twitch_manager.py
+      - .github/workflows/twitch-manager.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  manage:
+    runs-on: ubuntu-latest
+    env:
+      TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+      TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+      TWITCH_TOKEN_KEY: ${{ secrets.TWITCH_TOKEN_KEY }}
+      TWITCH_INITIAL_REFRESH_TOKEN: ${{ secrets.TWITCH_REFRESH_TOKEN }}
+      TWITCH_NEXT_REFRESH_PATH: /tmp/twitch-next-refresh.txt
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Validate manager source
+        run: python3 -m py_compile scripts/twitch_manager.py
+      - name: Check control state
+        id: control
+        shell: bash
+        run: |
+          enabled=$(python3 -c 'import json; print(str(json.load(open("data/twitch-control.json"))["enabled"]).lower())')
+          echo "enabled=$enabled" >> "$GITHUB_OUTPUT"
+          if [ "$enabled" != "true" ]; then
+            echo "Twitch manager is installed but disabled; no API changes will be attempted."
+          fi
+      - name: Prepare refresh token
+        if: steps.control.outputs.enabled == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${TWITCH_CLIENT_ID}" ] || [ -z "${TWITCH_CLIENT_SECRET}" ] || [ -z "${TWITCH_TOKEN_KEY}" ]; then
+            echo "Missing TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, or TWITCH_TOKEN_KEY repository secret." >&2
+            exit 1
+          fi
+          if [ -f data/.twitch-refresh.enc ]; then
+            openssl enc -d -aes-256-cbc -pbkdf2 -in data/.twitch-refresh.enc -out /tmp/twitch-refresh.txt -pass env:TWITCH_TOKEN_KEY
+          elif [ -n "${TWITCH_INITIAL_REFRESH_TOKEN}" ]; then
+            printf '%s' "${TWITCH_INITIAL_REFRESH_TOKEN}" > /tmp/twitch-refresh.txt
+          else
+            echo "Missing initial TWITCH_REFRESH_TOKEN repository secret." >&2
+            exit 1
+          fi
+          chmod 600 /tmp/twitch-refresh.txt
+      - name: Apply Twitch desired state
+        if: steps.control.outputs.enabled == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          export TWITCH_REFRESH_TOKEN="$(cat /tmp/twitch-refresh.txt)"
+          python3 scripts/twitch_manager.py
+      - name: Persist rotated refresh token safely
+        if: steps.control.outputs.enabled == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s /tmp/twitch-next-refresh.txt
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in /tmp/twitch-next-refresh.txt -out data/.twitch-refresh.enc -pass env:TWITCH_TOKEN_KEY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/.twitch-refresh.enc
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "[twitch-auth] Rotate encrypted refresh token"
+          git pull --rebase origin main
+          git push origin main
