@@ -1,0 +1,89 @@
+{
+  "channel": {
+    "handle": "supersonicshowdownleague",
+    "displayName": "Supersonic Showdown League",
+    "category": "Rocket League",
+    "language": "English",
+    "accentColor": "#49C7FF",
+    "website": "https://showdown2v2.live/",
+    "discord": "https://discord.gg/efdQJsceKb"
+  },
+  "brand": {
+    "primaryBackground": "#07101D",
+    "secondaryBackground": "#0A1726",
+    "cyan": "#49C7FF",
+    "orange": "#FF9F43",
+    "white": "#F7FBFF",
+    "tagline": "PLAY. REPORT. CLIMB.",
+    "profileBanner": {
+      "width": 1200,
+      "height": 480
+    },
+    "avatar": {
+      "width": 512,
+      "height": 512
+    },
+    "panelWidth": 320
+  },
+  "bio": "Official broadcast home of the Supersonic Showdown League — organized competitive Rocket League 2v2. Six divisions, weekly competition, standings, player stats and match results. Featured broadcast Saturdays at 9:30 PM ET.",
+  "schedule": {
+    "day": "Saturday",
+    "startTime": "9:30 PM",
+    "timezone": "America/New_York",
+    "title": "Supersonic Showdown League — Featured Matches",
+    "category": "Rocket League"
+  },
+  "stream": {
+    "evergreenTitleTemplate": "SSL Season {season} · Week {week} | Featured Rocket League 2v2 Matches",
+    "currentTitle": "SSL Season 2 · Week 6 | Featured Rocket League 2v2 Matches",
+    "tags": ["English", "Competitive", "Esports", "Rocket League", "2v2"]
+  },
+  "competitionSnapshot": {
+    "season": 2,
+    "week": 6,
+    "teams": 36,
+    "divisions": 6,
+    "coreMatchNight": "Saturday · 8:00 PM ET",
+    "officialBroadcast": "Saturday · 9:30 PM ET",
+    "defaultRegion": "US-East",
+    "updated": "2026-08-11"
+  },
+  "socialLinks": [
+    {"label": "League Website", "url": "https://showdown2v2.live/"},
+    {"label": "Join SSL Discord", "url": "https://discord.gg/efdQJsceKb"}
+  ],
+  "panels": [
+    {
+      "title": "ABOUT SSL",
+      "copy": "Supersonic Showdown League is an organized competitive Rocket League 2v2 league built around weekly competition, team identities, standings, player profiles, season statistics and official match results."
+    },
+    {
+      "title": "WATCH LIVE",
+      "copy": "Official featured league broadcast: Saturday at 9:30 PM ET. Follow the channel and enable notifications so you do not miss match night."
+    },
+    {
+      "title": "JOIN THE LEAGUE",
+      "copy": "Registration, scheduling, league operations and community communication are handled through the official SSL Discord: https://discord.gg/efdQJsceKb"
+    },
+    {
+      "title": "LEAGUE WEBSITE",
+      "copy": "Standings · Teams · Players · Statistics · Match results · League information — https://showdown2v2.live/"
+    },
+    {
+      "title": "FORMAT",
+      "copy": "Rocket League 2v2 · Six competitive divisions · Default region US-East · Core match night Saturday 8:00 PM ET · Official broadcast Saturday 9:30 PM ET."
+    },
+    {
+      "title": "DIVISIONS",
+      "copy": "Mythic · Legend · Elite · Contender · Rookie · Amateur"
+    },
+    {
+      "title": "COMMUNITY",
+      "copy": "Compete with respect. Report accurately. Represent your team professionally. Build the league together. PLAY. REPORT. CLIMB."
+    }
+  ],
+  "channelTrailer": {
+    "maxSeconds": 60,
+    "script": "Welcome to the Supersonic Showdown League. Six divisions. Organized Rocket League 2v2. Weekly match nights. Real teams, standings, player statistics and a season that actually means something. Featured league matches are broadcast here every Saturday at 9:30 PM Eastern. Want to compete? Join the league through our Discord. Want to follow the season? Visit showdown2v2.live. This is the Supersonic Showdown League. Play. Report. Climb."
+  }
+}
