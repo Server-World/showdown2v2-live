@@ -7,6 +7,8 @@ on:
       - "data/league.json"
       - "data/player-card-hitman.json"
       - "**/*.html"
+      - "**/*.js"
+      - "site-audit.css"
       - "sitemap.xml"
       - "assets/branding/ssl-social-card.svg"
       - "scripts/seo_static.py"
@@ -36,10 +38,13 @@ jobs:
       - name: Render crawlable league snapshots and metadata
         run: python3 scripts/seo_static.py
 
-      - name: Validate generated files
+      - name: Validate generated files and runtime syntax
         run: |
           python3 -m json.tool data/league.json >/dev/null
           python3 -m json.tool data/player-card-hitman.json >/dev/null
+          python3 -m py_compile scripts/seo_static.py
+          node --check site-v2.js
+          node --check player-card-demo.js
           python3 - <<'PY'
           import pathlib, xml.etree.ElementTree as ET
           ET.parse("sitemap.xml")
@@ -62,8 +67,20 @@ jobs:
               assert 'property="og:image"' in text, path
               assert 'name="twitter:image"' in text, path
               assert 'rel="manifest"' in text, path
-          print("SEO validation passed")
+              assert 'href="/site-audit.css"' in text, path
+              assert text.count('GTM-P65S83G6') == 2, (path, text.count('GTM-P65S83G6'))
+          not_found = pathlib.Path("404.html").read_text(encoding="utf-8")
+          assert not_found.count('GTM-P65S83G6') == 2
+          print("SEO/runtime validation passed")
           PY
+          if grep -R "G-N4H6G9T2L2" --include='*.html' --include='*.js' .; then
+            echo "Legacy GA4 ID must not exist in site source"
+            exit 1
+          fi
+          if grep -R "googletagmanager.com/gtag/js" --include='*.html' --include='*.js' .; then
+            echo "Standalone gtag.js must not be deployed outside GTM"
+            exit 1
+          fi
           git diff --check
 
       - name: Commit generated static SEO content
