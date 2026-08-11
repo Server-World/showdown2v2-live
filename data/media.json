@@ -1,0 +1,178 @@
+{
+  "updated_at": "2026-08-11T23:36:03Z",
+  "channel": {
+    "login": "supersonicshowdownleague",
+    "display_name": "SupersonicShowdownLeague",
+    "url": "https://www.twitch.tv/supersonicshowdownleague",
+    "official_broadcast": "Saturday \u00b7 9:30 PM ET"
+  },
+  "home_feature": {
+    "kind": "highlight",
+    "title": "Kick Off Play",
+    "clip_id": "AwkwardRacyRhinocerosDansGame-Be0y-cPcPdBzkIZS",
+    "clip_url": "https://www.twitch.tv/supersonicshowdownleague/clip/AwkwardRacyRhinocerosDansGame-Be0y-cPcPdBzkIZS",
+    "video_id": "2841813940",
+    "vod_offset_seconds": 5227,
+    "duration_seconds": 23.5,
+    "time": "1h27m7s",
+    "thumbnail": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/021b3ea4-57f1-4150-9ccf-643584578c69/landscape/thumb/thumb-0000000000-480x272.jpg",
+    "label": "Featured highlight \u00b7 Tournament Round 3"
+  },
+  "videos": [
+    {
+      "id": "2841813940",
+      "title": "League Tournament Round 3",
+      "source_title": "Supersonic Showdown 2v2 League | League Tournament Round 3",
+      "published_at": "2026-08-09T20:31:57Z",
+      "url": "https://www.twitch.tv/videos/2841813940",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/20f75bbe250fb0c9e8a4_supersonicshowdownleague_318785331159_1786307512//thumb/thumb0-640x360.jpg",
+      "duration": "1h 37m",
+      "view_count": 116,
+      "type": "broadcast",
+      "tags": [
+        "Tournament",
+        "Season 2"
+      ]
+    },
+    {
+      "id": "2841765088",
+      "title": "League Tournament Round 2",
+      "source_title": "Supersonic Showdown 2v2 League | League Tournament Round 2",
+      "published_at": "2026-08-09T19:32:40Z",
+      "url": "https://www.twitch.tv/videos/2841765088",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/c78550c1f3e3f5fee016_supersonicshowdownleague_318784770391_1786303956//thumb/thumb0-640x360.jpg",
+      "duration": "56m",
+      "view_count": 113,
+      "type": "broadcast",
+      "tags": [
+        "Tournament",
+        "Season 2"
+      ]
+    },
+    {
+      "id": "2841727417",
+      "title": "League Tournament Round 1",
+      "source_title": "Supersonic Showdown 2v2 League | League Tournament Round 1",
+      "published_at": "2026-08-09T18:51:19Z",
+      "url": "https://www.twitch.tv/videos/2841727417",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/f98d063793c421cb27ac_supersonicshowdownleague_318784404183_1786301474//thumb/thumb0-640x360.jpg",
+      "duration": "29m",
+      "view_count": 55,
+      "type": "broadcast",
+      "tags": [
+        "Tournament",
+        "Season 2"
+      ]
+    },
+    {
+      "id": "2841187711",
+      "title": "Rookie \u00b7 Whiff Wizards vs Gargoyle",
+      "source_title": "Supersonic Showdown 2v2 League | Rookie- Whiff Wizards VS Gargoyle",
+      "published_at": "2026-08-09T02:54:53Z",
+      "url": "https://www.twitch.tv/videos/2841187711",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/9cc186e615cf04845ae0_supersonicshowdownleague_318778150743_1786244088//thumb/thumb0-640x360.jpg",
+      "duration": "1h 19m",
+      "view_count": 53,
+      "type": "broadcast",
+      "tags": [
+        "Rookie",
+        "Season 2"
+      ]
+    },
+    {
+      "id": "2834998157",
+      "title": "Mythic \u00b7 Rogues vs Oath",
+      "source_title": "Supersonic Showdown 2v2 League | Mythic - Rogues vs Oath",
+      "published_at": "2026-08-02T02:49:05Z",
+      "url": "https://www.twitch.tv/videos/2834998157",
+      "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/37780ade2ddc7d7f22c9_supersonicshowdownleague_317787795928_1785638941//thumb/thumb0-640x360.jpg",
+      "duration": "1h 18m",
+      "view_count": 57,
+      "type": "broadcast",
+      "tags": [
+        "Mythic",
+        "Season 2"
+      ]
+    }
+  ],
+  "highlights": [
+    {
+      "id": "AwkwardRacyRhinocerosDansGame-Be0y-cPcPdBzkIZS",
+      "title": "Kick Off Play",
+      "url": "https://www.twitch.tv/supersonicshowdownleague/clip/AwkwardRacyRhinocerosDansGame-Be0y-cPcPdBzkIZS",
+      "thumbnail": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/021b3ea4-57f1-4150-9ccf-643584578c69/landscape/thumb/thumb-0000000000-480x272.jpg",
+      "duration": "24s",
+      "view_count": 17,
+      "published_at": "2026-08-09T21:59:48Z",
+      "video_id": "2841813940",
+      "vod_offset_seconds": 5227,
+      "type": "highlight",
+      "featured": true
+    },
+    {
+      "id": "ImpartialPleasantOrcaPeoplesChamp-3X03W9oo5lmeBunw",
+      "title": "Flip PXL",
+      "url": "https://www.twitch.tv/supersonicshowdownleague/clip/ImpartialPleasantOrcaPeoplesChamp-3X03W9oo5lmeBunw",
+      "thumbnail": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/7571c5bc-f807-4eb7-86c9-bf94c121e097/landscape/thumb/thumb-0000000000-480x272.jpg",
+      "duration": "27s",
+      "view_count": 10,
+      "published_at": "2026-08-09T21:44:12Z",
+      "video_id": "2841813940",
+      "vod_offset_seconds": 4306,
+      "type": "highlight",
+      "featured": true
+    },
+    {
+      "id": "UnusualGiantMelonBCWarrior-u_554gFR-0V4pdnl",
+      "title": "Great Save",
+      "url": "https://www.twitch.tv/supersonicshowdownleague/clip/UnusualGiantMelonBCWarrior-u_554gFR-0V4pdnl",
+      "thumbnail": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/5304c969-bef2-41ea-bd0b-96c902c1f92b/landscape/thumb/thumb-0000000000-480x272.jpg",
+      "duration": "30s",
+      "view_count": 4,
+      "published_at": "2026-08-09T21:12:09Z",
+      "video_id": "2841813940",
+      "vod_offset_seconds": 2408,
+      "type": "highlight",
+      "featured": true
+    },
+    {
+      "id": "HedonisticTangentialYamUnSane-x04qx2tefT0QYABN",
+      "title": "Almost Peak",
+      "url": "https://www.twitch.tv/supersonicshowdownleague/clip/HedonisticTangentialYamUnSane-x04qx2tefT0QYABN",
+      "thumbnail": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/cd32336e-da51-4312-8a4c-82fb51d72015/landscape/thumb/thumb-0000000000-480x272.jpg",
+      "duration": "30s",
+      "view_count": 3,
+      "published_at": "2026-08-09T20:19:03Z",
+      "video_id": "2841765088",
+      "vod_offset_seconds": 2772,
+      "type": "highlight",
+      "featured": true
+    },
+    {
+      "id": "PlayfulFrailLyrebirdOSsloth-r4m-9z4k_evLl2PB",
+      "title": "Curve Flip Reset",
+      "url": "https://www.twitch.tv/supersonicshowdownleague/clip/PlayfulFrailLyrebirdOSsloth-r4m-9z4k_evLl2PB",
+      "thumbnail": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/2e229277-0a8c-4938-b667-4dda35b41024/landscape/thumb/thumb-0000000000-480x272.jpg",
+      "duration": "41s",
+      "view_count": 1,
+      "published_at": "2026-08-09T20:02:10Z",
+      "video_id": "2841765088",
+      "vod_offset_seconds": 1754,
+      "type": "highlight",
+      "featured": true
+    },
+    {
+      "id": "SingleEasyPartridgeLeeroyJenkins-U11wQ9Al3yk8rIX_",
+      "title": "Crazy Double \u00b7 Amateur Finals",
+      "url": "https://www.twitch.tv/supersonicshowdownleague/clip/SingleEasyPartridgeLeeroyJenkins-U11wQ9Al3yk8rIX_",
+      "thumbnail": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/7d71a6f0-7338-45d0-81a6-6bfdea19de17/landscape/thumb/thumb-0000000000-480x272.jpg",
+      "duration": "30s",
+      "view_count": 18,
+      "published_at": "2026-03-09T02:39:17Z",
+      "video_id": "",
+      "vod_offset_seconds": null,
+      "type": "highlight",
+      "featured": true
+    }
+  ]
+}
