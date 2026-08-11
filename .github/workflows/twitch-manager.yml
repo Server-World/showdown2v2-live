@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - data/twitch-control.json
+      - data/league.json
       - scripts/twitch_manager.py
       - .github/workflows/twitch-manager.yml
   workflow_dispatch:
