@@ -10,7 +10,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-SCOPES = ["channel:manage:broadcast", "channel:manage:schedule"]
+SCOPES = ["channel:manage:broadcast", "channel:manage:schedule", "user:edit"]
 DEVICE_PATH = Path(os.environ.get("TWITCH_DEVICE_PATH", "/tmp/twitch-device.json"))
 REFRESH_PATH = Path(os.environ.get("TWITCH_BOOTSTRAP_REFRESH_PATH", "/tmp/twitch-bootstrap-refresh.txt"))
 EXPECTED_LOGIN = os.environ.get("TWITCH_EXPECTED_LOGIN", "supersonicshowdownleague").strip().lower()
