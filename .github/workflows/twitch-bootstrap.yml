@@ -1,0 +1,87 @@
+name: Twitch OAuth bootstrap
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - data/twitch-bootstrap.json
+      - scripts/twitch_device_bootstrap.py
+      - .github/workflows/twitch-bootstrap.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      TWITCH_CLIENT_ID: t7jpnnmogidiklg5ewts755ku9zkr6
+      TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+      TWITCH_EXPECTED_LOGIN: supersonicshowdownleague
+      TWITCH_DEVICE_PATH: /tmp/twitch-device.json
+      TWITCH_BOOTSTRAP_REFRESH_PATH: /tmp/twitch-bootstrap-refresh.txt
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Validate bootstrap source
+        run: python3 -m py_compile scripts/twitch_device_bootstrap.py scripts/twitch_manager.py
+      - name: Check bootstrap request
+        id: request
+        shell: bash
+        run: |
+          requested=$(python3 -c 'import json; print(str(json.load(open("data/twitch-bootstrap.json"))["requested"]).lower())')
+          echo "requested=$requested" >> "$GITHUB_OUTPUT"
+          if [ "$requested" != "true" ]; then
+            echo "Twitch OAuth bootstrap is installed and idle."
+          fi
+      - name: Verify private secret
+        if: steps.request.outputs.requested == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${TWITCH_CLIENT_SECRET}" ]; then
+            echo "Missing TWITCH_CLIENT_SECRET repository secret. Add it under Settings > Secrets and variables > Actions before requesting bootstrap." >&2
+            exit 1
+          fi
+      - name: Start Twitch device authorization
+        if: steps.request.outputs.requested == 'true'
+        run: python3 scripts/twitch_device_bootstrap.py start
+      - name: Wait for Twitch approval
+        if: steps.request.outputs.requested == 'true'
+        run: python3 scripts/twitch_device_bootstrap.py poll
+      - name: Seal refresh token and enable manager
+        if: steps.request.outputs.requested == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s /tmp/twitch-bootstrap-refresh.txt
+          python3 - <<'PY' > /tmp/twitch-token-key
+          import hashlib, os
+          secret = os.environ['TWITCH_CLIENT_SECRET']
+          print(hashlib.sha256(('ssl-twitch-refresh-v1:' + secret).encode()).hexdigest())
+          PY
+          chmod 600 /tmp/twitch-token-key
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in /tmp/twitch-bootstrap-refresh.txt -out data/.twitch-refresh.enc -pass file:/tmp/twitch-token-key
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          control_path = Path('data/twitch-control.json')
+          control = json.loads(control_path.read_text())
+          control['enabled'] = True
+          control_path.write_text(json.dumps(control, indent=2) + '\n')
+          bootstrap_path = Path('data/twitch-bootstrap.json')
+          bootstrap = json.loads(bootstrap_path.read_text())
+          bootstrap['requested'] = False
+          bootstrap_path.write_text(json.dumps(bootstrap, indent=2) + '\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/.twitch-refresh.enc data/twitch-control.json data/twitch-bootstrap.json
+          git commit -m "[twitch-auth] Authorize SSL Twitch manager"
+          git pull --rebase origin main
+          git push origin main

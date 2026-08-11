@@ -16,10 +16,8 @@ jobs:
   manage:
     runs-on: ubuntu-latest
     env:
-      TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+      TWITCH_CLIENT_ID: t7jpnnmogidiklg5ewts755ku9zkr6
       TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
-      TWITCH_TOKEN_KEY: ${{ secrets.TWITCH_TOKEN_KEY }}
-      TWITCH_INITIAL_REFRESH_TOKEN: ${{ secrets.TWITCH_REFRESH_TOKEN }}
       TWITCH_NEXT_REFRESH_PATH: /tmp/twitch-next-refresh.txt
     steps:
       - name: Checkout main
@@ -43,18 +41,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [ -z "${TWITCH_CLIENT_ID}" ] || [ -z "${TWITCH_CLIENT_SECRET}" ] || [ -z "${TWITCH_TOKEN_KEY}" ]; then
-            echo "Missing TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, or TWITCH_TOKEN_KEY repository secret." >&2
+          if [ -z "${TWITCH_CLIENT_SECRET}" ]; then
+            echo "Missing TWITCH_CLIENT_SECRET repository secret." >&2
             exit 1
           fi
-          if [ -f data/.twitch-refresh.enc ]; then
-            openssl enc -d -aes-256-cbc -pbkdf2 -in data/.twitch-refresh.enc -out /tmp/twitch-refresh.txt -pass env:TWITCH_TOKEN_KEY
-          elif [ -n "${TWITCH_INITIAL_REFRESH_TOKEN}" ]; then
-            printf '%s' "${TWITCH_INITIAL_REFRESH_TOKEN}" > /tmp/twitch-refresh.txt
-          else
-            echo "Missing initial TWITCH_REFRESH_TOKEN repository secret." >&2
+          if [ ! -f data/.twitch-refresh.enc ]; then
+            echo "No encrypted Twitch refresh token exists. Run the Twitch OAuth bootstrap first." >&2
             exit 1
           fi
+          python3 - <<'PY' > /tmp/twitch-token-key
+          import hashlib, os
+          secret = os.environ['TWITCH_CLIENT_SECRET']
+          print(hashlib.sha256(('ssl-twitch-refresh-v1:' + secret).encode()).hexdigest())
+          PY
+          chmod 600 /tmp/twitch-token-key
+          openssl enc -d -aes-256-cbc -pbkdf2 -in data/.twitch-refresh.enc -out /tmp/twitch-refresh.txt -pass file:/tmp/twitch-token-key
           chmod 600 /tmp/twitch-refresh.txt
       - name: Apply Twitch desired state
         if: steps.control.outputs.enabled == 'true'
@@ -69,7 +70,7 @@ jobs:
         run: |
           set -euo pipefail
           test -s /tmp/twitch-next-refresh.txt
-          openssl enc -aes-256-cbc -pbkdf2 -salt -in /tmp/twitch-next-refresh.txt -out data/.twitch-refresh.enc -pass env:TWITCH_TOKEN_KEY
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in /tmp/twitch-next-refresh.txt -out data/.twitch-refresh.enc -pass file:/tmp/twitch-token-key
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/.twitch-refresh.enc
