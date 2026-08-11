@@ -1,3 +1,24 @@
+(function loadGoogleAnalytics() {
+  const measurementId = 'G-N4H6G9T2L2';
+
+  if (window.gtag || document.querySelector(`script[src*="${measurementId}"]`)) {
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+  document.head.appendChild(script);
+
+  window.gtag('js', new Date());
+  window.gtag('config', measurementId);
+})();
+
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
