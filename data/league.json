@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T21:20:03.436837Z",
+  "generated_at": "2026-08-11T18:00:03.971361Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -8,7 +8,7 @@
   "season": {
     "name": "Season 2",
     "week": 6,
-    "status": "regular_season"
+    "status": "locked_regular_season"
   },
   "competition": {
     "format": "2v2",
@@ -37,17 +37,6 @@
   "match_night": {
     "active": false,
     "matches": [
-      {
-        "tier": "Mythic",
-        "home": "Neon Demons",
-        "away": "Nightwalkers",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-08",
-        "time": "10PM EST",
-        "week": 6,
-        "phase": "regular_season"
-      },
       {
         "tier": "Amateur",
         "home": "Bards",
@@ -300,6 +289,17 @@
         "time": "10PM EST",
         "week": 2,
         "phase": "preseason"
+      },
+      {
+        "tier": "Contender",
+        "home": "Skeletons",
+        "away": "Wheels of Fortune",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
       }
     ]
   },
@@ -322,6 +322,21 @@
       },
       {
         "rank": 2,
+        "team": "Neon Demons",
+        "franchise": "Glow Stick Gang",
+        "franchise_tag": "GLO",
+        "wins": 3,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 9,
+        "games_lost": 4,
+        "goals_for": 44,
+        "goals_against": 18,
+        "differential": 26,
+        "streak": null
+      },
+      {
+        "rank": 3,
         "team": "Oath",
         "franchise": "Solace Path",
         "franchise_tag": "SP",
@@ -336,33 +351,18 @@
         "streak": null
       },
       {
-        "rank": 3,
-        "team": "Neon Demons",
-        "franchise": "Glow Stick Gang",
-        "franchise_tag": "GLO",
-        "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
-        "games_won": 6,
-        "games_lost": 4,
-        "goals_for": 34,
-        "goals_against": 15,
-        "differential": 19,
-        "streak": null
-      },
-      {
         "rank": 4,
         "team": "Nightwalkers",
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
         "wins": 2,
-        "losses": 1,
-        "win_pct": "66.7%",
+        "losses": 2,
+        "win_pct": "50%",
         "games_won": 6,
-        "games_lost": 5,
-        "goals_for": 25,
-        "goals_against": 15,
-        "differential": 10,
+        "games_lost": 8,
+        "goals_for": 28,
+        "goals_against": 25,
+        "differential": 3,
         "streak": null
       },
       {
