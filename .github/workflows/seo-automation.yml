@@ -56,14 +56,14 @@ jobs:
               Path("404.html"),
           ]
           audit = '<link rel="stylesheet" href="/site-audit.css">'
-          preferred = '<link rel="stylesheet" href="/competition-fixes.css">'
-          fallback = '<link rel="stylesheet" href="/production.css">'
+          json_ld = '<script type="application/ld+json">'
+          app_script = '<script src="/site-v2.js"'
           for path in pages:
               text = path.read_text(encoding="utf-8").replace(audit, "")
-              if preferred in text:
-                  text = text.replace(preferred, preferred + audit, 1)
-              elif fallback in text:
-                  text = text.replace(fallback, fallback + audit, 1)
+              if json_ld in text:
+                  text = text.replace(json_ld, audit + json_ld, 1)
+              elif app_script in text:
+                  text = text.replace(app_script, audit + app_script, 1)
               else:
                   text = text.replace('</head>', audit + '</head>', 1)
               path.write_text(text, encoding="utf-8")
@@ -100,6 +100,10 @@ jobs:
               assert 'rel="manifest"' in text, path
               assert text.count('href="/site-audit.css"') == 1, (path, text.count('href="/site-audit.css"'))
               assert text.count('GTM-P65S83G6') == 2, (path, text.count('GTM-P65S83G6'))
+              audit_pos = text.index('href="/site-audit.css"')
+              for stylesheet in ('/site-v2.css', '/production.css', '/competition-fixes.css', '/home-hero.css', '/player-card-demo.css', '/player-card-interactions.css'):
+                  if stylesheet in text:
+                      assert audit_pos > text.index(stylesheet), (path, stylesheet)
           not_found = pathlib.Path("404.html").read_text(encoding="utf-8")
           assert not_found.count('GTM-P65S83G6') == 2
           assert not_found.count('href="/site-audit.css"') == 1
