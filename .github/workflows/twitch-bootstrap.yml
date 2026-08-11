@@ -9,6 +9,10 @@ on:
       - .github/workflows/twitch-bootstrap.yml
   workflow_dispatch:
 
+concurrency:
+  group: twitch-oauth-bootstrap
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -50,7 +54,18 @@ jobs:
           fi
       - name: Start Twitch device authorization
         if: steps.request.outputs.requested == 'true'
-        run: python3 scripts/twitch_device_bootstrap.py start
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/twitch_device_bootstrap.py start
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('/tmp/twitch-device.json').read_text())
+          url = data['verification_uri']
+          code = data['user_code']
+          print(f'::notice title=Twitch authorization required::{url} | code: {code}')
+          PY
       - name: Wait for Twitch approval
         if: steps.request.outputs.requested == 'true'
         run: python3 scripts/twitch_device_bootstrap.py poll
