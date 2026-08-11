@@ -1,9 +1,7 @@
 {
   "enabled": true,
   "channel": "supersonicshowdownleague",
-  "dynamic_from_league": true,
-  "title_template": "Supersonic Showdown League | {season} Week {week} | Rocket League 2v2",
-  "live_title_template": "SSL {season} W{week} | {home} vs {away} | Rocket League 2v2",
+  "title": "Supersonic Showdown League | {season} Week {week} | Rocket League 2v2",
   "bio": "Official home of Supersonic Showdown League 2v2 — competitive Rocket League across six divisions. Live Saturday broadcasts at 9:30 PM ET. Standings, teams, rules and match center: showdown2v2.live | Join: discord.gg/efdQJsceKb",
   "category": "Rocket League",
   "language": "en",
