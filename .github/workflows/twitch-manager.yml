@@ -8,12 +8,16 @@ on:
       - scripts/twitch_manager.py
       - .github/workflows/twitch-manager.yml
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Twitch OAuth bootstrap"]
+    types: [completed]
 
 permissions:
   contents: write
 
 jobs:
   manage:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     env:
       TWITCH_CLIENT_ID: t7jpnnmogidiklg5ewts755ku9zkr6
