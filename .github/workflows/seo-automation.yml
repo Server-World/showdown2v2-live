@@ -38,6 +38,37 @@ jobs:
       - name: Render crawlable league snapshots and metadata
         run: python3 scripts/seo_static.py
 
+      - name: Normalize final CSS cascade
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          pages = [
+              Path("index.html"),
+              Path("matches/index.html"),
+              Path("standings/index.html"),
+              Path("teams/index.html"),
+              Path("players/index.html"),
+              Path("stats/index.html"),
+              Path("history/index.html"),
+              Path("league/index.html"),
+              Path("news/index.html"),
+              Path("404.html"),
+          ]
+          audit = '<link rel="stylesheet" href="/site-audit.css">'
+          preferred = '<link rel="stylesheet" href="/competition-fixes.css">'
+          fallback = '<link rel="stylesheet" href="/production.css">'
+          for path in pages:
+              text = path.read_text(encoding="utf-8").replace(audit, "")
+              if preferred in text:
+                  text = text.replace(preferred, preferred + audit, 1)
+              elif fallback in text:
+                  text = text.replace(fallback, fallback + audit, 1)
+              else:
+                  text = text.replace('</head>', audit + '</head>', 1)
+              path.write_text(text, encoding="utf-8")
+          PY
+
       - name: Validate generated files and runtime syntax
         run: |
           python3 -m json.tool data/league.json >/dev/null
@@ -67,10 +98,11 @@ jobs:
               assert 'property="og:image"' in text, path
               assert 'name="twitter:image"' in text, path
               assert 'rel="manifest"' in text, path
-              assert 'href="/site-audit.css"' in text, path
+              assert text.count('href="/site-audit.css"') == 1, (path, text.count('href="/site-audit.css"'))
               assert text.count('GTM-P65S83G6') == 2, (path, text.count('GTM-P65S83G6'))
           not_found = pathlib.Path("404.html").read_text(encoding="utf-8")
           assert not_found.count('GTM-P65S83G6') == 2
+          assert not_found.count('href="/site-audit.css"') == 1
           print("SEO/runtime validation passed")
           PY
           if grep -R "G-N4H6G9T2L2" --include='*.html' --include='*.js' .; then
@@ -93,7 +125,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html matches/index.html standings/index.html teams/index.html players/index.html stats/index.html history/index.html league/index.html news/index.html sitemap.xml
+          git add index.html matches/index.html standings/index.html teams/index.html players/index.html stats/index.html history/index.html league/index.html news/index.html 404.html sitemap.xml
           git commit -m "[seo-static] Render crawlable league snapshots"
           git pull --rebase origin main
           git push origin HEAD:main
