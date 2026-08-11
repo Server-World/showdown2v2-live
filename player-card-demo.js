@@ -3,12 +3,17 @@
   if (!app) return;
 
   const source = app.dataset.playerSource;
-  const TIERS = ['Mythic', 'Legend', 'Elite', 'Contender', 'Rookie', 'Amateur'];
   const tierClass = value => `tier-${String(value || '').toLowerCase().replace(/[^a-z]+/g, '-')}`;
   const esc = value => String(value ?? '—').replace(/[&<>"']/g, ch => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   })[ch]);
   const fmt = value => Number.isFinite(Number(value)) ? Number(value).toLocaleString('en-US') : '—';
+  const sourceLabel = data => ['review_fixture', 'featured_sample'].includes(data.record_type) ? 'Featured profile sample' : 'Public profile feed';
+
+  const track = (event, detail = {}) => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event, page_path: window.location.pathname, ...detail });
+  };
 
   const stats = (obj, order) => order.map(([key, label]) => `
     <div class="pc-stat">
@@ -23,9 +28,9 @@
         <div class="pc-empty-state pc-match-empty">
           <div class="pc-empty-kicker">LATEST MATCH</div>
           <div class="pc-empty-mark" aria-hidden="true">M</div>
-          <h4>No verified match record is published for this card.</h4>
-          <p>The interaction is active. When the approved public player feed exposes a finalized match, this view will populate the opponent, series result, player box score, and match metadata automatically.</p>
-          <div class="pc-empty-fields" aria-label="Fields this view supports">
+          <h4>No verified match record is published for this profile.</h4>
+          <p>When the approved public player feed exposes a finalized match, this view can show the opponent, series result, player box score, and match metadata without inventing missing values.</p>
+          <div class="pc-empty-fields" aria-label="Fields supported by this view">
             <span>Series result</span><span>Opponent</span><span>Box score</span><span>Match date</span>
           </div>
           <a class="pc-inline-action" href="https://discord.gg/efdQJsceKb" target="_blank" rel="noopener noreferrer">Open the authoritative profile in Discord →</a>
@@ -52,8 +57,8 @@
         <div class="pc-empty-state">
           <div class="pc-empty-kicker">AWARDS & BADGES</div>
           <div class="pc-empty-mark" aria-hidden="true">A</div>
-          <h4>No approved awards are available in this fixture.</h4>
-          <p>This view remains interactive and will populate only from approved award data.</p>
+          <h4>No approved awards are published for this profile.</h4>
+          <p>Awards appear only when they are present in the approved player data.</p>
         </div>`;
     }
 
@@ -71,7 +76,7 @@
             <p>${esc(item.detail || '')}</p>
           </article>`).join('')}
       </div>
-      <div class="pc-award-note">Only values present in the player-card data source are rendered here. No placeholder honors are invented.</div>`;
+      <div class="pc-award-note">Only values present in the player-card data source are rendered here.</div>`;
   }
 
   function template(data) {
@@ -110,23 +115,23 @@
               </div>
             </div>
 
-            <div class="pc-tier ${tClass}" data-bind="tier">${esc(p.tier)}</div>
+            <div class="pc-tier ${tClass}">${esc(p.tier)}</div>
             <h3 id="pc-player-name">${esc(p.gamertag)}</h3>
             <p class="pc-team">${esc(p.franchise)} · ${esc(p.team)}</p>
             <p class="pc-role">${esc(p.role)} · ${esc(p.roster_status)}</p>
 
-            <div class="pc-status ${p.eligible ? '' : 'ineligible'}" data-bind="eligibility">
+            <div class="pc-status ${p.eligible ? '' : 'ineligible'}">
               <i aria-hidden="true"></i><span>${esc(p.eligibility_label || (p.eligible ? 'Eligible to play' : 'Ineligible'))}</span>
             </div>
 
             <dl class="pc-meta">
-              <div><dt>Locked MMR</dt><dd class="${tClass}" data-bind="mmr">${fmt(p.locked_mmr)}</dd></div>
+              <div><dt>Locked MMR</dt><dd class="${tClass}">${fmt(p.locked_mmr)}</dd></div>
               <div><dt>Tracker</dt><dd>${esc(p.tracker)}</dd></div>
               <div><dt>Roster</dt><dd>${esc(p.role)}</dd></div>
-              <div><dt>Profile source</dt><dd>${esc(data.record_type === 'review_fixture' ? 'Review fixture' : 'Public feed')}</dd></div>
+              <div><dt>Profile source</dt><dd>${esc(sourceLabel(data))}</dd></div>
             </dl>
 
-            <div class="pc-source-tag"><i aria-hidden="true"></i><span>${esc(data.source_label || 'Player data')}</span></div>
+            <div class="pc-source-tag"><i aria-hidden="true"></i><span>${esc(data.source_label || sourceLabel(data))}</span></div>
           </aside>
 
           <section class="pc-content" aria-label="${esc(p.gamertag)} profile details">
@@ -138,8 +143,8 @@
 
             <div class="pc-view active" data-card-view="overview">
               <div class="pc-summary">
-                <div><small>CURRENT TIER</small><strong class="${tClass}" data-bind="summary-tier">${esc(p.tier)}</strong><span>SSL division</span></div>
-                <div><small>LOCKED MMR</small><strong data-bind="summary-mmr">${fmt(p.locked_mmr)}</strong><span data-bind="mmr-source">Locked value</span></div>
+                <div><small>CURRENT TIER</small><strong class="${tClass}">${esc(p.tier)}</strong><span>SSL division</span></div>
+                <div><small>LOCKED MMR</small><strong>${fmt(p.locked_mmr)}</strong><span>Locked value</span></div>
                 <div><small>SLP</small><strong>${fmt(season.slp)}</strong><span>Season league points</span></div>
                 <div><small>IRON MAN</small><strong>${fmt(iron.current)} / ${fmt(iron.target)}</strong><span>${esc(iron.badge || '—')}</span></div>
               </div>
@@ -160,48 +165,27 @@
 
               <div class="pc-data-note">
                 <span>PROFILE DATA</span>
-                <p>This web card is generated from one structured player record. Tabs never inject unrelated sample players or placeholder awards.</p>
+                <p>This card renders one structured profile record. Missing match or award values remain unavailable instead of being fabricated.</p>
               </div>
             </div>
 
-            <div class="pc-view" data-card-view="match" hidden>
-              ${matchView(data)}
-            </div>
-
-            <div class="pc-view" data-card-view="awards" hidden>
-              ${awardsView(data)}
-            </div>
+            <div class="pc-view" data-card-view="match" hidden>${matchView(data)}</div>
+            <div class="pc-view" data-card-view="awards" hidden>${awardsView(data)}</div>
           </section>
         </div>
 
         <footer class="pc-card-footer">
-          <span>${esc(p.gamertag)} · ${esc(data.source_label || 'Player profile')}</span>
+          <span>${esc(p.gamertag)} · ${esc(data.source_label || sourceLabel(data))}</span>
           <span>${esc(data.authoritative_source || 'SSL Bot + PostgreSQL')} remains authoritative</span>
         </footer>
-      </article>
-
-      <details class="pc-lab">
-        <summary>
-          <span><b>Design review controls</b><small>Prototype state testing — hidden during normal browsing</small></span>
-          <i aria-hidden="true">+</i>
-        </summary>
-        <div class="pc-lab-body">
-          <p>These controls test V5 visual states only. Closing this panel resets the featured card to HI7MAN305's supplied review values.</p>
-          <div class="pc-lab-actions">
-            <button type="button" data-demo-action="eligibility">Toggle eligibility</button>
-            <button type="button" data-demo-action="mmr">Toggle MMR source</button>
-            <button type="button" data-demo-action="tier">Cycle tier color</button>
-            <button type="button" data-demo-action="reset">Reset Hitman</button>
-          </div>
-        </div>
-      </details>`;
+      </article>`;
   }
 
   function wire(data) {
     const tabs = [...app.querySelectorAll('[data-card-tab]')];
     const views = [...app.querySelectorAll('[data-card-view]')];
 
-    const activate = tab => {
+    const activate = (tab, shouldTrack = true) => {
       const key = tab.dataset.cardTab;
       tabs.forEach(item => {
         const active = item === tab;
@@ -214,6 +198,7 @@
         view.classList.toggle('active', active);
         view.hidden = !active;
       });
+      if (shouldTrack) track('player_card_tab', { player: data.player?.gamertag || 'unknown', tab: key });
     };
 
     tabs.forEach((tab, index) => {
@@ -231,70 +216,7 @@
       });
     });
 
-    const base = {
-      eligible: Boolean(data.player?.eligible),
-      eligibilityLabel: data.player?.eligibility_label || 'Eligible to play',
-      tier: data.player?.tier || 'Legend',
-      mmr: data.player?.locked_mmr
-    };
-    let preview = { ...base };
-
-    const status = app.querySelector('[data-bind="eligibility"]');
-    const tierTargets = [...app.querySelectorAll('[data-bind="tier"], [data-bind="summary-tier"]')];
-    const mmrTargets = [...app.querySelectorAll('[data-bind="mmr"], [data-bind="summary-mmr"]')];
-    const mmrSource = app.querySelector('[data-bind="mmr-source"]');
-
-    const renderPreview = () => {
-      if (status) {
-        status.classList.toggle('ineligible', !preview.eligible);
-        const text = status.querySelector('span');
-        if (text) text.textContent = preview.eligible ? base.eligibilityLabel : 'Ineligible — design preview';
-      }
-
-      const allTierClasses = TIERS.map(tierClass);
-      tierTargets.forEach(target => {
-        target.classList.remove(...allTierClasses);
-        target.classList.add(tierClass(preview.tier));
-        target.textContent = preview.tier;
-      });
-
-      mmrTargets.forEach(target => {
-        target.textContent = preview.mmr == null ? '—' : fmt(preview.mmr);
-        target.classList.toggle('pc-unlocked', preview.mmr == null);
-      });
-      if (mmrSource) mmrSource.textContent = preview.mmr == null ? 'Fallback unavailable' : 'Locked value';
-    };
-
-    const lab = app.querySelector('.pc-lab');
-    lab?.addEventListener('toggle', () => {
-      if (!lab.open) {
-        preview = { ...base };
-        renderPreview();
-      }
-    });
-
-    app.querySelector('[data-demo-action="eligibility"]')?.addEventListener('click', () => {
-      preview.eligible = !preview.eligible;
-      renderPreview();
-    });
-
-    app.querySelector('[data-demo-action="mmr"]')?.addEventListener('click', () => {
-      preview.mmr = preview.mmr == null ? base.mmr : null;
-      renderPreview();
-    });
-
-    app.querySelector('[data-demo-action="tier"]')?.addEventListener('click', () => {
-      const current = Math.max(0, TIERS.indexOf(preview.tier));
-      preview.tier = TIERS[(current + 1) % TIERS.length];
-      renderPreview();
-    });
-
-    app.querySelector('[data-demo-action="reset"]')?.addEventListener('click', () => {
-      preview = { ...base };
-      renderPreview();
-    });
-
-    activate(tabs[0]);
+    if (tabs[0]) activate(tabs[0], false);
   }
 
   async function init() {

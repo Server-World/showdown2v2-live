@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "record_type": "review_fixture",
-  "source_label": "Player Card V5 review fixture",
+  "record_type": "featured_sample",
+  "source_label": "HI7MAN305 featured profile sample",
   "authoritative_source": "SSL Bot + PostgreSQL",
   "player": {
     "gamertag": "HI7MAN305",
