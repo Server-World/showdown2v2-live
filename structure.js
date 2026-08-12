@@ -30,11 +30,12 @@
 
   function mountNavigation() {
     const nav = $('.navlinks');
-    if (!nav || nav.dataset.grouped === 'true') return;
+    if (!nav) return;
     const path = location.pathname;
     const current = currentSection();
-    nav.dataset.grouped = 'true';
-    nav.innerHTML = `
+    if (nav.dataset.grouped !== 'true') {
+      nav.dataset.grouped = 'true';
+      nav.innerHTML = `
       <a href="/" ${path==='/'?'aria-current="page"':''}>Home</a>
       <div class="nav-group ${current==='competition'?'is-current':''}">
         <button class="nav-group-toggle" type="button" aria-expanded="false" aria-haspopup="true">Competition <span aria-hidden="true">▾</span></button>
@@ -56,6 +57,9 @@
       </div>
       <a href="/news/" ${path.startsWith('/news/')?'aria-current="page"':''}>News</a>
       <a href="/watch/" ${path.startsWith('/watch/')?'aria-current="page"':''}>Watch</a>`;
+    }
+    if (nav.dataset.navBound === 'true') return;
+    nav.dataset.navBound = 'true';
     $$('.nav-group-toggle', nav).forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
