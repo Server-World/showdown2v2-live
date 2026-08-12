@@ -201,25 +201,50 @@
     return standingFor(league,p.team,p.tier) || {};
   }
 
+  function playerTierColor(tier) {
+    return ({Mythic:'#FF69B4',Legend:'#BD7CFF',Elite:'#49C7FF',Contender:'#FF9F43',Rookie:'#55D68B',Amateur:'#FF8A80'})[tier] || '#F7FBFF';
+  }
+
   function playerCard(p, league) {
     const r = playerTeamData(league,p);
     const m = franchiseMeta[p.franchise_tag] || {};
-    return `<article class="fixed-player-card" style="--franchise:${m.color || '#49C7FF'}">
-      <div class="player-card-brand"><img src="${m.logo || '/assets/branding/ssl-logo-primary.png'}" alt="" aria-hidden="true"><span>${esc(p.franchise_tag)}</span><b>${esc(p.role)}</b></div>
-      <div class="player-card-identity"><span class="eyebrow">${esc(p.tier)} · ${esc(p.franchise)}</span><h2>${esc(p.gamertag)}</h2><p>${esc(p.team)}</p></div>
-      <div class="player-card-data">
-        <span><small>Division</small><b>${esc(p.tier)}</b></span>
-        <span><small>Team</small><b>${esc(p.team)}</b></span>
-        <span><small>Role</small><b>${esc(p.role)}</b></span>
-        <span><small>Team seed</small><b>${r.rank ? '#'+esc(r.rank) : '—'}</b></span>
-        <span><small>Team record</small><b>${r.wins != null ? `${esc(r.wins)}-${esc(r.losses)}` : '—'}</b></span>
-        <span><small>Game record</small><b>${r.games_won != null ? `${esc(r.games_won)}-${esc(r.games_lost)}` : '—'}</b></span>
-        <span><small>Goals for</small><b>${r.goals_for ?? '—'}</b></span>
-        <span><small>Goals against</small><b>${r.goals_against ?? '—'}</b></span>
-        <span><small>Team diff</small><b>${r.differential != null ? `${Number(r.differential)>0?'+':''}${esc(r.differential)}` : '—'}</b></span>
+    const season = league?.season?.name || 'Current season';
+    const week = league?.season?.week ? `Week ${league.season.week}` : 'Current week';
+    const standing = r.rank ? `#${esc(r.rank)}` : 'N/A';
+    const teamRecord = r.wins != null ? `${esc(r.wins)}-${esc(r.losses)} team series` : 'Current team tier standing';
+    const tierColor = playerTierColor(p.tier);
+    const initials = String(p.gamertag || 'SSL').trim().split(/\s+/).map(part=>part[0]||'').join('').slice(0,2).toUpperCase() || 'SSL';
+    const seasonStats = [['GOALS','—'],['ASSISTS','—'],['SAVES','—'],['SHOTS','—'],['SCORE','—'],['MVPS','—'],['SERIES WIN %','—']];
+    const careerStats = [['GAMES','—'],['WINS','—'],['GOALS','—'],['ASSISTS','—'],['SAVES','—'],['SHOTS','—'],['TOTAL SCORE','—'],['MVPS','—'],['WIN %','—']];
+    return `<article class="fixed-player-card player-card-v5" style="--franchise:${m.color || '#49C7FF'};--tier-color:${tierColor}" aria-label="Player Card V5 for ${esc(p.gamertag)}">
+      <div class="v5-top-rule" aria-hidden="true"><span></span></div>
+      <header class="v5-header">
+        <div class="v5-brand-lockup"><img src="/assets/branding/ssl-logo.svg" alt="" aria-hidden="true"><div><strong><i>S</i>UPERSONIC <i>S</i>HOWDOWN</strong><b><i>L</i>EAGUE <em>2</em><u>v</u><em>2</em></b></div></div>
+        <div class="v5-profile-title">PLAYER PROFILE</div>
+        <div class="v5-context"><strong>${esc(season)} · ${esc(week)}</strong><span>SSL BOT LEAGUE DATA</span></div>
+      </header>
+      <div class="v5-divider"></div>
+      <div class="v5-card-body">
+        <aside class="v5-identity-rail">
+          <div class="v5-identity-media"><div class="v5-avatar" aria-label="Avatar unavailable"><span>${esc(initials)}</span></div><div class="v5-franchise-mark"><img src="${m.logo || '/assets/branding/ssl-logo.svg'}" alt="${esc(p.franchise)} logo"></div></div>
+          <span class="v5-kicker">PLAYER</span><h2>${esc(p.gamertag)}</h2><strong class="v5-teamline">${esc(p.franchise)} — ${esc(p.team)}</strong><span class="v5-role">${esc(p.role || 'Player')}</span>
+          <div class="v5-status"><span></span>ELIGIBILITY NOT PUBLISHED</div>
+          <div class="v5-meta-list"><div><small>TRACKER</small><b>Not published</b></div><div><small>ROSTER</small><b>Verified</b></div><div><small>SLP</small><b>—</b></div><div><small>IRON MAN</small><b>—</b></div></div>
+          <p class="v5-identity-note">Current public website data. Private or unavailable player fields are never inferred.</p>
+        </aside>
+        <section class="v5-overview-panel">
+          <div class="v5-summary-row">
+            <div class="v5-summary-cell"><small>CURRENT TIER</small><strong style="color:var(--tier-color)">${esc(String(p.tier || 'Unknown').toUpperCase())}</strong><span>SSL competitive tier</span></div>
+            <div class="v5-summary-cell"><small>LOCKED MMR</small><strong>—</strong><span>Not published to website</span></div>
+            <div class="v5-summary-cell"><small>LEAGUE STANDING</small><strong>${standing}</strong><span>${teamRecord}</span></div>
+            <div class="v5-summary-cell"><small>RECENT RECORD</small><strong>N/A</strong><span>Player finals not in public feed</span></div>
+          </div>
+          <div class="v5-awards-strip"><strong>AWARDS</strong><span>No public honor data</span><b>00</b><small>OPEN AWARDS</small></div>
+          <div class="v5-performance-panel"><div class="v5-panel-head"><strong>SEASON PERFORMANCE</strong><span>PLAYER SERIES STATS NOT PUBLISHED</span></div><div class="v5-season-stats">${seasonStats.map(([label,value])=>`<div><b>${value}</b><small>${label}</small><span>not published</span></div>`).join('')}</div></div>
+          <div class="v5-career-panel"><div class="v5-panel-head"><strong>ALL-TIME CAREER PERFORMANCE</strong><span>ALL RECORDED SSL SEASONS</span></div><div class="v5-career-stats">${careerStats.map(([label,value])=>`<div><b>${value}</b><small>${label}</small></div>`).join('')}</div></div>
+        </section>
       </div>
-      <div class="player-card-source"><strong>Verified public data</strong><span>Roster assignment: SSL Discord team roles · Team performance: SSL Bot/PostgreSQL public snapshot.</span></div>
-      <div class="player-card-unavailable"><strong>Individual box-score statistics</strong><span>The current public export does not yet publish per-player GP, goals, assists, saves, shots, MVPs or SLP for the full roster. Those fields are intentionally not fabricated.</span></div>
+      <footer class="v5-footer"><span>Roster + team standing: current SSL public snapshot · unavailable player statistics are not fabricated.</span><b>V5 · OVERVIEW</b></footer>
     </article>`;
   }
 
