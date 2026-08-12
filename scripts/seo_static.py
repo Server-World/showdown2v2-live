@@ -166,17 +166,17 @@ def match_context(league: dict, mode: str) -> str:
     season = league.get("season", {}) or {}
     week = season.get("week") or "—"
     if mode == "current":
-        return f'<div class="match-context current"><strong>{esc(season.get("name") or "Current season")} · Week {esc(week)}</strong><span>Current published match slate and results.</span></div>'
+        return f'<div class="match-context current"><strong>{esc(season.get("name") or "Current season")} · Week {esc(week)}</strong><span>This week's scheduled and completed series.</span></div>'
     if mode == "phase":
-        return f'<div class="match-context"><strong>{esc(season_state_label(league))}</strong><span>No Week {esc(week)} slate is published yet; showing the latest matches from this phase.</span></div>'
-    return '<div class="match-context"><strong>Latest recorded results</strong><span>No current-week slate is published in the public feed yet.</span></div>'
+        return f'<div class="match-context"><strong>{esc(season_state_label(league))}</strong><span>No Week {esc(week)} results yet; showing the latest matches from this stage of the season.</span></div>'
+    return '<div class="match-context"><strong>Latest recorded results</strong><span>No current-week results yet. Here are the latest completed series.</span></div>'
 
 
 def match_rows(league: dict) -> str:
     rows, mode = display_match_scope(league)
     rows = sorted_matches(rows)
     if not rows:
-        return '<div class="data-state"><strong>No match records are available in the public feed yet.</strong><br>Use Discord for scheduling and match-night coordination.</div>'
+        return '<div class="data-state"><strong>No match results are available yet.</strong><br>Use Discord for scheduling and match-night coordination.</div>'
     out = [match_context(league, mode)]
     for match in rows[:18]:
         out.append(
@@ -194,7 +194,7 @@ def match_rows(league: dict) -> str:
 def standings_rows(league: dict, tier: str = "mythic") -> str:
     rows = (league.get("standings", {}) or {}).get(tier, []) or []
     if not rows:
-        return '<tr class="empty-row"><td colspan="8">No standings have been published for this division.</td></tr>'
+        return '<tr class="empty-row"><td colspan="8">No standings are available for this division yet.</td></tr>'
     out = []
     for i, row in enumerate(rows, 1):
         klass = ' class="division-leader"' if i == 1 else ""
@@ -226,7 +226,7 @@ def standing_lookup(league: dict) -> dict[str, dict]:
 def team_cards(league: dict) -> str:
     teams = league.get("teams", []) or []
     if not teams:
-        return '<div class="data-state" style="grid-column:1/-1"><strong>No public teams are listed for the current season.</strong></div>'
+        return '<div class="data-state" style="grid-column:1/-1"><strong>No teams are listed for the current season yet.</strong></div>'
     lookup = standing_lookup(league)
     out = []
     for team in teams:
@@ -271,7 +271,7 @@ def leader_rows(league: dict) -> str:
             f'<div class="value">{esc(row.get("wins"))}-{esc(row.get("losses"))}</div>'
             '</div>'
         )
-    return "".join(out) or '<div class="data-state"><strong>No division leaders are currently published.</strong></div>'
+    return "".join(out) or '<div class="data-state"><strong>No division leaders are available yet.</strong></div>'
 
 
 def flat_standings(league: dict) -> list[dict]:
@@ -287,7 +287,7 @@ def season_summary(league: dict) -> str:
     current_finals = [m for m in strict_current_matches(league) if norm(m.get("status")) == "final"]
     recorded_finals = [m for m in all_matches(league) if norm(m.get("status")) == "final"]
     finals = current_finals or recorded_finals
-    result_label = "Current-week public finals" if current_finals else "Recorded public finals"
+    result_label = "Current-week finals" if current_finals else "Recorded finals"
     rows = flat_standings(league)
     top = sorted(rows, key=lambda row: (-int(row.get("wins") or 0), int(row.get("losses") or 0), -int(row.get("differential") or 0)))[0] if rows else None
     html_parts = [
@@ -303,12 +303,12 @@ def season_summary(league: dict) -> str:
 def stat_highlights(league: dict) -> str:
     rows = [row for row in flat_standings(league) if row.get("team")]
     if not rows:
-        return '<div class="data-state" style="grid-column:1/-1">Team performance highlights will appear when standings are published.</div>'
+        return '<div class="data-state" style="grid-column:1/-1">Team performance highlights will appear when standings are available.</div>'
     best_record = sorted(rows, key=lambda row: (-int(row.get("wins") or 0), int(row.get("losses") or 0), -int(row.get("differential") or 0)))[0]
     best_offense = max(rows, key=lambda row: int(row.get("goals_for") or 0))
     best_diff = max(rows, key=lambda row: int(row.get("differential") or 0))
     undefeated = sum(1 for row in rows if int(row.get("losses") or 0) == 0)
-    generated = str(league.get("generated_at") or "")[:10] or "Public snapshot"
+    generated = str(league.get("generated_at") or "")[:10] or "recently"
     return (
         f'<article class="card insight-card"><span>Best record</span><strong>{esc(best_record.get("team"))}</strong><b>{esc(best_record.get("wins"))}-{esc(best_record.get("losses"))}</b><small>{esc(phase_label(best_record.get("tier")))}</small></article>'
         f'<article class="card insight-card"><span>Most goals</span><strong>{esc(best_offense.get("team"))}</strong><b>{esc(best_offense.get("goals_for"))} GF</b><small>{esc(phase_label(best_offense.get("tier")))}</small></article>'
@@ -328,7 +328,7 @@ def history_cards(league: dict) -> tuple[str, str]:
     else:
         cards = (
             f'<article class="card record-card"><span>Current competition</span><b>{esc(season.get("name") or "Current season")}</b><div class="muted">Week {esc(season.get("week"))} · {esc(season_state_label(league))}</div></article>'
-            '<article class="card record-card"><span>Championship archive</span><b>Not yet published</b><div class="muted">Verified champions will appear here when the public feed includes them.</div></article>'
+            '<article class="card record-card"><span>Championship archive</span><b>Coming soon</b><div class="muted">Champions and season honors will appear here as the archive grows.</div></article>'
         )
     leaders = []
     for tier, rows in (league.get("standings", {}) or {}).items():
@@ -344,7 +344,7 @@ def history_cards(league: dict) -> tuple[str, str]:
 def history_results(league: dict) -> str:
     finals = sorted_matches([m for m in all_matches(league) if norm(m.get("status")) == "final"])
     if not finals:
-        return '<div class="data-state" style="grid-column:1/-1">No final match records are published yet.</div>'
+        return '<div class="data-state" style="grid-column:1/-1">No completed match records are available yet.</div>'
     return "".join(
         '<article class="card result-card">'
         f'<div><span class="eyebrow">{esc(m.get("tier") or "League")}</span><small>{match_meta(m)}</small></div>'
@@ -364,12 +364,12 @@ def news_cards(league: dict) -> str:
         finals = sorted_matches([m for m in all_matches(league) if norm(m.get("status")) == "final"])
         latest = finals[0] if finals else None
         competition = league.get("competition", {}) or {}
-        generated = str(league.get("generated_at") or "")[:10] or "Public snapshot"
+        generated = str(league.get("generated_at") or "")[:10] or "recently"
         rows = [
             {
                 "category": "Season update",
                 "title": f'{league.get("season", {}).get("name") or "Current season"} · Week {league.get("season", {}).get("week") or "—"}',
-                "summary": f'{season_state_label(league)}. {len(flat_standings(league)) or len(league.get("teams", []) or [])} ranked team entries are published across six divisions.',
+                "summary": f'{season_state_label(league)}. {len(flat_standings(league)) or len(league.get("teams", []) or [])} teams are ranked across six divisions.',
                 "date": f'Updated {generated}',
             }
         ]
@@ -407,7 +407,7 @@ def home_status(league: dict) -> str:
     season = league.get("season", {}) or {}
     competition = league.get("competition", {}) or {}
     teams = league.get("teams", []) or []
-    generated = str(league.get("generated_at") or "")[:10] or "Public snapshot"
+    generated = str(league.get("generated_at") or "")[:10] or "recently"
     return (
         '<div class="wrap competition-status-grid">'
         f'<div class="status-primary"><span class="live-dot" aria-hidden="true"></span><div><small>Current competition</small><strong>{esc(season.get("name") or "Season")} · Week {esc(season.get("week") or "—")}</strong><span>{esc(season_state_label(league))}</span></div></div>'
@@ -434,7 +434,7 @@ def player_fallback(player_fixture: dict) -> str:
         f'<div><dt>Season</dt><dd>{esc(st.get("games"))} games · {esc(st.get("goals"))} goals · {esc(st.get("assists"))} assists · {esc(st.get("saves"))} saves</dd></div>'
         f'<div><dt>Career</dt><dd>{esc(c.get("games"))} games · {esc(c.get("wins"))} wins · {esc(c.get("goals"))} goals · {esc(c.get("mvps"))} MVPs</dd></div>'
         f'<div><dt>SLP</dt><dd>{esc(s.get("slp"))}</dd></div>'
-        '</dl><p class="muted">Interactive Player Card V5 loads when JavaScript is available. Missing values are not fabricated.</p></article>'
+        '</dl><p class="muted">Player Card V5 is available when JavaScript is enabled.</p></article>'
     )
 
 
@@ -464,7 +464,7 @@ def ensure_generated_sections(text: str, rel: str, home_status_html: str, highli
         block = (
             '<section id="history-results-section" class="section"><div class="wrap">'
             '<div class="section-head"><div><p class="eyebrow">Recorded results</p><h2>Recent match archive.</h2>'
-            '<p>Final series retained in the current public competition snapshot.</p></div></div>'
+            '<p>Completed series from across the league.</p></div></div>'
             f'<div id="history-results" class="history-result-grid">{marker_block("history-results", history_results_html)}</div>'
             '</div></section>'
         )
@@ -481,21 +481,19 @@ def ensure_generated_sections(text: str, rel: str, home_status_html: str, highli
 def polish_page_copy(text: str, rel: str) -> str:
     text = display_zone(text)
     if rel == "index.html":
-        text = text.replace('Recent results and posted fixtures from across the league.', 'The current slate when published, otherwise the latest recorded results from across the league.')
+        text = text.replace('Recent results and posted fixtures from across the league.', 'See this week's action and the latest completed series from across the league.')
     elif rel == "matches/index.html":
-        text = text.replace('Final scores and posted fixtures appear together so players can quickly find the latest action.', 'The current slate appears when published; otherwise the latest recorded results remain visible so the Match Center never becomes an empty page.')
+        text = text.replace('Final scores and posted fixtures appear together so players can quickly find the latest action.', 'See this week's action first, followed by the latest completed series from the current season.')
     elif rel == "players/index.html":
-        text = text.replace('A web-native version of the SSL Player Card V5: fast to scan, consistent with the league site, and ready to populate from approved player data.', 'The SSL Player Card V5 on the web: a fast, consistent view of competitive identity, eligibility, season performance, career totals, matches, and awards.')
-        text = text.replace('The featured card is rendered from one structured data file instead of duplicating player values throughout the page. The public website can replace that fixture with exporter data later without redesigning the card.', 'HI7MAN305 is the featured sample profile. The card reads one structured record, keeps missing values explicit, and is ready for the public roster feed without changing the design.')
         text = text.replace('<span class="pc-data-pill">V5 web profile</span>', '<span class="pc-data-pill">Featured profile</span>')
     elif rel == "news/index.html":
-        text = text.replace('Announcements, weekly recaps, featured matches, and the stories shaping the season.', 'Verified competition updates, standings movement, recent results, broadcast timing, and published league news.')
+        text = text.replace('Announcements, weekly recaps, featured matches, and the stories shaping the season.', 'Competition updates, standings movement, recent results, broadcast timing, and league news.')
         text = text.replace('<p class="eyebrow">Latest updates</p><h2>From around the league.</h2>', '<p class="eyebrow">Latest updates</p><h2>What is happening now.</h2>')
     elif rel == "league/index.html" and 'league-operations-note' not in text:
         anchor = '</div></div></section></main>'
         note = ('</div><div class="card league-operations-note"><span class="eyebrow">League operations</span>'
-                '<h3>Discord remains authoritative for rulings and exceptions.</h3>'
-                '<p>Use the published website rules for normal competition. Eligibility decisions, roster actions, disputes, reschedules, and approved exceptions are handled through official league operations in Discord.</p>'
+                '<h3>Official rulings and exceptions are handled in Discord.</h3>'
+                '<p>Use the league rules for normal competition. Eligibility decisions, roster actions, disputes, reschedules, and league exceptions are handled through official league operations in Discord.</p>'
                 '<a class="btn ghost" href="https://discord.gg/efdQJsceKb" target="_blank" rel="noopener noreferrer">Open league operations in Discord</a></div></div></section></main>')
         if anchor in text:
             text = text.replace(anchor, note, 1)
