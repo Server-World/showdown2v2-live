@@ -632,3 +632,5 @@ def _validate_and_stage_new_architecture():
         index.write_text(body, encoding="utf-8")
 
 _validate_and_stage_new_architecture()
+
+# SEO_VALIDATION_TRIGGER_2026_08_12_A
