@@ -13,6 +13,10 @@ on:
     workflows: ["Twitch OAuth bootstrap"]
     types: [completed]
 
+concurrency:
+  group: twitch-token-writer
+  cancel-in-progress: false
+
 permissions:
   contents: write
 

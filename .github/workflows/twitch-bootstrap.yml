@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: twitch-oauth-bootstrap
-  cancel-in-progress: true
+  group: twitch-token-writer
+  cancel-in-progress: false
 
 permissions:
   contents: write
