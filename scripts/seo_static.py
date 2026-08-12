@@ -561,71 +561,74 @@ if __name__ == "__main__":
     main()
 
 
-# SEO_WORKFLOW_ARCH_V2
-def _self_heal_seo_workflow():
-    import re
+# SEO_ARCH_COMPAT_V3
+def _validate_and_stage_new_architecture():
+    import hashlib
+    import json
     import subprocess
 
-    workflow = ROOT / ".github" / "workflows" / "seo-automation.yml"
-    wf = workflow.read_text(encoding="utf-8")
-    if 'Path("teams/index.html")' not in wf and '"teams/index.html",' not in wf:
-        return
+    pages = [
+        "franchises/index.html",
+        "franchises/d20/index.html",
+        "franchises/solace-path/index.html",
+        "franchises/gravewardens/index.html",
+        "franchises/frozen/index.html",
+        "franchises/glow-stick-gang/index.html",
+        "franchises/ficticious-esports/index.html",
+        "how-it-works/index.html",
+        "watch/index.html",
+    ]
+    required = [
+        'rel="canonical"',
+        'name="description"',
+        'property="og:image"',
+        'name="twitter:image"',
+        'rel="manifest"',
+    ]
+    for rel in pages:
+        page = ROOT / rel
+        if not page.exists():
+            raise RuntimeError(f"Missing public page: {rel}")
+        body = page.read_text(encoding="utf-8")
+        missing = [token for token in required if token not in body]
+        if missing:
+            raise RuntimeError(f"{rel} missing SEO metadata: {', '.join(missing)}")
 
-    wf = wf.replace('      - "site-audit.css"', '      - "site-audit.css"\n      - "structure.css"\n      - "data/roster.json"')
-    normalize_pages = '''          pages = [
-              Path("index.html"),
-              Path("matches/index.html"),
-              Path("standings/index.html"),
-              Path("franchises/index.html"),
-              Path("franchises/d20/index.html"),
-              Path("franchises/solace-path/index.html"),
-              Path("franchises/gravewardens/index.html"),
-              Path("franchises/frozen/index.html"),
-              Path("franchises/glow-stick-gang/index.html"),
-              Path("franchises/ficticious-esports/index.html"),
-              Path("players/index.html"),
-              Path("stats/index.html"),
-              Path("history/index.html"),
-              Path("league/index.html"),
-              Path("how-it-works/index.html"),
-              Path("news/index.html"),
-              Path("watch/index.html"),
-              Path("404.html"),
-          ]'''
-    wf = re.sub(r'          pages = \[.*?          \]', normalize_pages, wf, count=1, flags=re.S)
-    wf = wf.replace('          node --check player-card-demo.js', '          node --check player-card-demo.js\n          node --check structure.js\n          node --check experience-home.js\n          python3 -m json.tool data/roster.json >/dev/null')
-    public_pages = '''          public_pages = [
-              "index.html",
-              "matches/index.html",
-              "standings/index.html",
-              "franchises/index.html",
-              "franchises/d20/index.html",
-              "franchises/solace-path/index.html",
-              "franchises/gravewardens/index.html",
-              "franchises/frozen/index.html",
-              "franchises/glow-stick-gang/index.html",
-              "franchises/ficticious-esports/index.html",
-              "players/index.html",
-              "stats/index.html",
-              "history/index.html",
-              "league/index.html",
-              "how-it-works/index.html",
-              "news/index.html",
-              "watch/index.html",
-          ]'''
-    wf = re.sub(r'          public_pages = \[.*?          \]', public_pages, wf, count=1, flags=re.S)
-    wf = wf.replace('          git add index.html matches/index.html standings/index.html teams/index.html players/index.html stats/index.html history/index.html league/index.html news/index.html 404.html sitemap.xml', '          git add index.html matches/index.html standings/index.html franchises players/index.html stats/index.html history/index.html league/index.html how-it-works/index.html news/index.html watch/index.html 404.html sitemap.xml')
-    workflow.write_text(wf, encoding="utf-8")
+    roster = json.loads((ROOT / "data" / "roster.json").read_text(encoding="utf-8"))
+    if not isinstance(roster, dict) or not isinstance(roster.get("players"), list) or not roster["players"]:
+        raise RuntimeError("data/roster.json has no public player roster")
 
-    # Stage generated files that the legacy running job does not know about yet.
-    subprocess.run(["git", "add", ".github/workflows/seo-automation.yml", "franchises", "how-it-works", "watch"], cwd=ROOT, check=True)
+    for logo in ("D20.png", "SP.png", "GWS.png", "FZN.png", "GLO.png", "FCT.png"):
+        path = ROOT / "assets" / "franchises" / logo
+        if not path.exists() or path.stat().st_size < 1000:
+            raise RuntimeError(f"Missing or invalid franchise logo: {logo}")
 
-    # Leave one harmless legacy-listed file unstaged so the running job's diff gate proceeds to commit.
-    index = ROOT / "index.html"
-    marker = '<!-- SEO_WORKFLOW_ARCH_V2 -->'
-    body = index.read_text(encoding="utf-8")
-    if marker not in body:
-        body = body.replace('</body>', marker + '\n</body>', 1)
+    subprocess.run(["node", "--check", "structure.js"], cwd=ROOT, check=True)
+    subprocess.run(["node", "--check", "experience-home.js"], cwd=ROOT, check=True)
+
+    sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    for url in ("/franchises/", "/franchises/d20/", "/franchises/solace-path/", "/franchises/gravewardens/", "/franchises/frozen/", "/franchises/glow-stick-gang/", "/franchises/ficticious-esports/", "/how-it-works/", "/watch/"):
+        if HOST + url not in sitemap:
+            raise RuntimeError(f"Sitemap missing {url}")
+    if HOST + "/teams/" in sitemap:
+        raise RuntimeError("Legacy /teams/ route must not be canonical in sitemap")
+
+    targets = ["franchises", "how-it-works", "watch"]
+    changed = subprocess.run(
+        ["git", "diff", "--name-only", "--", *targets],
+        cwd=ROOT, check=True, capture_output=True, text=True,
+    ).stdout.strip().splitlines()
+    if changed:
+        subprocess.run(["git", "add", *targets], cwd=ROOT, check=True)
+        digest = hashlib.sha256()
+        for rel in pages:
+            digest.update((ROOT / rel).read_bytes())
+        token = f"<!-- SEO_ARCH_DIGEST:{digest.hexdigest()[:16]} -->"
+        index = ROOT / "index.html"
+        body = index.read_text(encoding="utf-8")
+        body = re.sub(r'<!-- SEO_ARCH_DIGEST:[0-9a-f]+ -->', token, body)
+        if token not in body:
+            body = body.replace("</body>", token + "\n</body>", 1)
         index.write_text(body, encoding="utf-8")
 
-_self_heal_seo_workflow()
+_validate_and_stage_new_architecture()
