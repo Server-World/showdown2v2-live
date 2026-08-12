@@ -14,12 +14,20 @@ PAGES = [
     ROOT / "index.html",
     ROOT / "matches" / "index.html",
     ROOT / "standings" / "index.html",
-    ROOT / "teams" / "index.html",
+    ROOT / "franchises" / "index.html",
+    ROOT / "franchises" / "d20" / "index.html",
+    ROOT / "franchises" / "solace-path" / "index.html",
+    ROOT / "franchises" / "gravewardens" / "index.html",
+    ROOT / "franchises" / "frozen" / "index.html",
+    ROOT / "franchises" / "glow-stick-gang" / "index.html",
+    ROOT / "franchises" / "ficticious-esports" / "index.html",
     ROOT / "players" / "index.html",
     ROOT / "stats" / "index.html",
     ROOT / "history" / "index.html",
     ROOT / "league" / "index.html",
+    ROOT / "how-it-works" / "index.html",
     ROOT / "news" / "index.html",
+    ROOT / "watch" / "index.html",
 ]
 
 
@@ -542,7 +550,7 @@ def main():
     lastmod = generated if re.fullmatch(r"\d{4}-\d{2}-\d{2}", generated) else date.today().isoformat()
     sitemap = ROOT / "sitemap.xml"
     stext = sitemap.read_text(encoding="utf-8")
-    dynamic_urls = ["/", "/matches/", "/standings/", "/teams/", "/players/", "/stats/", "/history/", "/news/"]
+    dynamic_urls = ["/", "/matches/", "/standings/", "/franchises/", "/franchises/d20/", "/franchises/solace-path/", "/franchises/gravewardens/", "/franchises/frozen/", "/franchises/glow-stick-gang/", "/franchises/ficticious-esports/", "/players/", "/stats/", "/history/", "/league/", "/how-it-works/", "/news/", "/watch/"]
     for suffix in dynamic_urls:
         pattern = rf'(<loc>{re.escape(HOST + suffix)}</loc><lastmod>)\d{{4}}-\d{{2}}-\d{{2}}(</lastmod>)'
         stext = re.sub(pattern, rf'\g<1>{lastmod}\g<2>', stext)
