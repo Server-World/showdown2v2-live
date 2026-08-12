@@ -110,6 +110,15 @@ def load_candidate(path: str | None) -> dict:
     return json.loads(sys.stdin.read())
 
 
+def write_rotated_refresh_token(value: str) -> None:
+    path_text = os.environ.get("TWITCH_NEXT_REFRESH_PATH", "").strip()
+    if not path_text:
+        return
+    path = Path(path_text)
+    path.write_text(value, encoding="utf-8")
+    path.chmod(0o600)
+
+
 def refreshed_token() -> tuple[str, str, str]:
     client_id = os.environ.get("TWITCH_CLIENT_ID", "").strip()
     client_secret = os.environ.get("TWITCH_CLIENT_SECRET", "").strip()
@@ -126,7 +135,9 @@ def refreshed_token() -> tuple[str, str, str]:
             "client_secret": client_secret,
         },
     )
-    return client_id, str(token["access_token"]), str(token["refresh_token"])
+    next_refresh = str(token["refresh_token"])
+    write_rotated_refresh_token(next_refresh)
+    return client_id, str(token["access_token"]), next_refresh
 
 
 def validate_identity(access_token: str, client_id: str, expected_login: str) -> str:
@@ -151,17 +162,64 @@ def validate_identity(access_token: str, client_id: str, expected_login: str) ->
     return user_id
 
 
+def find_existing_clip(headers: dict, broadcaster_id: str, candidate: dict) -> dict:
+    _, payload = request_json(
+        "https://api.twitch.tv/helix/clips?" + urllib.parse.urlencode({
+            "broadcaster_id": broadcaster_id,
+            "first": "100",
+        }),
+        headers=headers,
+    )
+    for clip in (payload or {}).get("data") or []:
+        if str(clip.get("video_id") or "") != candidate["vod_id"]:
+            continue
+        if str(clip.get("title") or "").strip() != candidate["title"]:
+            continue
+        clip_start = clip.get("vod_offset")
+        if clip_start is None:
+            continue
+        if abs(float(clip_start) - float(candidate["start_seconds"])) > 2.0:
+            continue
+        return dict(clip)
+    return {}
+
+
+def result_from_clip(candidate: dict, clip: dict, *, edit_url: str = "", reused: bool = False) -> dict:
+    public_url = str(clip.get("url") or "")
+    clip_id = str(clip.get("id") or "")
+    return {
+        **candidate,
+        "status": "twitch_clip_created" if public_url else "twitch_clip_created_unverified",
+        "reused_existing_clip": reused,
+        "twitch_clip_id": clip_id,
+        "twitch_clip_url": public_url,
+        "twitch_edit_url": edit_url,
+        "thumbnail_url": str(clip.get("thumbnail_url") or ""),
+        "published_at": str(clip.get("created_at") or ""),
+        "view_count": int(clip.get("view_count") or 0),
+        "video_id": str(clip.get("video_id") or candidate["vod_id"]),
+        "twitch_vod_offset": clip.get("vod_offset"),
+        "twitch_duration": clip.get("duration"),
+        "is_featured": bool(clip.get("is_featured", False)),
+        "created_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+    }
+
+
 def create_vod_clip(candidate: dict, *, verify_seconds: int = 60) -> dict:
     cfg = json.loads(CONFIG.read_text(encoding="utf-8"))
     expected_login = str(cfg.get("channel") or "supersonicshowdownleague").strip().lower()
 
-    client_id, access_token, next_refresh = refreshed_token()
+    client_id, access_token, _next_refresh = refreshed_token()
     user_id = validate_identity(access_token, client_id, expected_login)
     headers = {
         "Authorization": f"Bearer {access_token}",
         "Client-Id": client_id,
         "Content-Type": "application/json",
     }
+
+    existing = find_existing_clip(headers, user_id, candidate)
+    if existing:
+        return result_from_clip(candidate, existing, reused=True)
 
     query = {
         "editor_id": user_id,
@@ -197,23 +255,9 @@ def create_vod_clip(candidate: dict, *, verify_seconds: int = 60) -> dict:
             break
         time.sleep(5)
 
-    public_url = str(clip_meta.get("url") or "")
-    return {
-        **candidate,
-        "status": "twitch_clip_created" if public_url else "twitch_clip_created_unverified",
-        "twitch_clip_id": clip_id,
-        "twitch_clip_url": public_url,
-        "twitch_edit_url": edit_url,
-        "thumbnail_url": str(clip_meta.get("thumbnail_url") or ""),
-        "published_at": str(clip_meta.get("created_at") or ""),
-        "view_count": int(clip_meta.get("view_count") or 0),
-        "video_id": str(clip_meta.get("video_id") or candidate["vod_id"]),
-        "twitch_vod_offset": clip_meta.get("vod_offset"),
-        "twitch_duration": clip_meta.get("duration"),
-        "is_featured": bool(clip_meta.get("is_featured", False)),
-        "created_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
-        "_next_refresh_token": next_refresh,
-    }
+    if not clip_meta:
+        clip_meta = {"id": clip_id}
+    return result_from_clip(candidate, clip_meta, edit_url=edit_url, reused=False)
 
 
 def main() -> int:
@@ -227,20 +271,15 @@ def main() -> int:
     parser.add_argument("--verify-seconds", type=int, default=60)
     args = parser.parse_args()
 
+    if args.next_refresh_path:
+        os.environ["TWITCH_NEXT_REFRESH_PATH"] = args.next_refresh_path
+
     candidate = normalize_candidate(load_candidate(args.candidate))
     if args.dry_run:
         print(json.dumps({**candidate, "status": "dry_run", "endpoint": "POST /helix/videos/clips"}, indent=2))
         return 0
 
     result = create_vod_clip(candidate, verify_seconds=args.verify_seconds)
-    next_refresh = result.pop("_next_refresh_token")
-
-    refresh_path = args.next_refresh_path or os.environ.get("TWITCH_NEXT_REFRESH_PATH", "").strip()
-    if refresh_path:
-        path = Path(refresh_path)
-        path.write_text(next_refresh, encoding="utf-8")
-        path.chmod(0o600)
-
     if args.output:
         Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
