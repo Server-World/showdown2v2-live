@@ -4,7 +4,7 @@
   const root = document.getElementById('player-experience');
   if (!root) return;
 
-  const fmt = value => Number.isFinite(Number(value)) ? Number(value).toLocaleString('en-US') : '—';
+  const fmt = value => value == null || value === '' ? '—' : (Number.isFinite(Number(value)) ? Number(value).toLocaleString('en-US') : '—');
   const statCell = (label, value) => `<div><b>${fmt(value)}</b><small>${label}</small></div>`;
   let profiles = new Map();
   let generatedAt = null;
