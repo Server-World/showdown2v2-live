@@ -101,7 +101,7 @@ jobs:
           openssl enc -d -aes-256-cbc -pbkdf2 -in data/.twitch-refresh.enc -out /tmp/twitch-refresh.txt -pass file:/tmp/twitch-token-key
           chmod 600 /tmp/twitch-refresh.txt
 
-      - name: Create native Twitch Clip from approved VOD candidate
+      - name: Create or reuse native Twitch Clip from approved VOD candidate
         shell: bash
         run: |
           set -euo pipefail
@@ -110,6 +110,30 @@ jobs:
             --candidate /tmp/approved-candidate.json \
             --output /tmp/twitch-clip-result.json \
             --next-refresh-path /tmp/twitch-next-refresh.txt
+
+      - name: Persist rotated OAuth token safely
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -s /tmp/twitch-next-refresh.txt ]; then
+            echo "No OAuth rotation occurred."
+            exit 0
+          fi
+          if [ ! -s /tmp/twitch-token-key ]; then
+            echo "OAuth key material was not prepared; cannot persist a rotated token." >&2
+            exit 1
+          fi
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in /tmp/twitch-next-refresh.txt -out data/.twitch-refresh.enc -pass file:/tmp/twitch-token-key
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/.twitch-refresh.enc
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "[twitch-auth] Rotate encrypted refresh token"
+          git pull --rebase origin main
+          git push origin main
 
       - name: Require verified native Twitch Clip
         shell: bash
@@ -123,12 +147,15 @@ jobs:
           if not result.get('twitch_clip_id') or not result.get('twitch_clip_url'):
               raise SystemExit('Verified Twitch Clip is missing ID or URL')
           print(f"Verified native Twitch Clip: {result['twitch_clip_id']}")
+          if result.get('reused_existing_clip'):
+              print('Idempotency check reused an existing matching Twitch Clip.')
           PY
 
       - name: Add verified Twitch Clip to Watch media catalog
         shell: bash
         run: |
           set -euo pipefail
+          git pull --rebase origin main
           python3 - <<'PY'
           import json
           from datetime import datetime, timezone
@@ -162,16 +189,13 @@ jobs:
           media['updated_at'] = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
           media_path.write_text(json.dumps(media, indent=2) + '\n', encoding='utf-8')
           PY
-
-      - name: Persist rotated OAuth token and public media result
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -s /tmp/twitch-next-refresh.txt
-          openssl enc -aes-256-cbc -pbkdf2 -salt -in /tmp/twitch-next-refresh.txt -out data/.twitch-refresh.enc -pass file:/tmp/twitch-token-key
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/.twitch-refresh.enc data/media.json
+          git add data/media.json
+          if git diff --cached --quiet; then
+            echo "Twitch Clip is already present in the Watch media catalog."
+            exit 0
+          fi
           git commit -m "[twitch-clip] Publish approved native Twitch Clip"
           git pull --rebase origin main
           git push origin main
@@ -190,6 +214,8 @@ jobs:
           print(f"- VOD: `{r.get('vod_id')}`")
           print(f"- Clip ID: `{r.get('twitch_clip_id')}`")
           print(f"- URL: {r.get('twitch_clip_url')}")
+          print(f"- Reused existing: `{bool(r.get('reused_existing_clip'))}`")
+          print('- Website Watch catalog: updated on verified success')
           print('- Short rendering: not triggered')
           PY
           fi
