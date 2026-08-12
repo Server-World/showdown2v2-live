@@ -16,6 +16,7 @@
 <link rel="icon" href="/assets/branding/ssl-logo.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/branding/ssl-logo.svg" as="image" type="image/svg+xml">
+<link rel="preload" href="/assets/video/ssl-home-loop-poster.jpg" as="image" fetchpriority="high">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Supersonic Showdown League 2v2">
 <meta property="og:title" content="Supersonic Showdown League | Competitive Rocket League 2v2">
@@ -41,12 +42,14 @@
 <link rel="stylesheet" href="/experience-fixes.css">
 <link rel="stylesheet" href="/brand-shell-fix.css">
 <link rel="stylesheet" href="/structure.css"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://showdown2v2.live/#organization","name":"Supersonic Showdown League 2v2","alternateName":"SSL 2v2","url":"https://showdown2v2.live/","description":"Organized competitive Rocket League 2v2 league with six divisions, weekly competition, standings, teams, player profiles, statistics, and match results.","logo":{"@type":"ImageObject","url":"https://showdown2v2.live/assets/branding/ssl-logo.svg","width":208,"height":124}},{"@type":"WebSite","@id":"https://showdown2v2.live/#website","url":"https://showdown2v2.live/","name":"Supersonic Showdown League 2v2","alternateName":"SSL 2v2","description":"Competitive Rocket League 2v2 league website.","inLanguage":"en-US","publisher":{"@id":"https://showdown2v2.live/#organization"}}]}</script>
-<script src="/site-v2.js" defer></script><script src="/twitch-site.js" defer></script><script src="/experience.js" defer></script>
+<script src="/site-v2.js" defer></script><script src="/twitch-site.js" defer></script><script src="/experience-countdown.js" defer></script><script src="/experience-home.js" defer></script><script src="/experience-motion.js" defer></script><script src="/brand-shell-fix.js" defer></script><script src="/structure.js" defer></script>
 </head>
 <body data-page="home">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P65S83G6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" data-static-shell="true"><div class="wrap nav"><a class="brand brand-lockup" href="/" aria-label="Supersonic Showdown League 2v2 home"><img src="/assets/branding/ssl-logo.svg" alt=""><span class="brand-wordmark"><b><span class="orange">S</span>UPERSONIC <span class="orange">S</span>HOWDOWN</b><strong><span class="orange">L</span>EAGUE <span class="orange">2</span><span class="blue">v</span><span class="orange">2</span></strong></span></a><button class="mobile-toggle" aria-label="Open navigation" aria-expanded="false">☰</button><nav class="navlinks" data-grouped="true" aria-label="Primary navigation"><a href="/" aria-current="page">Home</a><div class="nav-group"><button class="nav-group-toggle" type="button" aria-expanded="false" aria-haspopup="true">Competition <span aria-hidden="true">▾</span></button><div class="nav-dropdown" role="menu"><a role="menuitem" href="/matches/">Matches</a><a role="menuitem" href="/standings/">Standings</a><a role="menuitem" href="/franchises/">Franchises</a><a role="menuitem" href="/players/">Players</a><a role="menuitem" href="/stats/">Stats</a></div></div><div class="nav-group"><button class="nav-group-toggle" type="button" aria-expanded="false" aria-haspopup="true">League <span aria-hidden="true">▾</span></button><div class="nav-dropdown" role="menu"><a role="menuitem" href="/league/">League Format</a><a role="menuitem" href="/how-it-works/">How It Works</a><a role="menuitem" href="/history/">History</a></div></div><a href="/news/">News</a><a href="/watch/">Watch</a></nav><div class="nav-actions"><a class="btn primary" href="https://discord.gg/efdQJsceKb" target="_blank" rel="noopener noreferrer">Join Discord</a></div></div></header>
 <main id="main">
 <section class="hero brand-hero">
   <div class="wrap hero-grid">
@@ -56,8 +59,8 @@
       <p class="lede">Weekly competition, six skill divisions, team identities, standings, player cards, and a Discord community built around match night.</p>
       <div class="hero-actions">
         <a class="btn primary" href="https://discord.gg/efdQJsceKb" target="_blank" rel="noopener noreferrer">Join Discord</a>
-        <a class="btn ghost" href="/league/">How it works</a>
-        <a class="btn ghost" href="/teams/">Browse teams</a>
+        <a class="btn ghost" href="/how-it-works/">How it works</a>
+        <a class="btn ghost" href="/franchises/">Browse franchises</a>
       </div>
       <div class="metric-grid">
         <div class="metric"><b>6</b><span>Divisions</span></div>
@@ -67,34 +70,16 @@
       </div>
     </div>
 
-    <aside class="competition-stage" aria-label="Supersonic Showdown competitive league overview">
-      <div class="competition-panel">
-        <div class="competition-brand">
-          <img class="competition-logo" src="/assets/branding/ssl-logo.svg" alt="" width="208" height="124" fetchpriority="high">
-          <div class="competition-lockup">
-            <span>Supersonic Showdown</span>
-            <strong>League <span class="orange">2</span><span class="blue">v</span><span class="orange">2</span></strong>
-          </div>
-          <span class="competition-tag">COMPETITIVE 2V2</span>
-        </div>
-        <div class="competition-copy">
-          <span class="mini">Weekly league system</span>
-          <h2>ONE NIGHT.<br><span>SIX DIVISIONS.</span></h2>
-          <p>Structured match play, official standings, player profiles, season statistics, and league operations built around a real weekly competition.</p>
-        </div>
-        <div class="division-strip" aria-label="League divisions">
-          <span class="myt">MYT</span><span class="leg">LEG</span><span class="eli">ELI</span><span class="con">CON</span><span class="roo">ROO</span><span class="ama">AMA</span>
-        </div>
-        <div class="competition-info">
-          <article><small>Core match night</small><strong>Saturday · 8:00 PM ET</strong></article>
-          <article><small>Official stream</small><strong>Saturday · 9:30 PM ET</strong></article>
-          <article><small>Default region</small><strong>US-East</strong></article>
-          <article><small>Premier division</small><strong>Mythic · open weekly scheduling</strong></article>
-        </div>
-        <div class="competition-foot">
-          <strong>Play. Report. Climb.</strong>
-          <a href="/standings/">View standings →</a>
-        </div>
+    <aside class="competition-stage has-loop" aria-label="Featured Supersonic Showdown League gameplay">
+      <div class="hero-loop-shell">
+        <video id="ssl-home-video" class="hero-loop-player" autoplay muted loop playsinline preload="auto" poster="/assets/video/ssl-home-loop-poster.jpg" disablepictureinpicture controlslist="nodownload noremoteplayback" aria-label="Featured Supersonic Showdown League gameplay">
+          <source src="/assets/video/ssl-home-loop.mp4" type="video/mp4">
+        </video>
+        <div class="hero-loop-shade" aria-hidden="true"></div>
+        <span class="hero-loop-badge"><i></i> FEATURED GAMEPLAY · MUTED LOOP</span>
+        <img class="hero-loop-logo" src="/assets/branding/ssl-logo-primary.png" alt="Supersonic Showdown League">
+        <div class="hero-loop-meta"><small>SSL FEATURED MOMENT</small><strong>Watch the Showdown</strong><span>Muted highlight loop · full broadcast and live stream in the Watch Room</span></div>
+        <a class="hero-loop-open" href="/watch/">WATCH NOW →</a>
       </div>
     </aside>
   </div>
@@ -132,7 +117,7 @@
   <div class="wrap">
     <div class="section-head"><div><p class="eyebrow">Explore the league</p><h2>Teams, players, stats, and history.</h2></div></div>
     <div class="feature-grid">
-      <a class="card feature-card" href="/teams/"><span class="num">TEAMS</span><h3>Meet the field</h3><p>Browse every franchise and division team.</p><span class="link">TEAM DIRECTORY →</span></a>
+      <a class="card feature-card" href="/franchises/"><span class="num">TEAMS</span><h3>Meet the field</h3><p>Browse every franchise and division team.</p><span class="link">TEAM DIRECTORY →</span></a>
       <a class="card feature-card" href="/players/"><span class="num">PLAYERS</span><h3>View player cards</h3><p>See featured website profiles or open complete SSL Bot player cards in Discord.</p><span class="link">PLAYER CARDS →</span></a>
       <a class="card feature-card" href="/history/"><span class="num">LEGACY</span><h3>Remember the season</h3><p>Current leaders, posted results, champions, and season archives.</p><span class="link">LEAGUE HISTORY →</span></a>
     </div>
