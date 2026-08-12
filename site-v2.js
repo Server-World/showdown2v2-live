@@ -47,9 +47,9 @@ const dateLabel = value => {
 };
 
 const snapshotDateLabel = value => {
-  if (!value) return 'Public snapshot';
+  if (!value) return 'League update';
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return 'Public snapshot';
+  if (Number.isNaN(date.getTime())) return 'League update';
   return `Updated ${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
 };
 
@@ -210,9 +210,9 @@ const orderedMatches = rows => [...rows].sort((a, b) => {
 
 function matchContext(mode) {
   const week = league.season?.week;
-  if (mode === 'current') return `<div class="match-context current"><strong>${esc(league.season?.name || 'Current season')} · Week ${esc(week || '—')}</strong><span>Current published match slate and results.</span></div>`;
-  if (mode === 'phase') return `<div class="match-context"><strong>${esc(seasonStateLabel())}</strong><span>No Week ${esc(week || '—')} slate is published yet; showing the latest matches from this phase.</span></div>`;
-  return `<div class="match-context"><strong>Latest recorded results</strong><span>No current-week slate is published in the public feed yet.</span></div>`;
+  if (mode === 'current') return `<div class="match-context current"><strong>${esc(league.season?.name || 'Current season')} · Week ${esc(week || '—')}</strong><span>This week's scheduled and completed series.</span></div>`;
+  if (mode === 'phase') return `<div class="match-context"><strong>${esc(seasonStateLabel())}</strong><span>No Week ${esc(week || '—')} results yet; showing the latest matches from this stage of the season.</span></div>`;
+  return `<div class="match-context"><strong>Latest recorded results</strong><span>No current-week results yet. Here are the latest completed series.</span></div>`;
 }
 
 function renderStandings(tier = 'mythic') {
@@ -220,7 +220,7 @@ function renderStandings(tier = 'mythic') {
   if (!body) return;
   const rows = league.standings?.[tier] || [];
   if (!rows.length) {
-    body.innerHTML = '<tr class="empty-row"><td colspan="8">No standings have been published for this division.</td></tr>';
+    body.innerHTML = '<tr class="empty-row"><td colspan="8">No standings are available for this division yet.</td></tr>';
     return;
   }
   body.innerHTML = rows.map((row, index) => `<tr${index === 0 ? ' class="division-leader"' : ''}><td class="rank">${esc(row.rank ?? index + 1)}</td><td><strong>${esc(row.team)}</strong><small class="table-franchise">${esc(row.franchise || '')}</small></td><td>${esc(row.wins)}</td><td>${esc(row.losses)}</td><td>${esc(row.win_pct)}</td><td>${esc(row.goals_for)}</td><td>${esc(row.goals_against)}</td><td>${esc(row.differential)}</td></tr>`).join('');
@@ -232,7 +232,7 @@ function renderMatches() {
   const scope = displayMatchScope();
   const rows = orderedMatches(scope.rows).slice(0, 18);
   if (!rows.length) {
-    box.innerHTML = '<div class="data-state"><strong>No match records are available in the public feed yet.</strong><br>Use Discord for scheduling and match-night coordination.</div>';
+    box.innerHTML = '<div class="data-state"><strong>No match results are available yet.</strong><br>Use Discord for scheduling and match-night coordination.</div>';
     return;
   }
   box.innerHTML = matchContext(scope.mode) + rows.map(match => `<div class="match-row"><div class="match-meta"><span class="tierlabel">${esc(match.tier)}</span><span class="match-sub">${esc(matchMeta(match) || 'League match')}</span></div><span class="tname">${esc(match.home)}</span><span class="scorebox">${esc(match.score || 'VS')}</span><span class="tname away">${esc(match.away)}</span><span class="state">${esc(match.status)}</span></div>`).join('');
@@ -261,7 +261,7 @@ function renderTeams() {
         const diff = standing?.differential == null ? '—' : Number(standing.differential) > 0 ? `+${standing.differential}` : standing.differential;
         return `<article class="card team-card" data-filterable style="--team-color:${esc(team.color || '#32C8FF')}" aria-label="${esc(team.name)}, ${esc(team.tier)} division"><div class="team-card-head"><div class="team-logo">${logo}</div><span class="team-rank">${esc(rank)}</span></div><div class="team-card-title"><span class="eyebrow">${esc(team.tier)}</span><h3>${esc(team.name)}</h3><div class="team-meta">${esc(team.franchise)}</div></div><div class="team-card-stats"><span><small>Record</small><b>${esc(record)}</b></span><span><small>Rank</small><b>${esc(rank)}</b></span><span><small>Diff</small><b>${esc(diff)}</b></span></div></article>`;
       }).join('')
-    : '<div class="data-state" style="grid-column:1/-1"><strong>No public teams are listed for the current season.</strong></div>';
+    : '<div class="data-state" style="grid-column:1/-1"><strong>No teams are listed for the current season yet.</strong></div>';
 }
 
 function renderPlayers() {
@@ -272,7 +272,7 @@ function renderPlayers() {
     grid.innerHTML = rows.map(player => `<article class="card player-tile" data-filterable><span class="eyebrow">${esc(player.tier)}</span><h3>${esc(player.gamertag)}</h3><div class="player-meta">${esc(player.team)} · ${esc(player.role || 'Player')}</div><div class="player-card-stats"><span>${esc(player.eligible === false ? 'Eligibility pending' : 'League profile')}</span>${player.slp != null ? `<b>${esc(player.slp)} SLP</b>` : ''}</div></article>`).join('');
     return;
   }
-  grid.innerHTML = `<article class="card player-card-live" style="grid-column:1/-1"><span class="eyebrow">Authoritative profiles</span><h3>Player cards are available through SSL Bot.</h3><p>The public roster directory is not included in the current website export. The featured profile above demonstrates the web card, while Discord remains authoritative for registered identity, roster, eligibility, statistics, match records, and awards.</p><div class="page-actions"><a class="btn primary" href="${DISCORD}" target="_blank" rel="noopener noreferrer">Open SSL Bot in Discord</a><a class="btn ghost" href="/teams/">Browse current teams</a></div></article>`;
+  grid.innerHTML = `<article class="card player-card-live" style="grid-column:1/-1"><span class="eyebrow">Player profiles</span><h3>Explore the current SSL roster.</h3><p>Browse gamertags, teams, franchises, and divisions from the Players directory.</p><div class="page-actions"><a class="btn primary" href="/players/">Browse players</a><a class="btn ghost" href="/franchises/">Browse franchises</a></div></article>`;
 }
 
 function renderPower() {
@@ -295,7 +295,7 @@ function renderSeasonSummary() {
   const top = leaders[0];
   const currentFinals = currentWeekFinals();
   const finals = currentFinals.length ? currentFinals : recordedFinals();
-  const resultLabel = currentFinals.length ? 'Current-week public finals' : 'Recorded public finals';
+  const resultLabel = currentFinals.length ? 'Current-week finals' : 'Recorded finals';
   box.innerHTML = `<div class="leader-row"><span class="pos">S</span><div><b>${esc(league.season?.name || 'Current season')}</b><span>${esc(seasonStateLabel())}</span></div><div class="value">Week ${esc(league.season?.week || '—')}</div></div><div class="leader-row"><span class="pos">T</span><div><b>${esc((league.teams || []).length)} teams</b><span>Across six divisions</span></div><div class="value">2v2</div></div><div class="leader-row"><span class="pos">M</span><div><b>${esc(finals.length)} posted results</b><span>${esc(resultLabel)}</span></div><div class="value">Final</div></div>${top ? `<div class="leader-row"><span class="pos">W</span><div><b>${esc(top.team)}</b><span>Strongest current record</span></div><div class="value">${esc(top.wins)}-${esc(top.losses)}</div></div>` : ''}`;
 }
 
@@ -312,7 +312,7 @@ function renderStatHighlights() {
   }
   const rows = standingsRows().filter(row => row.team);
   if (!rows.length) {
-    grid.innerHTML = '<div class="data-state" style="grid-column:1/-1">Team performance highlights will appear when standings are published.</div>';
+    grid.innerHTML = '<div class="data-state" style="grid-column:1/-1">Team performance highlights will appear when standings are available.</div>';
     return;
   }
   const bestRecord = [...rows].sort((a, b) => (Number(b.wins) - Number(a.wins)) || (Number(a.losses) - Number(b.losses)) || (Number(b.differential) - Number(a.differential)))[0];
@@ -329,7 +329,7 @@ function renderHistory() {
   if (rows.length) {
     box.innerHTML = rows.map(champion => `<article class="card record-card"><span>${esc(champion.season)}</span><b>${esc(champion.team)}</b><div class="muted">${esc(champion.tier || 'League champion')}</div></article>`).join('');
   } else {
-    box.innerHTML = `<article class="card record-card"><span>Current competition</span><b>${esc(league.season?.name || 'Current season')}</b><div class="muted">Week ${esc(league.season?.week || '—')} · ${esc(seasonStateLabel())}</div></article><article class="card record-card"><span>Championship archive</span><b>Not yet published</b><div class="muted">Verified champions will appear here when the public feed includes them.</div></article>`;
+    box.innerHTML = `<article class="card record-card"><span>Current competition</span><b>${esc(league.season?.name || 'Current season')}</b><div class="muted">Week ${esc(league.season?.week || '—')} · ${esc(seasonStateLabel())}</div></article><article class="card record-card"><span>Championship archive</span><b>Coming soon</b><div class="muted">Champions and season honors will appear here as the archive grows.</div></article>`;
   }
 
   const summary = $('#history-summary');
@@ -350,13 +350,13 @@ function renderHistoryResults() {
     section = document.createElement('section');
     section.id = 'history-results-section';
     section.className = 'section';
-    section.innerHTML = `<div class="wrap"><div class="section-head"><div><p class="eyebrow">Recorded results</p><h2>Recent match archive.</h2><p>Final series retained in the current public competition snapshot.</p></div></div><div id="history-results" class="history-result-grid"></div></div>`;
+    section.innerHTML = `<div class="wrap"><div class="section-head"><div><p class="eyebrow">Recorded results</p><h2>Recent match archive.</h2><p>Completed series from across the league.</p></div></div><div id="history-results" class="history-result-grid"></div></div>`;
     main.appendChild(section);
   }
   const grid = $('#history-results');
   if (!grid) return;
   const finals = orderedMatches(recordedFinals()).slice(0, 9);
-  grid.innerHTML = finals.length ? finals.map(match => `<article class="card result-card"><div><span class="eyebrow">${esc(match.tier || 'League')}</span><small>${esc(matchMeta(match))}</small></div><strong>${esc(match.home)} <b>${esc(match.score || 'VS')}</b> ${esc(match.away)}</strong></article>`).join('') : '<div class="data-state" style="grid-column:1/-1">No final match records are published yet.</div>';
+  grid.innerHTML = finals.length ? finals.map(match => `<article class="card result-card"><div><span class="eyebrow">${esc(match.tier || 'League')}</span><small>${esc(matchMeta(match))}</small></div><strong>${esc(match.home)} <b>${esc(match.score || 'VS')}</b> ${esc(match.away)}</strong></article>`).join('') : '<div class="data-state" style="grid-column:1/-1">No completed match records are available yet.</div>';
 }
 
 function derivedNews() {
@@ -368,7 +368,7 @@ function derivedNews() {
     {
       category: 'Season update',
       title: `${league.season?.name || 'Current season'} · Week ${league.season?.week || '—'}`,
-      summary: `${seasonStateLabel()}. ${rows.length || (league.teams || []).length} ranked team entries are published across six divisions.`,
+      summary: `${seasonStateLabel()}. ${rows.length || (league.teams || []).length} teams are ranked across six divisions.`,
       date: snapshotDateLabel(league.generated_at),
     },
   ];
