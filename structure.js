@@ -130,10 +130,11 @@
     const teams = franchiseTeams(league,tag);
     const count = roster.filter(p=>p.franchise_tag===tag).length;
     const top = teams.map(t=>({t,r:standingFor(league,t.name,t.tier)})).sort((a,b)=>(a.r?.rank||99)-(b.r?.rank||99))[0];
+    const cardSummary = top?.r ? `${top.t.name} leads ${m.name} at #${top.r.rank} in ${top.t.tier}. The six teams are ${stats.wins}-${stats.losses} in combined series play.` : `${m.name} fields six division teams with ${count} players on the current roster.`;
     return `<a class="franchise-card" href="/franchises/${m.slug}/" style="--franchise:${m.color}" data-tilt>
       <div class="franchise-card-mark"><img src="${m.logo}" alt="${esc(m.name)} logo" loading="lazy" decoding="async"><span>${tag}</span></div>
-      <div class="franchise-card-copy"><span class="eyebrow">SSL Franchise · six divisions</span><h2>${esc(m.name)}</h2>
-      <p>One organization across Mythic, Legend, Elite, Contender, Rookie, and Amateur.</p></div>
+      <div class="franchise-card-copy"><span class="eyebrow">${tag} · ${count} current players</span><h2>${esc(m.name)}</h2>
+      <p>${esc(cardSummary)}</p></div>
       <div class="franchise-card-stats">
         <span><small>Series</small><b>${stats.wins}-${stats.losses}</b></span>
         <span><small>Division leaders</small><b>${stats.leaders}</b></span>
@@ -174,11 +175,13 @@
       const [league, rosterData] = await Promise.all([getJson('/data/league.json'),getJson('/data/roster.json')]);
       const teams = franchiseTeams(league, tag), stats = franchiseStats(league,tag);
       const roster = (rosterData.players || []).filter(p=>p.franchise_tag===tag);
+      const top = teams.map(t=>({t,r:standingFor(league,t.name,t.tier)})).sort((a,b)=>(a.r?.rank||99)-(b.r?.rank||99))[0];
+      const profileSummary = top?.r ? `${m.name} is ${stats.wins}-${stats.losses} in combined series play across six divisions, led by ${top.t.name} at #${top.r.rank} in ${top.t.tier}.` : `${m.name} fields one team in every SSL division with ${roster.length} players on the current roster.`;
       document.title = `${m.name} Franchise | Supersonic Showdown League`;
       root.innerHTML = `<div class="franchise-profile-head" style="--franchise:${m.color}">
         <img src="${m.logo}" alt="${esc(m.name)} logo" decoding="async">
         <div><span class="eyebrow">${tag} · Supersonic Showdown League</span><h1>${esc(m.name)}</h1>
-        <p>Six-division SSL franchise. This page combines the current public team standings snapshot with the current roster assignments used by the league.</p>
+        <p>${esc(profileSummary)}</p>
         <div class="franchise-profile-actions"><a class="btn ghost" href="/franchises/">← All franchises</a><a class="btn primary" href="/players/?franchise=${tag}">View roster</a></div></div>
       </div>
       <div class="franchise-summary">
@@ -190,7 +193,7 @@
         <span><small>Roster shown</small><b>${roster.length}</b></span>
       </div>
       <section class="franchise-teams"><div class="section-head"><div><p class="eyebrow">Six divisions</p><h2>Current teams.</h2></div></div>${teams.map(t=>teamRow(league,t)).join('')}</section>
-      <section class="franchise-roster-preview"><div class="section-head"><div><p class="eyebrow">Current roster</p><h2>${esc(m.name)} players.</h2><p>Gamertags and current league assignments only.</p></div><a class="btn ghost" href="/players/?franchise=${tag}">Open full player cards</a></div>
+      <section class="franchise-roster-preview"><div class="section-head"><div><p class="eyebrow">Current roster</p><h2>${esc(m.name)} players.</h2><p>Players currently representing ${esc(m.name)} across SSL.</p></div><a class="btn ghost" href="/players/?franchise=${tag}">Open full player cards</a></div>
       <div class="roster-chip-grid">${roster.map(p=>`<a href="/players/?player=${encodeURIComponent(p.gamertag)}" class="roster-chip"><strong>${esc(p.gamertag)}</strong><span>${esc(p.tier)} · ${esc(p.team)}${p.role==='Captain'?' · Captain':''}</span></a>`).join('')}</div></section>`;
     } catch {
       root.innerHTML = '<div class="data-state"><strong>Franchise profile is temporarily unavailable.</strong> Refresh to try again.</div>';
@@ -221,30 +224,30 @@
       <header class="v5-header">
         <div class="v5-brand-lockup"><img src="/assets/branding/ssl-logo.svg" alt="" aria-hidden="true"><div><strong><i>S</i>UPERSONIC <i>S</i>HOWDOWN</strong><b><i>L</i>EAGUE <em>2</em><u>v</u><em>2</em></b></div></div>
         <div class="v5-profile-title">PLAYER PROFILE</div>
-        <div class="v5-context"><strong>${esc(season)} · ${esc(week)}</strong><span>SSL BOT LEAGUE DATA</span></div>
+        <div class="v5-context"><strong>${esc(season)} · ${esc(week)}</strong><span>CURRENT SSL PROFILE</span></div>
       </header>
       <div class="v5-divider"></div>
       <div class="v5-card-body">
         <aside class="v5-identity-rail">
           <div class="v5-identity-media"><div class="v5-avatar" aria-label="Avatar unavailable"><span>${esc(initials)}</span></div><div class="v5-franchise-mark"><img src="${m.logo || '/assets/branding/ssl-logo.svg'}" alt="${esc(p.franchise)} logo"></div></div>
           <span class="v5-kicker">PLAYER</span><h2>${esc(p.gamertag)}</h2><strong class="v5-teamline">${esc(p.franchise)} — ${esc(p.team)}</strong><span class="v5-role">${esc(p.role || 'Player')}</span>
-          <div class="v5-status"><span></span>ELIGIBILITY NOT PUBLISHED</div>
-          <div class="v5-meta-list"><div><small>TRACKER</small><b>Not published</b></div><div><small>ROSTER</small><b>Verified</b></div><div><small>SLP</small><b>—</b></div><div><small>IRON MAN</small><b>—</b></div></div>
-          <p class="v5-identity-note">Current public website data. Private or unavailable player fields are never inferred.</p>
+          <div class="v5-status"><span></span>CURRENT ROSTER</div>
+          <div class="v5-meta-list"><div><small>TRACKER</small><b>—</b></div><div><small>ROSTER</small><b>Active</b></div><div><small>SLP</small><b>—</b></div><div><small>IRON MAN</small><b>—</b></div></div>
+          <p class="v5-identity-note">${esc(p.gamertag)} represents ${esc(p.team)} in the ${esc(p.tier)} division.</p>
         </aside>
         <section class="v5-overview-panel">
           <div class="v5-summary-row">
             <div class="v5-summary-cell"><small>CURRENT TIER</small><strong style="color:var(--tier-color)">${esc(String(p.tier || 'Unknown').toUpperCase())}</strong><span>SSL competitive tier</span></div>
-            <div class="v5-summary-cell"><small>LOCKED MMR</small><strong>—</strong><span>Not published to website</span></div>
+            <div class="v5-summary-cell"><small>LOCKED MMR</small><strong>—</strong><span>Not listed</span></div>
             <div class="v5-summary-cell"><small>LEAGUE STANDING</small><strong>${standing}</strong><span>${teamRecord}</span></div>
-            <div class="v5-summary-cell"><small>RECENT RECORD</small><strong>N/A</strong><span>Player finals not in public feed</span></div>
+            <div class="v5-summary-cell"><small>RECENT RECORD</small><strong>—</strong><span>Individual results</span></div>
           </div>
-          <div class="v5-awards-strip"><strong>AWARDS</strong><span>No public honor data</span><b>00</b><small>OPEN AWARDS</small></div>
-          <div class="v5-performance-panel"><div class="v5-panel-head"><strong>SEASON PERFORMANCE</strong><span>PLAYER SERIES STATS NOT PUBLISHED</span></div><div class="v5-season-stats">${seasonStats.map(([label,value])=>`<div><b>${value}</b><small>${label}</small><span>not published</span></div>`).join('')}</div></div>
+          <div class="v5-awards-strip"><strong>AWARDS</strong><span>Season honors</span><b>—</b><small>PLAYER HONORS</small></div>
+          <div class="v5-performance-panel"><div class="v5-panel-head"><strong>SEASON PERFORMANCE</strong><span>${esc(season)} · ${esc(week)}</span></div><div class="v5-season-stats">${seasonStats.map(([label,value])=>`<div><b>${value}</b><small>${label}</small></div>`).join('')}</div></div>
           <div class="v5-career-panel"><div class="v5-panel-head"><strong>ALL-TIME CAREER PERFORMANCE</strong><span>ALL RECORDED SSL SEASONS</span></div><div class="v5-career-stats">${careerStats.map(([label,value])=>`<div><b>${value}</b><small>${label}</small></div>`).join('')}</div></div>
         </section>
       </div>
-      <footer class="v5-footer"><span>Roster + team standing: current SSL public snapshot · unavailable player statistics are not fabricated.</span><b>V5 · OVERVIEW</b></footer>
+      <footer class="v5-footer"><span>${esc(p.franchise)} · ${esc(p.team)} · ${esc(p.tier)} division</span><b>V5 · OVERVIEW</b></footer>
     </article>`;
   }
 

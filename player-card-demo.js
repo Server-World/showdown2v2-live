@@ -8,7 +8,7 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   })[ch]);
   const fmt = value => Number.isFinite(Number(value)) ? Number(value).toLocaleString('en-US') : '—';
-  const sourceLabel = data => ['review_fixture', 'featured_sample'].includes(data.record_type) ? 'Featured profile sample' : 'Public profile feed';
+  const sourceLabel = data => ['review_fixture', 'featured_sample'].includes(data.record_type) ? 'Featured player' : 'Player profile';
 
   const track = (event, detail = {}) => {
     window.dataLayer = window.dataLayer || [];
@@ -28,12 +28,12 @@
         <div class="pc-empty-state pc-match-empty">
           <div class="pc-empty-kicker">LATEST MATCH</div>
           <div class="pc-empty-mark" aria-hidden="true">M</div>
-          <h4>No verified match record is published for this profile.</h4>
-          <p>When the approved public player feed exposes a finalized match, this view can show the opponent, series result, player box score, and match metadata without inventing missing values.</p>
+          <h4>No recent match is listed for this profile.</h4>
+          <p>Recent opponent, result, and box score details will appear here when available.</p>
           <div class="pc-empty-fields" aria-label="Fields supported by this view">
             <span>Series result</span><span>Opponent</span><span>Box score</span><span>Match date</span>
           </div>
-          <a class="pc-inline-action" href="https://discord.gg/efdQJsceKb" target="_blank" rel="noopener noreferrer">Open the authoritative profile in Discord →</a>
+          <a class="pc-inline-action" href="https://discord.gg/efdQJsceKb" target="_blank" rel="noopener noreferrer">Open SSL in Discord →</a>
         </div>`;
     }
 
@@ -57,8 +57,8 @@
         <div class="pc-empty-state">
           <div class="pc-empty-kicker">AWARDS & BADGES</div>
           <div class="pc-empty-mark" aria-hidden="true">A</div>
-          <h4>No approved awards are published for this profile.</h4>
-          <p>Awards appear only when they are present in the approved player data.</p>
+          <h4>No awards are listed for this profile.</h4>
+          <p>Season honors will appear here when available.</p>
         </div>`;
     }
 
@@ -165,7 +165,7 @@
 
               <div class="pc-data-note">
                 <span>PROFILE DATA</span>
-                <p>This card renders one structured profile record. Missing match or award values remain unavailable instead of being fabricated.</p>
+                <p>A focused view of competitive identity, season performance, career totals, matches, and awards.</p>
               </div>
             </div>
 
@@ -176,7 +176,7 @@
 
         <footer class="pc-card-footer">
           <span>${esc(p.gamertag)} · ${esc(data.source_label || sourceLabel(data))}</span>
-          <span>${esc(data.authoritative_source || 'SSL Bot + PostgreSQL')} remains authoritative</span>
+          <span>Official SSL player profile</span>
         </footer>
       </article>`;
   }
