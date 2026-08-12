@@ -1,0 +1,95 @@
+/* Player directory corrective pass — V5 size + truthful data states */
+body[data-page="players"] #main > .section > .wrap{
+  width:min(calc(100% - 32px),1540px);
+  max-width:1540px;
+}
+body[data-page="players"] .player-browser{
+  grid-template-columns:minmax(280px,320px) minmax(0,1fr);
+  gap:28px;
+}
+body[data-page="players"] .player-card-stage{
+  width:100%;
+  min-width:0;
+}
+body[data-page="players"] .fixed-player-card.player-card-v5{
+  width:min(100%,1200px)!important;
+  max-width:1200px;
+  margin:0 auto;
+}
+body[data-page="players"] .featured-profile-block{
+  padding:16px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(135deg,rgba(73,199,255,.07),rgba(255,159,67,.035));
+}
+body[data-page="players"] .featured-profile-block .eyebrow{
+  display:block;
+  margin-bottom:8px;
+}
+body[data-page="players"] .featured-player{
+  width:100%;
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr);
+  gap:11px;
+  align-items:center;
+  padding:11px 12px;
+  border:1px solid rgba(73,199,255,.18);
+  border-radius:11px;
+  background:rgba(4,15,26,.76);
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+}
+body[data-page="players"] .featured-player:hover,
+body[data-page="players"] .featured-player.active{
+  border-color:rgba(73,199,255,.48);
+  background:linear-gradient(90deg,rgba(73,199,255,.13),rgba(255,159,67,.06));
+  box-shadow:inset 3px 0 var(--xp-cyan);
+}
+body[data-page="players"] .featured-player strong{display:block}
+body[data-page="players"] .featured-player small{
+  display:block;
+  margin-top:2px;
+  color:#8ba0b3;
+  font-size:.64rem;
+}
+body[data-page="players"] .v5-profile-pending{
+  min-height:6.6cqw;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:.7cqw;
+  margin-top:1.15cqw;
+  padding:1.2cqw 1.35cqw;
+  border:1px dashed rgba(145,166,187,.28);
+  background:#0b1726;
+}
+body[data-page="players"] .v5-profile-pending strong{
+  font-size:.92cqw;
+  color:#dbe8f2;
+}
+body[data-page="players"] .v5-profile-pending span{
+  font-size:.66cqw;
+  color:var(--v5-muted);
+}
+body[data-page="players"] .v5-status.is-ineligible{
+  border-color:rgba(255,138,128,.5);
+}
+body[data-page="players"] .v5-status.is-ineligible>span{
+  background:#ff8a80;
+}
+@media (max-width:1100px){
+  body[data-page="players"] #main > .section > .wrap{width:min(calc(100% - 28px),1120px)}
+  body[data-page="players"] .player-browser{grid-template-columns:1fr}
+  body[data-page="players"] .fixed-player-card.player-card-v5{max-width:100%}
+}
+@media (max-width:720px){
+  body[data-page="players"] #main > .section > .wrap{width:min(calc(100% - 20px),720px)}
+  body[data-page="players"] .v5-profile-pending{
+    min-height:90px;
+    gap:8px;
+    margin-top:12px;
+    padding:14px;
+  }
+  body[data-page="players"] .v5-profile-pending strong{font-size:11px}
+  body[data-page="players"] .v5-profile-pending span{font-size:9px}
+}
