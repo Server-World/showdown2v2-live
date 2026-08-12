@@ -21,7 +21,14 @@ for path in PAGES:
             text = text.replace(marker, marker + TWITCH_SCRIPT, 1)
         else:
             text = text.replace('</head>', TWITCH_SCRIPT + '</head>', 1)
-    if EXPERIENCE_SCRIPT not in text:
+    is_home = path == ROOT / 'index.html'
+    home_has_direct_experience = is_home and '/experience-home.js' in text
+    if home_has_direct_experience:
+        # The homepage renders its final shell/video and loads its enhancement scripts directly
+        # in the initial document. Re-inserting experience.js here causes a second late loader
+        # after every SEO/Twitch publish and reintroduces first-paint layout work.
+        text = text.replace(EXPERIENCE_SCRIPT, '')
+    elif EXPERIENCE_SCRIPT not in text:
         if TWITCH_SCRIPT in text:
             text = text.replace(TWITCH_SCRIPT, TWITCH_SCRIPT + EXPERIENCE_SCRIPT, 1)
         elif marker in text:
@@ -49,5 +56,8 @@ for path in PAGES:
     if path.exists():
         text = path.read_text(encoding='utf-8')
         assert text.count('/twitch-site.js') == 1, f'Twitch integration count failed: {path}'
-        assert text.count('/experience.js') == 1, f'Experience integration count failed: {path}'
+        if path == ROOT / 'index.html' and '/experience-home.js' in text:
+            assert text.count('/experience.js') == 0, f'Homepage late experience loader returned: {path}'
+        else:
+            assert text.count('/experience.js') == 1, f'Experience integration count failed: {path}'
         assert 'G-N4H6G9T2L2' not in text
