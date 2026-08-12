@@ -182,7 +182,7 @@ def create_vod_clip(candidate: dict, *, verify_seconds: int = 60) -> dict:
 
     clip_id = str(rows[0]["id"])
     edit_url = str(rows[0].get("edit_url") or "")
-    public_url = ""
+    clip_meta: dict = {}
     deadline = time.monotonic() + max(verify_seconds, 0)
     while True:
         _, check = request_json(
@@ -191,18 +191,26 @@ def create_vod_clip(candidate: dict, *, verify_seconds: int = 60) -> dict:
         )
         clips = (check or {}).get("data") or []
         if clips:
-            public_url = str(clips[0].get("url") or "")
+            clip_meta = dict(clips[0])
             break
         if time.monotonic() >= deadline:
             break
         time.sleep(5)
 
+    public_url = str(clip_meta.get("url") or "")
     return {
         **candidate,
         "status": "twitch_clip_created" if public_url else "twitch_clip_created_unverified",
         "twitch_clip_id": clip_id,
         "twitch_clip_url": public_url,
         "twitch_edit_url": edit_url,
+        "thumbnail_url": str(clip_meta.get("thumbnail_url") or ""),
+        "published_at": str(clip_meta.get("created_at") or ""),
+        "view_count": int(clip_meta.get("view_count") or 0),
+        "video_id": str(clip_meta.get("video_id") or candidate["vod_id"]),
+        "twitch_vod_offset": clip_meta.get("vod_offset"),
+        "twitch_duration": clip_meta.get("duration"),
+        "is_featured": bool(clip_meta.get("is_featured", False)),
         "created_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "_next_refresh_token": next_refresh,
     }
