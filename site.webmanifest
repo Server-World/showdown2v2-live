@@ -1,18 +1,1 @@
-{
-  "name": "Supersonic Showdown League 2v2",
-  "short_name": "SSL 2v2",
-  "description": "Competitive Rocket League 2v2 league with divisions, standings, teams, player cards, stats, and match results.",
-  "start_url": "/",
-  "scope": "/",
-  "display": "standalone",
-  "background_color": "#050b14",
-  "theme_color": "#07101d",
-  "icons": [
-    {
-      "src": "/assets/branding/ssl-logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    }
-  ]
-}
+{"name":"Supersonic Showdown League 2v2","short_name":"SSL 2v2","description":"Competitive Rocket League 2v2 league with divisions, standings, teams, player cards, stats, and match results.","start_url":"/","scope":"/","display":"standalone","background_color":"#050b14","theme_color":"#07101d","icons":[{"src":"/assets/branding/ssl-logo-primary.png","sizes":"192x192","type":"image/png","purpose":"any maskable"}]}
