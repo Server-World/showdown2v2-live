@@ -8,27 +8,26 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#07101D">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-<title>Watch Supersonic Showdown League Live | Rocket League 2v2</title>
-<meta name="description" content="Watch the Supersonic Showdown League official Rocket League 2v2 broadcast live on Twitch. Featured league games stream Saturdays at 9:30 PM ET.">
+<title>SSL Video Library | Live Broadcasts, VODs & Highlights</title>
+<meta name="description" content="Watch Supersonic Showdown League Rocket League 2v2 live, browse recent Twitch broadcasts, and replay curated SSL highlights and short-form clips.">
 <link rel="canonical" href="https://showdown2v2.live/watch/">
 <link rel="icon" href="/assets/branding/ssl-logo.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Supersonic Showdown League 2v2">
-<meta property="og:title" content="Watch Supersonic Showdown League Live">
-<meta property="og:description" content="Official SSL Rocket League 2v2 broadcasts Saturdays at 9:30 PM ET.">
+<meta property="og:title" content="SSL Video Library | Broadcasts & Highlights">
+<meta property="og:description" content="Official SSL Rocket League 2v2 broadcasts, VODs, and curated short-form highlights.">
 <meta property="og:url" content="https://showdown2v2.live/watch/">
 <meta property="og:image" content="https://showdown2v2.live/assets/branding/ssl-social-card.svg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Watch Supersonic Showdown League Live">
-<meta name="twitter:description" content="Official SSL Rocket League 2v2 broadcasts Saturdays at 9:30 PM ET.">
+<meta name="twitter:title" content="SSL Video Library | Broadcasts & Highlights">
+<meta name="twitter:description" content="Official SSL Rocket League 2v2 broadcasts, VODs, and curated highlights.">
 <meta name="twitter:image" content="https://showdown2v2.live/assets/branding/ssl-social-card.svg">
 <link rel="stylesheet" href="/site-v2.css">
 <link rel="stylesheet" href="/production.css">
 <link rel="stylesheet" href="/competition-fixes.css">
 <link rel="stylesheet" href="/site-audit.css">
 <link rel="stylesheet" href="/watch.css">
-<script src="/site-v2.js" defer></script>
-<script src="/twitch-site.js" defer></script>
+<script src="/site-v2.js" defer></script><script src="/twitch-site.js" defer></script>
 <script src="/watch.js" defer></script>
 </head>
 <body data-page="watch">
@@ -39,16 +38,17 @@
 <section class="page-hero watch-hero">
   <div class="wrap">
     <div class="breadcrumbs"><a href="/">Home</a><span>/</span><span>Watch</span></div>
-    <p class="eyebrow">Official SSL broadcast</p>
+    <p class="eyebrow">Live · replays · highlights</p>
     <h1>WATCH THE <span class="accent">SHOWDOWN.</span></h1>
-    <p class="lede">Featured Supersonic Showdown League Rocket League 2v2 matches stream on Twitch. Official Saturday broadcast: 9:30 PM ET.</p>
+    <p class="lede">The SSL video hub: watch the official Twitch broadcast, replay recent league VODs, and browse curated short-form moments from the competition.</p>
     <div class="page-actions">
       <a class="btn primary" href="https://www.twitch.tv/supersonicshowdownleague" target="_blank" rel="noopener noreferrer">Open on Twitch</a>
-      <a class="btn ghost" href="/matches/">Match Center</a>
-      <a class="btn ghost" href="/standings/">Standings</a>
+      <a class="btn ghost" href="#broadcasts">Latest VODs</a>
+      <a class="btn ghost" href="#highlights">Highlights</a>
     </div>
   </div>
 </section>
+
 <section class="section watch-section">
   <div class="wrap">
     <div class="watch-status" aria-live="polite">
@@ -62,10 +62,42 @@
     </div>
     <div class="watch-grid">
       <article class="card watch-card"><span class="eyebrow">Official stream</span><h3>Saturday · 9:30 PM ET</h3><p>Featured games follow the primary Saturday league match window.</p></article>
-      <article class="card watch-card"><span class="eyebrow">Follow the competition</span><h3>Results, standings, teams.</h3><p>Use the Match Center and standings while watching the official broadcast.</p><a href="/matches/">Open Match Center →</a></article>
-      <article class="card watch-card"><span class="eyebrow">Join SSL</span><h3>Play in the league.</h3><p>Registration, scheduling and league operations are handled through Discord.</p><a href="https://discord.gg/efdQJsceKb" target="_blank" rel="noopener noreferrer">Join Discord →</a></article>
+      <article class="card watch-card"><span class="eyebrow">Replay the season</span><h3>Broadcasts stay organized here.</h3><p>Recent tournament rounds and division matchups are collected below.</p><a href="#broadcasts">Browse VODs →</a></article>
+      <article class="card watch-card"><span class="eyebrow">Short-form</span><h3>Best moments, not every clip.</h3><p>SSL highlights are curated so the library stays competitive and on-brand.</p><a href="#highlights">Watch highlights →</a></article>
     </div>
   </div>
+</section>
+
+<section class="section alt media-library" aria-labelledby="library-title">
+  <div class="wrap">
+    <div class="library-topline">
+      <div><p class="eyebrow">Video library</p><h2 id="library-title">Broadcasts + short-form highlights.</h2><p>Curated from the official SSL Twitch channel. Additional short-form sources can plug into the same library as they are approved.</p></div>
+      <span id="media-updated">Loading media…</span>
+    </div>
+    <div class="media-filter" aria-label="Filter video library">
+      <button type="button" data-media-filter="all" aria-pressed="true">All media</button>
+      <button type="button" data-media-filter="broadcast" aria-pressed="false">Broadcasts</button>
+      <button type="button" data-media-filter="highlight" aria-pressed="false">Highlights</button>
+    </div>
+  </div>
+</section>
+
+<section id="broadcasts" class="section media-library" aria-labelledby="broadcasts-title">
+  <div class="wrap">
+    <div class="media-library-head"><div><p class="eyebrow">Recent broadcasts</p><h2 id="broadcasts-title">Full SSL VODs.</h2></div></div>
+    <div id="broadcast-grid" class="media-grid"><div class="media-empty">Loading recent broadcasts…</div></div>
+  </div>
+</section>
+
+<section id="highlights" class="section alt media-library" aria-labelledby="highlights-title">
+  <div class="wrap">
+    <div class="media-library-head"><div><p class="eyebrow">Highlights & shorts</p><h2 id="highlights-title">The moments worth replaying.</h2></div></div>
+    <div id="highlight-grid" class="media-grid"><div class="media-empty">Loading curated highlights…</div></div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap"><div class="cta-box"><p class="eyebrow">Want to be on the next broadcast?</p><h2>JOIN THE SHOWDOWN.</h2><p>Registration, scheduling, and league operations run through the official SSL Discord.</p><a class="btn primary" href="https://discord.gg/efdQJsceKb" target="_blank" rel="noopener noreferrer">Join Discord</a></div></div>
 </section>
 </main>
 </body>
