@@ -1,0 +1,704 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-12T02:35:16.817481Z",
+  "source": "SSL Discord current team-role snapshot",
+  "privacy": "Public gamertags and competition assignments only; no Discord user IDs or private profile fields.",
+  "players": [
+    {
+      "gamertag": "eternal",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Rogues",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Trvyn",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Rogues",
+      "tier": "Mythic",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "Foxy 🛡️",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Warlocks",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Jnx-Me 🛡️",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Warlocks",
+      "tier": "Legend",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "cow",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Paladins",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Dusk",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Paladins",
+      "tier": "Elite",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "S0UL09",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Paladins",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "IrisReasoning",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Rangers",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "kevarchie",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Rangers",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "P0lyph3m0us",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Rangers",
+      "tier": "Rookie",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "HuggingThor 🛡️",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Bards",
+      "tier": "Amateur",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "shadowlightnin9",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Bards",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Zachthebull36 🛡️",
+      "franchise": "D20",
+      "franchise_tag": "D20",
+      "team": "Bards",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Aaden149641",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Hydras",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Anxianide",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Hydras",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Luminati",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Hydras",
+      "tier": "Mythic",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "1ggy._",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Draconic",
+      "tier": "Legend",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "Cwal .",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Draconic",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "dep!",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Draconic",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Jito1017",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Cerberus",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Phantom ✝️",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Cerberus",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "aux",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Chimera",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "RMH 17",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Chimera",
+      "tier": "Contender",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "tazyr.",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Chimera",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "DaMoneyPot 🏆",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Gargoyle",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "No Mechs. HELP",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Gargoyle",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "GamerCon_rl",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Minotuar",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "RL Camaro",
+      "franchise": "Ficticious Esports",
+      "franchise_tag": "FCT",
+      "team": "Minotuar",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Curve",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Glacier Giants",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "KiLo",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Glacier Giants",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "ConquerorsHaki21",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Arctic Wolves",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "EthanAll01 🛡️",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Arctic Wolves",
+      "tier": "Legend",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "siykko",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Arctic Wolves",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Enoreyalp_1",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Icicle Dragons",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "PINkY4913",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Icicle Dragons",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Pittcop",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Icicle Dragons",
+      "tier": "Elite",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "bees .",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Frostbite Phantoms",
+      "tier": "Contender",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "Mortivar Atra",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Frostbite Phantoms",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "D_iffy",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Polar Bears",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Lxrry-_-",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Polar Bears",
+      "tier": "Rookie",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "Mortal Frenzy",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Polar Bears",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Eviljoker33366",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Snowy Owls",
+      "tier": "Amateur",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "Gamerguy69x",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Snowy Owls",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Reminisce_07",
+      "franchise": "Frozen",
+      "franchise_tag": "FRZ",
+      "team": "Snowy Owls",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "8_BitMan",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "Neon Demons",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "sgpksh",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "Neon Demons",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "5 piece McNugget",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "Techno Tribe",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "MoseBlows",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "The Wubbz",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "w7md.",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "The Wubbz",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "xng ltr",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "The Wubbz",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "FlavoredBawls",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "Electro Pulse",
+      "tier": "Contender",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "itxmarina_",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "Electro Pulse",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Posty",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "Electro Pulse",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Fernace13",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "House Head",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Millz is SO back",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "House Head",
+      "tier": "Rookie",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "Shinobu",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "House Head",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Bobafett531132",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "The Light Force",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "LostRedjordan 🛡️",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "The Light Force",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "MrDonowanS",
+      "franchise": "Glow Stick Gang",
+      "franchise_tag": "GLO",
+      "team": "The Light Force",
+      "tier": "Amateur",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "bpglass",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Nightwalkers",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Liberation",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Nightwalkers",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "depressed vibez",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Lich Lords",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Motion Aqua",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Lich Lords",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Jen",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Ebon Watch",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Spadez十 🏆🛡️",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Ebon Watch",
+      "tier": "Elite",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "ThePandaCalix",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Ebon Watch",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Parmesan",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Skeletons",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "SleepyCrimson_",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Skeletons",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "TheAbyssDemon",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Skeletons",
+      "tier": "Contender",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "Lxcidty",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Cryptborn",
+      "tier": "Rookie",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "nikî.",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Cryptborn",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Amazing Foreman",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Lost Souls",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Midnight_Bushido",
+      "franchise": "GraveWardens",
+      "franchise_tag": "GWS",
+      "team": "Lost Souls",
+      "tier": "Amateur",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "Locke.",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Oath",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "TikTok Chxnsse",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Oath",
+      "tier": "Mythic",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Aquir247",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Reforged",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Darthpayton",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Reforged",
+      "tier": "Legend",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "speed_demon1215",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Reforged",
+      "tier": "Legend",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Nyx Rikow",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Crusaders",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Paradoxx_0_",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Crusaders",
+      "tier": "Elite",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Entei Used Splash",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Wheels of Fortune",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Liam-Law2009",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Wheels of Fortune",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Sovenality",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Wheels of Fortune",
+      "tier": "Contender",
+      "role": "Player"
+    },
+    {
+      "gamertag": "K1cker_1",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Whiff Wizards",
+      "tier": "Rookie",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Shadows_ss",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Whiff Wizards",
+      "tier": "Rookie",
+      "role": "Captain"
+    },
+    {
+      "gamertag": "chrisandrew123",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Squires",
+      "tier": "Amateur",
+      "role": "Player"
+    },
+    {
+      "gamertag": "Tysonamint",
+      "franchise": "Solace Path",
+      "franchise_tag": "SP",
+      "team": "Squires",
+      "tier": "Amateur",
+      "role": "Captain"
+    }
+  ]
+}
