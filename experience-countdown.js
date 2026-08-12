@@ -1,26 +1,66 @@
 (() => {
   'use strict';
-  const TZ='America/New_York', WATCH='/watch/', TWITCH='https://www.twitch.tv/supersonicshowdownleague';
-  const HOUR=21, MINUTE=30, DURATION=150;
-  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
-  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const push=(event,detail={})=>{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event,page_path:location.pathname,...detail});};
-  function parts(date){return Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(date).filter(p=>p.type!=='literal').map(p=>[p.type,Number(p.value)]));}
-  function toUtc(y,m,d,h,min,s=0){const target=Date.UTC(y,m-1,d,h,min,s);let guess=target;for(let i=0;i<4;i++){const p=parts(new Date(guess));guess+=target-Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second);}return new Date(guess);}
-  function windowState(now=new Date()){
-    const p=parts(now), local=new Date(Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second));
-    const add=(6-local.getUTCDay()+7)%7, target=new Date(Date.UTC(p.year,p.month-1,p.day+add,HOUR,MINUTE));
-    let start=toUtc(target.getUTCFullYear(),target.getUTCMonth()+1,target.getUTCDate(),HOUR,MINUTE), end=new Date(start.getTime()+DURATION*60000);
-    if(now>end){const n=new Date(Date.UTC(target.getUTCFullYear(),target.getUTCMonth(),target.getUTCDate()+7,HOUR,MINUTE));start=toUtc(n.getUTCFullYear(),n.getUTCMonth()+1,n.getUTCDate(),HOUR,MINUTE);end=new Date(start.getTime()+DURATION*60000);}
-    return {start,end,live:now>=start&&now<=end,ms:Math.max(0,start-now)};
+  const TZ = 'America/New_York', WATCH = '/watch/', TWITCH = 'https://www.twitch.tv/supersonicshowdownleague';
+  const HOUR = 21, MINUTE = 30, DURATION = 150;
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const push = (event, detail = {}) => { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event, page_path: location.pathname, ...detail }); };
+
+  function parts(date) {
+    return Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' }).formatToParts(date).filter(p => p.type !== 'literal').map(p => [p.type, Number(p.value)]));
   }
-  function values(ms){const t=Math.max(0,Math.floor(ms/1000));return{days:Math.floor(t/86400),hours:Math.floor((t%86400)/3600),minutes:Math.floor((t%3600)/60),seconds:t%60};}
-  function markup(cls=''){return `<div class="broadcast-countdown ${cls}" data-countdown><span class="countdown-kicker" data-countdown-label>UNTIL THE NEXT OFFICIAL BROADCAST</span><div class="countdown-grid"><div><strong data-countdown-days>00</strong><span>DAYS</span></div><div><strong data-countdown-hours>00</strong><span>HRS</span></div><div><strong data-countdown-minutes>00</strong><span>MIN</span></div><div><strong data-countdown-seconds>00</strong><span>SEC</span></div></div></div>`;}
-  function calendar(start){const end=new Date(start.getTime()+DURATION*60000), stamp=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');const p=new URLSearchParams({action:'TEMPLATE',text:'Supersonic Showdown League — Official Broadcast',dates:`${stamp(start)}/${stamp(end)}`,details:'Official SSL Rocket League 2v2 featured broadcast. Watch at showdown2v2.live/watch/',location:'https://showdown2v2.live/watch/'});return `https://calendar.google.com/calendar/render?${p}`;}
-  async function json(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(url);return r.json();}
-  function tick(){const s=windowState(),v=values(s.ms);document.body.dataset.broadcastState=s.live?'live':'countdown';$$('[data-countdown]').forEach(box=>{for(const [k,n]of Object.entries(v)){const el=box.querySelector(`[data-countdown-${k}]`);if(el)el.textContent=String(n).padStart(2,'0');}const l=box.querySelector('[data-countdown-label]');if(l)l.textContent=s.live?'LIVE NOW':'UNTIL THE NEXT OFFICIAL BROADCAST';box.classList.toggle('is-live',s.live);});$$('[data-watch-cta]').forEach(a=>{a.textContent=s.live?'WATCH LIVE NOW':'ENTER THE WATCH ROOM';a.classList.toggle('is-live',s.live);});const nav=$('[data-twitch-action]');if(nav){nav.textContent=s.live?'● LIVE NOW':s.ms<21600000?'Tonight · 9:30 ET':'Watch SSL';nav.classList.toggle('is-live',s.live);}}
-  function home(league,media){if(document.body.dataset.page!=='home'||$('#broadcast-gateway'))return;const a=$('#competition-status-band');if(!a)return;const f=media?.home_feature||{},s=windowState(),x=document.createElement('section');x.id='broadcast-gateway';x.className='broadcast-gateway reveal-on-scroll';x.innerHTML=`<div class="wrap gateway-grid"><div class="gateway-copy"><span class="eyebrow">Next official broadcast · ${esc(league?.season?.name||'Current season')} · Week ${esc(league?.season?.week||'—')}</span><h2>SATURDAY NIGHT<br><span>HAS A CLOCK.</span></h2><p>Featured games, real standings pressure, and the moments players remember. The stream opens every Saturday at 9:30 PM ET.</p>${markup('gateway-countdown')}<div class="gateway-actions"><a class="btn primary" href="${WATCH}" data-watch-cta>ENTER THE WATCH ROOM</a><a class="btn ghost" href="${calendar(s.start)}" target="_blank" rel="noopener noreferrer">Add next stream</a></div></div><a class="gateway-teaser" href="${esc(f.clip_url||WATCH)}" target="_blank" rel="noopener noreferrer" style="--teaser-image:url('${esc(f.thumbnail||'/assets/branding/ssl-social-card.svg')}')"><span class="teaser-badge">FEATURED MOMENT</span><span class="teaser-play">▶</span><div><small>${esc(f.label||'From the latest SSL broadcast')}</small><strong>${esc(f.title||'Watch the Showdown')}</strong><span>${esc(f.duration_seconds?`${Math.round(f.duration_seconds)} sec highlight`:'Official SSL video')}</span></div></a></div>`;a.insertAdjacentElement('afterend',x);}
-  function watch(league,media){if(document.body.dataset.page!=='watch'||$('#watch-hype'))return;const a=$('.watch-status');if(!a)return;const f=media?.home_feature||{},s=windowState(),x=document.createElement('div');x.id='watch-hype';x.className='watch-hype reveal-on-scroll';x.innerHTML=`<div class="watch-hype-copy"><span class="eyebrow">${esc(league?.season?.name||'SSL')} · Week ${esc(league?.season?.week||'—')}</span><h2>THE NEXT SHOWDOWN IS COMING.</h2><p>The Watch Room stays open all week. Replay the latest action now; when Saturday hits, this becomes the live front door.</p>${markup('watch-countdown')}<div class="gateway-actions"><a class="btn primary" href="${TWITCH}" target="_blank" rel="noopener noreferrer" data-watch-cta>ENTER THE WATCH ROOM</a><a class="btn ghost" href="${calendar(s.start)}" target="_blank" rel="noopener noreferrer">Add next stream</a></div></div><a class="watch-hype-teaser" href="${esc(f.clip_url||TWITCH)}" target="_blank" rel="noopener noreferrer" style="--teaser-image:url('${esc(f.thumbnail||'/assets/branding/ssl-social-card.svg')}')"><span>THIS WEEK'S TEASE</span><b>▶</b><strong>${esc(f.title||'Featured SSL moment')}</a>`;a.insertAdjacentElement('beforebegin',x);}
-  async function start(){let league={},media={};try{[league,media]=await Promise.all([json('/data/league.json'),json('/data/media.json')]);}catch{}home(league,media);watch(league,media);tick();setInterval(tick,1000);push('ssl_experience_ready',{surface:document.body.dataset.page||''});}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+  function toUtc(y, m, d, h, min, s = 0) {
+    const target = Date.UTC(y, m - 1, d, h, min, s); let guess = target;
+    for (let i = 0; i < 4; i++) { const p = parts(new Date(guess)); guess += target - Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second); }
+    return new Date(guess);
+  }
+  function windowState(now = new Date()) {
+    const p = parts(now), local = new Date(Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second));
+    const add = (6 - local.getUTCDay() + 7) % 7, target = new Date(Date.UTC(p.year, p.month - 1, p.day + add, HOUR, MINUTE));
+    let start = toUtc(target.getUTCFullYear(), target.getUTCMonth() + 1, target.getUTCDate(), HOUR, MINUTE), end = new Date(start.getTime() + DURATION * 60000);
+    if (now > end) { const n = new Date(Date.UTC(target.getUTCFullYear(), target.getUTCMonth(), target.getUTCDate() + 7, HOUR, MINUTE)); start = toUtc(n.getUTCFullYear(), n.getUTCMonth() + 1, n.getUTCDate(), HOUR, MINUTE); end = new Date(start.getTime() + DURATION * 60000); }
+    return { start, end, live: now >= start && now <= end, ms: Math.max(0, start - now) };
+  }
+  function values(ms) { const t = Math.max(0, Math.floor(ms / 1000)); return { days: Math.floor(t / 86400), hours: Math.floor((t % 86400) / 3600), minutes: Math.floor((t % 3600) / 60), seconds: t % 60 }; }
+  function markup(cls = '') { return `<div class="broadcast-countdown ${cls}" data-countdown><span class="countdown-kicker" data-countdown-label>UNTIL THE NEXT OFFICIAL BROADCAST</span><div class="countdown-grid"><div><strong data-countdown-days>00</strong><span>DAYS</span></div><div><strong data-countdown-hours>00</strong><span>HRS</span></div><div><strong data-countdown-minutes>00</strong><span>MIN</span></div><div><strong data-countdown-seconds>00</strong><span>SEC</span></div></div></div>`; }
+  function calendar(start) { const end = new Date(start.getTime() + DURATION * 60000), stamp = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); const p = new URLSearchParams({ action: 'TEMPLATE', text: 'Supersonic Showdown League — Official Broadcast', dates: `${stamp(start)}/${stamp(end)}`, details: 'Official SSL Rocket League 2v2 featured broadcast. Watch at showdown2v2.live/watch/', location: 'https://showdown2v2.live/watch/' }); return `https://calendar.google.com/calendar/render?${p}`; }
+  async function json(url) { const r = await fetch(url, { cache: 'no-store' }); if (!r.ok) throw new Error(url); return r.json(); }
+
+  function tick() {
+    const s = windowState(), v = values(s.ms);
+    document.body.dataset.broadcastState = s.live ? 'live' : 'countdown';
+    $$('[data-countdown]').forEach(box => {
+      for (const [k, n] of Object.entries(v)) { const el = box.querySelector(`[data-countdown-${k}]`); if (el) el.textContent = String(n).padStart(2, '0'); }
+      const l = box.querySelector('[data-countdown-label]'); if (l) l.textContent = s.live ? 'LIVE NOW' : 'UNTIL THE NEXT OFFICIAL BROADCAST';
+      box.classList.toggle('is-live', s.live);
+    });
+    $$('[data-watch-cta]').forEach(a => { a.textContent = s.live ? 'WATCH LIVE NOW' : 'WATCH NOW'; a.classList.toggle('is-live', s.live); });
+    const nav = $('[data-twitch-action]');
+    if (nav) { nav.textContent = s.live ? '● LIVE NOW' : s.ms < 21600000 ? 'Tonight · 9:30 ET' : 'Watch Now'; nav.classList.toggle('is-live', s.live); }
+  }
+
+  function home(league, media) {
+    if (document.body.dataset.page !== 'home' || $('#broadcast-gateway')) return;
+    const a = $('#competition-status-band'); if (!a) return;
+    const f = media?.home_feature || {}, s = windowState(), x = document.createElement('section');
+    x.id = 'broadcast-gateway'; x.className = 'broadcast-gateway reveal-on-scroll';
+    x.innerHTML = `<div class="wrap gateway-grid"><div class="gateway-copy"><span class="eyebrow">Next official broadcast · ${esc(league?.season?.name || 'Current season')} · Week ${esc(league?.season?.week || '—')}</span><h2>SATURDAY NIGHT<br><span>HAS A CLOCK.</span></h2><p>Featured games, real standings pressure, and the moments players remember. The stream opens every Saturday at 9:30 PM ET.</p>${markup('gateway-countdown')}<div class="gateway-actions"><a class="btn primary" href="${WATCH}" data-watch-cta>WATCH NOW</a><a class="btn ghost" href="${calendar(s.start)}" target="_blank" rel="noopener noreferrer">Add next stream</a></div></div><a class="gateway-teaser" href="${esc(f.clip_url || WATCH)}" target="_blank" rel="noopener noreferrer" style="--teaser-image:url('${esc(f.thumbnail || '/assets/branding/ssl-social-card.svg')}')"><span class="teaser-badge">FEATURED MOMENT</span><span class="teaser-play">▶</span><div><small>${esc(f.label || 'From the latest SSL broadcast')}</small><strong>${esc(f.title || 'Watch the Showdown')}</strong><span>${esc(f.duration_seconds ? `${Math.round(f.duration_seconds)} sec highlight` : 'Official SSL video')}</span></div></a></div>`;
+    a.insertAdjacentElement('afterend', x);
+  }
+
+  function watch(league, media) {
+    if (document.body.dataset.page !== 'watch' || $('#watch-hype')) return;
+    const playerShell = $('#twitch-player-shell'); if (!playerShell) return;
+    const f = media?.home_feature || {}, s = windowState(), x = document.createElement('div');
+    x.id = 'watch-hype'; x.className = 'watch-hype reveal-on-scroll';
+    x.innerHTML = `<div class="watch-hype-copy"><span class="eyebrow">${esc(league?.season?.name || 'SSL')} · Week ${esc(league?.season?.week || '—')}</span><h2>THE NEXT SHOWDOWN IS COMING.</h2><p>The live stream stays front and center. Below it, count down to the next broadcast, replay the latest action, or jump into this week's featured moment.</p>${markup('watch-countdown')}<div class="gateway-actions"><a class="btn primary" href="${TWITCH}" target="_blank" rel="noopener noreferrer" data-watch-cta>WATCH NOW</a><a class="btn ghost" href="${calendar(s.start)}" target="_blank" rel="noopener noreferrer">Add next stream</a></div></div><a class="watch-hype-teaser" href="${esc(f.clip_url || TWITCH)}" target="_blank" rel="noopener noreferrer" style="--teaser-image:url('${esc(f.thumbnail || '/assets/branding/ssl-social-card.svg')}')"><span>THIS WEEK'S TEASE</span><b>▶</b><strong>${esc(f.title || 'Featured SSL moment')}</strong></a>`;
+    playerShell.insertAdjacentElement('afterend', x);
+  }
+
+  async function start() {
+    let league = {}, media = {};
+    try { [league, media] = await Promise.all([json('/data/league.json'), json('/data/media.json')]); } catch {}
+    home(league, media); watch(league, media); tick(); setInterval(tick, 1000); push('ssl_experience_ready', { surface: document.body.dataset.page || '' });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true }); else start();
 })();
