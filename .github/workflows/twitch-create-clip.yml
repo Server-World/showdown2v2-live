@@ -1,0 +1,195 @@
+name: Create approved Twitch VOD clip
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_id:
+        description: Review-system candidate ID
+        required: false
+        type: string
+      approval_status:
+        description: Must be approved
+        required: true
+        default: approved
+        type: string
+      vod_id:
+        description: Twitch VOD ID
+        required: true
+        type: string
+      start:
+        description: Candidate start (seconds, MM:SS, or HH:MM:SS)
+        required: true
+        type: string
+      end:
+        description: Candidate end (seconds, MM:SS, or HH:MM:SS)
+        required: true
+        type: string
+      title:
+        description: Twitch Clip title
+        required: true
+        type: string
+  repository_dispatch:
+    types: [ssl_clip_approved]
+
+concurrency:
+  group: twitch-token-writer
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  create-clip:
+    runs-on: ubuntu-latest
+    env:
+      TWITCH_CLIENT_ID: t7jpnnmogidiklg5ewts755ku9zkr6
+      TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+      TWITCH_NEXT_REFRESH_PATH: /tmp/twitch-next-refresh.txt
+      CANDIDATE_ID: ${{ github.event.client_payload.candidate_id || inputs.candidate_id }}
+      APPROVAL_STATUS: ${{ github.event.client_payload.status || inputs.approval_status }}
+      VOD_ID: ${{ github.event.client_payload.vod_id || inputs.vod_id }}
+      CLIP_START: ${{ github.event.client_payload.start || inputs.start }}
+      CLIP_END: ${{ github.event.client_payload.end || inputs.end }}
+      CLIP_TITLE: ${{ github.event.client_payload.title || inputs.title }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Validate clip creator source
+        run: python3 -m py_compile scripts/twitch_clip_creator.py scripts/twitch_manager.py
+
+      - name: Build approved candidate payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          candidate = {
+              "candidate_id": os.environ.get("CANDIDATE_ID", ""),
+              "status": os.environ.get("APPROVAL_STATUS", ""),
+              "vod_id": os.environ.get("VOD_ID", ""),
+              "start": os.environ.get("CLIP_START", ""),
+              "end": os.environ.get("CLIP_END", ""),
+              "title": os.environ.get("CLIP_TITLE", ""),
+          }
+          Path('/tmp/approved-candidate.json').write_text(json.dumps(candidate), encoding='utf-8')
+          PY
+          python3 scripts/twitch_clip_creator.py --candidate /tmp/approved-candidate.json --dry-run
+
+      - name: Prepare encrypted Twitch refresh token
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${TWITCH_CLIENT_SECRET}" ]; then
+            echo "Missing TWITCH_CLIENT_SECRET repository secret." >&2
+            exit 1
+          fi
+          if [ ! -f data/.twitch-refresh.enc ]; then
+            echo "No encrypted Twitch refresh token exists. Run Twitch OAuth bootstrap first." >&2
+            exit 1
+          fi
+          python3 - <<'PY' > /tmp/twitch-token-key
+          import hashlib, os
+          secret = os.environ['TWITCH_CLIENT_SECRET']
+          print(hashlib.sha256(('ssl-twitch-refresh-v1:' + secret).encode()).hexdigest())
+          PY
+          chmod 600 /tmp/twitch-token-key
+          openssl enc -d -aes-256-cbc -pbkdf2 -in data/.twitch-refresh.enc -out /tmp/twitch-refresh.txt -pass file:/tmp/twitch-token-key
+          chmod 600 /tmp/twitch-refresh.txt
+
+      - name: Create native Twitch Clip from approved VOD candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          export TWITCH_REFRESH_TOKEN="$(cat /tmp/twitch-refresh.txt)"
+          python3 scripts/twitch_clip_creator.py \
+            --candidate /tmp/approved-candidate.json \
+            --output /tmp/twitch-clip-result.json \
+            --next-refresh-path /tmp/twitch-next-refresh.txt
+
+      - name: Require verified native Twitch Clip
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          result = json.load(open('/tmp/twitch-clip-result.json', encoding='utf-8'))
+          if result.get('status') != 'twitch_clip_created':
+              raise SystemExit(f"Clip was created but not verified: {result.get('status')}")
+          if not result.get('twitch_clip_id') or not result.get('twitch_clip_url'):
+              raise SystemExit('Verified Twitch Clip is missing ID or URL')
+          print(f"Verified native Twitch Clip: {result['twitch_clip_id']}")
+          PY
+
+      - name: Add verified Twitch Clip to Watch media catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          result = json.load(open('/tmp/twitch-clip-result.json', encoding='utf-8'))
+          media_path = Path('data/media.json')
+          media = json.loads(media_path.read_text(encoding='utf-8'))
+          highlights = media.setdefault('highlights', [])
+          clip_id = result['twitch_clip_id']
+          if not any(str(item.get('id')) == clip_id for item in highlights):
+              duration = result.get('twitch_duration') or result.get('duration') or 0
+              try:
+                  duration_label = f"{float(duration):g}s"
+              except (TypeError, ValueError):
+                  duration_label = ""
+              highlights.insert(0, {
+                  'id': clip_id,
+                  'title': result['title'],
+                  'url': result['twitch_clip_url'],
+                  'thumbnail': result.get('thumbnail_url', ''),
+                  'duration': duration_label,
+                  'view_count': int(result.get('view_count') or 0),
+                  'published_at': result.get('published_at') or result.get('created_at'),
+                  'video_id': result.get('video_id') or result['vod_id'],
+                  'vod_offset_seconds': result.get('twitch_vod_offset'),
+                  'type': 'highlight',
+                  'featured': False,
+                  'candidate_id': result.get('candidate_id', ''),
+              })
+          media['updated_at'] = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+          media_path.write_text(json.dumps(media, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Persist rotated OAuth token and public media result
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s /tmp/twitch-next-refresh.txt
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in /tmp/twitch-next-refresh.txt -out data/.twitch-refresh.enc -pass file:/tmp/twitch-token-key
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/.twitch-refresh.enc data/media.json
+          git commit -m "[twitch-clip] Publish approved native Twitch Clip"
+          git pull --rebase origin main
+          git push origin main
+
+      - name: Write workflow summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -f /tmp/twitch-clip-result.json ]; then
+            python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          r = json.load(open('/tmp/twitch-clip-result.json', encoding='utf-8'))
+          print('## Native Twitch Clip')
+          print(f"- Status: `{r.get('status')}`")
+          print(f"- Candidate: `{r.get('candidate_id') or 'n/a'}`")
+          print(f"- VOD: `{r.get('vod_id')}`")
+          print(f"- Clip ID: `{r.get('twitch_clip_id')}`")
+          print(f"- URL: {r.get('twitch_clip_url')}")
+          print('- Short rendering: not triggered')
+          PY
+          fi
