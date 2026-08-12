@@ -166,7 +166,7 @@ def match_context(league: dict, mode: str) -> str:
     season = league.get("season", {}) or {}
     week = season.get("week") or "—"
     if mode == "current":
-        return f'<div class="match-context current"><strong>{esc(season.get("name") or "Current season")} · Week {esc(week)}</strong><span>This week's scheduled and completed series.</span></div>'
+        return f'<div class="match-context current"><strong>{esc(season.get("name") or "Current season")} · Week {esc(week)}</strong><span>This week’s scheduled and completed series.</span></div>'
     if mode == "phase":
         return f'<div class="match-context"><strong>{esc(season_state_label(league))}</strong><span>No Week {esc(week)} results yet; showing the latest matches from this stage of the season.</span></div>'
     return '<div class="match-context"><strong>Latest recorded results</strong><span>No current-week results yet. Here are the latest completed series.</span></div>'
@@ -481,9 +481,9 @@ def ensure_generated_sections(text: str, rel: str, home_status_html: str, highli
 def polish_page_copy(text: str, rel: str) -> str:
     text = display_zone(text)
     if rel == "index.html":
-        text = text.replace('Recent results and posted fixtures from across the league.', 'See this week's action and the latest completed series from across the league.')
+        text = text.replace('Recent results and posted fixtures from across the league.', 'See this week’s action and the latest completed series from across the league.')
     elif rel == "matches/index.html":
-        text = text.replace('Final scores and posted fixtures appear together so players can quickly find the latest action.', 'See this week's action first, followed by the latest completed series from the current season.')
+        text = text.replace('Final scores and posted fixtures appear together so players can quickly find the latest action.', 'See this week’s action first, followed by the latest completed series from the current season.')
     elif rel == "players/index.html":
         text = text.replace('<span class="pc-data-pill">V5 web profile</span>', '<span class="pc-data-pill">Featured profile</span>')
     elif rel == "news/index.html":
