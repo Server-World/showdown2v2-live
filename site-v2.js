@@ -476,6 +476,7 @@ function renderAll() {
 
 const snapshotStamp = data => data?.generated_at || JSON.stringify([data?.season, data?.match_night, data?.standings, data?.teams, data?.players, data?.news]);
 const dynamicPage = () => DYNAMIC_PAGES.has(document.body.dataset.page || 'home');
+const staticHomeReady = () => (document.body.dataset.page || 'home') === 'home' && !!$('#competition-status-band .competition-status-grid') && !!$('#match-list .match-context');
 
 async function fetchSnapshot(cacheBust = false) {
   const suffix = cacheBust ? `?live=${Date.now()}` : '';
@@ -531,7 +532,8 @@ async function start() {
   }
 
   lastSnapshotStamp = snapshotStamp(league);
-  renderAll();
+  if (staticHomeReady()) normalizeTimezoneCopy();
+  else renderAll();
   scheduleRefresh();
 }
 
