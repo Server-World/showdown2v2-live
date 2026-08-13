@@ -1,0 +1,12 @@
+{
+  "name": "showdown2v2-live",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build_cloudflare_static.mjs",
+    "cf:dry-run": "npm run build && wrangler deploy --dry-run",
+    "cf:deploy": "npm run build && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.122.0"
+  }
+}
