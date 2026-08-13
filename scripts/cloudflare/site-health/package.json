@@ -1,0 +1,11 @@
+{
+  "name": "ssl-site-health",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/index.js"
+  },
+  "devDependencies": {
+    "wrangler": "4.122.0"
+  }
+}
