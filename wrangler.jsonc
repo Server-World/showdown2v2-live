@@ -1,0 +1,16 @@
+{
+  "name": "showdown2v2-live",
+  "compatibility_date": "2026-08-13",
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "showdown2v2.live",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": ".",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

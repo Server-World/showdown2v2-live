@@ -1,0 +1,11 @@
+{
+  "name": "showdown2v2-live",
+  "private": true,
+  "scripts": {
+    "cf:dry-run": "wrangler deploy --dry-run",
+    "cf:deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.122.0"
+  }
+}
