@@ -1,0 +1,31 @@
+name: Cloudflare site health CI
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "scripts/cloudflare/site-health/**"
+      - ".github/workflows/cloudflare-site-health-ci.yml"
+  pull_request:
+    paths:
+      - "scripts/cloudflare/site-health/**"
+      - ".github/workflows/cloudflare-site-health-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate site health Worker
+        working-directory: scripts/cloudflare/site-health
+        run: npm run check
+      - name: Validate Wrangler configuration
+        run: node -e "JSON.parse(require('fs').readFileSync('scripts/cloudflare/site-health/wrangler.jsonc','utf8')); console.log('wrangler.jsonc valid JSONC-compatible JSON')"
