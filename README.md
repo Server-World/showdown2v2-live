@@ -4,6 +4,8 @@ Production website for the Supersonic Showdown Rocket League community.
 
 Public site: https://showdown2v2.live
 
+Production hosting: Cloudflare Workers + Static Assets. GitHub remains the code/version authority.
+
 ## Public routes
 
 - `/` — Home and current competition status
@@ -28,8 +30,15 @@ Public site: https://showdown2v2.live
 - `scripts/seo_static.py` — crawlable public-data snapshots and metadata rendering
 - `.github/workflows/seo-automation.yml` — static-render validation and IndexNow automation
 - `assets/branding/` — approved public branding
-- `CNAME` — custom domain
-- `.nojekyll` — GitHub Pages configuration
+- `wrangler.jsonc` — Cloudflare Workers production hosting configuration
+- `.assetsignore` — deny-by-default boundary for files that must never become public Static Assets
+- `CNAME` / `.nojekyll` — retained legacy GitHub Pages rollback artifacts; excluded from the Cloudflare Static Assets deployment
+
+## Hosting and rollback
+
+`showdown2v2.live` is served by Cloudflare Workers. The `www` hostname redirects to the apex through Cloudflare. Historical GitHub Pages DNS/configuration values are retained only for documented rollback and are not the active production origin.
+
+The browser consumes only validated public snapshots. Production hosting does not authorize direct browser or Worker access to canonical league PostgreSQL.
 
 ## Analytics
 
