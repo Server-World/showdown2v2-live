@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "generated_at": null,
+  "source_of_truth": "SSL Bot + PostgreSQL via read-only Ops Bridge",
+  "players": []
+}
