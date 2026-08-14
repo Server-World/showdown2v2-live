@@ -88,16 +88,18 @@
   }
 
   function markFallbackCard(card) {
-    const strip = card?.querySelector('.v5-awards-strip');
+    if (!card || card.dataset.profileFallback === 'true') return;
+    const strip = card.querySelector('.v5-awards-strip');
     if (!strip) return;
     const live = strip.querySelector('b');
     const small = strip.querySelector('small');
     if (live?.textContent === 'LIVE') live.textContent = 'ROSTER';
-    if (small) small.textContent = 'SNAPSHOT';
+    if (small?.textContent !== 'SNAPSHOT') small.textContent = 'SNAPSHOT';
     const note = card.querySelector('.v5-identity-note');
     if (note && !card.classList.contains('has-profile-data')) {
       note.textContent = 'Current public roster snapshot; StatBot player totals are not attached to this profile yet.';
     }
+    card.dataset.profileFallback = 'true';
   }
 
   function applyProfile() {
@@ -113,6 +115,7 @@
       return;
     }
     if (card.dataset.liveStats === key(gamertag) && card.dataset.snapshotAt === String(generatedAt || '')) return;
+    delete card.dataset.profileFallback;
 
     const seasonStats = [
       ['GOALS', profile.season_goals],
