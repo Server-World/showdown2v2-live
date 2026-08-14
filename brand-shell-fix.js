@@ -5,7 +5,7 @@
   const LEGACY_LOGO = '/assets/branding/ssl-logo.svg';
 
   function brandMarkup() {
-    return `<img class="brand-logo brand-logo-current" src="${CURRENT_LOGO}" alt="" width="192" height="192" decoding="async"><span class="brand-current-copy"><strong>Supersonic Showdown League</strong><small>Competitive Rocket League 2v2</small></span>`;
+    return `<img class="brand-logo brand-logo-current" src="${CURRENT_LOGO}" alt="" width="192" height="192" decoding="async"><span class="brand-wordmark brand-wordmark-current"><b><i>S</i>UPERSONIC <i>S</i>HOWDOWN</b><strong><i>L</i>EAGUE <em>2</em><u>v</u><em>2</em></strong></span>`;
   }
 
   function replaceLegacyImages(root = document) {
