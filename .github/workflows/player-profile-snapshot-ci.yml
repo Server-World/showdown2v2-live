@@ -1,0 +1,32 @@
+name: Player profile snapshot CI
+
+on:
+  pull_request:
+    paths:
+      - "scripts/player_profile_snapshot.py"
+      - "tests/test_player_profile_snapshot.py"
+      - ".github/workflows/player-profile-snapshot-ci.yml"
+  push:
+    branches: ["main"]
+    paths:
+      - "scripts/player_profile_snapshot.py"
+      - "tests/test_player_profile_snapshot.py"
+      - ".github/workflows/player-profile-snapshot-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile publisher
+        run: python -m py_compile scripts/player_profile_snapshot.py
+      - name: Run snapshot contract tests
+        run: python -m unittest tests/test_player_profile_snapshot.py -v
