@@ -5,6 +5,7 @@ on:
     paths:
       - 'join/**'
       - 'join-config.json'
+      - 'experience-home.js'
       - 'tests/join-route.test.mjs'
       - 'package.json'
       - '.github/workflows/growth-join-ci.yml'
