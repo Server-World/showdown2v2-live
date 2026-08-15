@@ -4,6 +4,7 @@ import test from 'node:test';
 
 const config = JSON.parse(fs.readFileSync(new URL('../join-config.json', import.meta.url), 'utf8'));
 const html = fs.readFileSync(new URL('../join/index.html', import.meta.url), 'utf8');
+const experienceHome = fs.readFileSync(new URL('../experience-home.js', import.meta.url), 'utf8');
 
 const expectedSources = ['website', 'twitch', 'partner', 'social', 'referral', 'event', 'direct'];
 
@@ -24,4 +25,13 @@ test('join route records attribution before redirect and has a failure-safe', ()
   assert.match(html, /window\.setTimeout\(\(\) => window\.location\.replace\(destination\), 650\)/);
   assert.match(html, /Discord could not be opened automatically/);
   assert.match(html, /allowed\.has\(requestedSource\)/);
+});
+
+test('public website Discord CTAs are normalized through the attributed join route', () => {
+  assert.match(experienceHome, /const WEBSITE_JOIN='\/join\/\?src=website'/);
+  assert.match(experienceHome, /canonicalizeDiscordLinks/);
+  assert.match(experienceHome, /discord\\\.gg\|discord\\\.com\\\/invite/);
+  assert.match(experienceHome, /link\.setAttribute\('href',WEBSITE_JOIN\)/);
+  assert.match(experienceHome, /MutationObserver/);
+  assert.match(experienceHome, /watchDiscordLinks\(\)/);
 });
