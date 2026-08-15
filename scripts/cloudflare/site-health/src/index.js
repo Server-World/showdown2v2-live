@@ -2,7 +2,8 @@ const DEFAULT_ORIGIN = 'https://showdown2v2.live';
 
 const OK_PATHS = [
   '/', '/matches/', '/standings/', '/teams/', '/players/', '/stats/', '/history/',
-  '/league/', '/news/', '/watch/', '/franchises/', '/robots.txt', '/sitemap.xml',
+  '/league/', '/news/', '/watch/', '/franchises/', '/join/', '/join-config.json',
+  '/robots.txt', '/sitemap.xml',
   '/data/league.json', '/data/media.json', '/data/player-card-hitman.json', '/data/roster.json',
 ];
 
@@ -13,6 +14,7 @@ const PROTECTED_PATHS = [
 ];
 
 const JSON_FEEDS = new Set([
+  '/join-config.json',
   '/data/league.json', '/data/media.json', '/data/player-card-hitman.json', '/data/roster.json',
 ]);
 
@@ -27,6 +29,33 @@ function expectedStatus(path) {
 function requiredHomepageMarkers(text) {
   const markers = ['GTM-P65S83G6', 'application/ld+json', 'autoplay', 'muted', 'loop'];
   return markers.filter((marker) => !text.includes(marker));
+}
+
+function validateJoinConfig(text) {
+  try {
+    const config = JSON.parse(text);
+    const destination = new URL(config.discord_invite || '');
+    const allowedHosts = new Set(['discord.gg', 'www.discord.gg', 'discord.com', 'www.discord.com']);
+    if (destination.protocol !== 'https:' || !allowedHosts.has(destination.hostname)) {
+      return '/join-config.json: Discord destination is not an approved HTTPS host';
+    }
+    const sources = Array.isArray(config.allowed_sources) ? config.allowed_sources : [];
+    if (!sources.includes('website') || !sources.includes('direct')) {
+      return '/join-config.json: required website/direct attribution sources missing';
+    }
+    if (!sources.includes(config.default_source)) {
+      return '/join-config.json: default_source is not present in allowed_sources';
+    }
+    return null;
+  } catch {
+    return '/join-config.json: response is not a valid join configuration';
+  }
+}
+
+function validateJoinPage(text) {
+  const markers = ['GTM-P65S83G6', '/join-config.json', "event: 'join_discord'", 'join_source', 'window.location.replace(destination)'];
+  const missing = markers.filter((marker) => !text.includes(marker));
+  return missing.length ? `/join/: required join marker missing: ${missing.join(', ')}` : null;
 }
 
 async function fetchWithRetry(url, options = {}, attempts = 2) {
@@ -54,6 +83,11 @@ async function checkPath(origin, path) {
     if (JSON_FEEDS.has(path) && response.status === 200) {
       const text = await response.text();
       try { JSON.parse(text); } catch { return `${path}: response is not valid JSON`; }
+      if (path === '/join-config.json') return validateJoinConfig(text);
+    }
+
+    if (path === '/join/' && response.status === 200) {
+      return validateJoinPage(await response.text());
     }
 
     if (path === '/robots.txt' && response.status === 200) {
@@ -132,4 +166,4 @@ export default {
   },
 };
 
-export { expectedStatus, requiredHomepageMarkers, runHealthCheck };
+export { expectedStatus, requiredHomepageMarkers, validateJoinConfig, validateJoinPage, runHealthCheck };
