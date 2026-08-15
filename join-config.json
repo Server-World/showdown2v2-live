@@ -1,0 +1,13 @@
+{
+  "discord_invite": "https://discord.gg/efdQJsceKb",
+  "allowed_sources": [
+    "website",
+    "twitch",
+    "partner",
+    "social",
+    "referral",
+    "event",
+    "direct"
+  ],
+  "default_source": "direct"
+}

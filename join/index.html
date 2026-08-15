@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-P65S83G6');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07101D">
+<meta name="robots" content="noindex,follow">
+<title>Join Supersonic Showdown League</title>
+<meta name="description" content="Continue to the official Supersonic Showdown League Discord community.">
+<link rel="icon" href="/assets/branding/ssl-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/site-v2.css">
+<link rel="stylesheet" href="/production.css">
+<style>
+  .join-page{min-height:100vh;display:grid;place-items:center;padding:32px 20px;background:radial-gradient(circle at 50% 20%,rgba(50,200,255,.12),transparent 38%),#07101d;color:#fff}
+  .join-card{width:min(680px,100%);text-align:center;padding:44px 28px;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:rgba(9,21,36,.92);box-shadow:0 24px 80px rgba(0,0,0,.35)}
+  .join-logo{width:min(220px,55vw);height:auto;margin:0 auto 22px}
+  .join-card h1{margin:.25rem 0 .75rem;font-size:clamp(2rem,6vw,3.5rem);line-height:1}
+  .join-card p{max-width:520px;margin:0 auto;color:rgba(255,255,255,.72);font-size:1.05rem}
+  .join-state{margin:26px auto 0;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700}
+  .join-spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.28);border-top-color:#32c8ff;border-radius:50%;animation:spin .8s linear infinite}
+  .join-actions{display:none;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+  .join-actions.visible{display:flex}
+  .join-note{margin-top:22px!important;font-size:.86rem!important;color:rgba(255,255,255,.48)!important}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.join-spinner{animation:none}}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P65S83G6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<main class="join-page" id="main">
+  <section class="join-card" aria-labelledby="join-title">
+    <img class="join-logo" src="/assets/branding/ssl-logo.svg" alt="Supersonic Showdown League 2v2">
+    <p class="eyebrow">Official SSL community</p>
+    <h1 id="join-title">ENTER THE SHOWDOWN.</h1>
+    <p id="join-copy">Connecting you to the official Supersonic Showdown League Discord.</p>
+    <div class="join-state" id="join-state" role="status" aria-live="polite"><span class="join-spinner" aria-hidden="true"></span><span>Opening Discord…</span></div>
+    <div class="join-actions" id="join-actions">
+      <a class="btn primary" id="join-direct" href="#" rel="noopener noreferrer">Open Discord</a>
+      <a class="btn ghost" href="/">Return home</a>
+    </div>
+    <p class="join-note">This page uses the site's existing analytics to measure which SSL recruiting channels produce Discord joins. No additional paid analytics service is used.</p>
+  </section>
+</main>
+<script>
+(() => {
+  const configUrl = '/join-config.json';
+  const state = document.getElementById('join-state');
+  const copy = document.getElementById('join-copy');
+  const actions = document.getElementById('join-actions');
+  const direct = document.getElementById('join-direct');
+  const params = new URLSearchParams(window.location.search);
+
+  const cleanToken = (value, max = 64) => {
+    const normalized = String(value || '').trim().toLowerCase();
+    return /^[a-z0-9_-]+$/.test(normalized) ? normalized.slice(0, max) : '';
+  };
+
+  const validDiscordInvite = value => {
+    try {
+      const url = new URL(value);
+      const allowedHosts = new Set(['discord.gg', 'www.discord.gg', 'discord.com', 'www.discord.com']);
+      return url.protocol === 'https:' && allowedHosts.has(url.hostname) ? url.toString() : '';
+    } catch {
+      return '';
+    }
+  };
+
+  const fail = () => {
+    state.innerHTML = '<span>Discord could not be opened automatically.</span>';
+    copy.textContent = 'The official join destination is temporarily unavailable. Use the links below rather than being sent to an unverified or stale invite.';
+    actions.classList.add('visible');
+    direct.hidden = !direct.getAttribute('href') || direct.getAttribute('href') === '#';
+  };
+
+  fetch(configUrl, { cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) throw new Error('join config unavailable');
+      return response.json();
+    })
+    .then(config => {
+      const destination = validDiscordInvite(config.discord_invite);
+      if (!destination) throw new Error('invalid join destination');
+
+      const allowed = new Set(Array.isArray(config.allowed_sources) ? config.allowed_sources.map(cleanToken).filter(Boolean) : []);
+      const fallback = allowed.has(cleanToken(config.default_source)) ? cleanToken(config.default_source) : 'direct';
+      const requestedSource = cleanToken(params.get('src'));
+      const source = allowed.has(requestedSource) ? requestedSource : fallback;
+      const campaign = cleanToken(params.get('campaign'));
+
+      direct.href = destination;
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'join_discord',
+        page_path: '/join/',
+        join_source: source,
+        join_campaign: campaign || undefined,
+        destination_host: new URL(destination).hostname
+      });
+
+      state.querySelector('span:last-child').textContent = 'Opening Discord…';
+      window.setTimeout(() => window.location.replace(destination), 650);
+    })
+    .catch(fail);
+})();
+</script>
+</body>
+</html>
