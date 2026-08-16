@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-16T03:30:03.554125Z",
+  "generated_at": "2026-08-16T03:40:03.935820Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -63,17 +63,6 @@
         "tier": "Contender",
         "home": "Wheels of Fortune",
         "away": "Electro Pulse",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-15",
-        "time": "10PM EST",
-        "week": 7,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Contender",
-        "home": "Frostbite Phantoms",
-        "away": "Skeletons",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-15",
@@ -295,6 +284,17 @@
         "home": "Rangers",
         "away": "Gargoyle",
         "score": "3-2",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Rookie",
+        "home": "House Head",
+        "away": "Whiff Wizards",
+        "score": "0-3",
         "status": "Final",
         "date": "2026-06-27",
         "time": "10PM EST",
@@ -631,14 +631,14 @@
         "team": "Frostbite Phantoms",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
-        "wins": 1,
+        "wins": 2,
         "losses": 3,
-        "win_pct": "25%",
-        "games_won": 6,
+        "win_pct": "40%",
+        "games_won": 9,
         "games_lost": 9,
-        "goals_for": 50,
-        "goals_against": 49,
-        "differential": 1,
+        "goals_for": 64,
+        "goals_against": 55,
+        "differential": 9,
         "streak": null
       },
       {
@@ -662,13 +662,13 @@
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
         "wins": 0,
-        "losses": 4,
+        "losses": 5,
         "win_pct": "0%",
         "games_won": 1,
-        "games_lost": 12,
-        "goals_for": 11,
-        "goals_against": 6,
-        "differential": 5,
+        "games_lost": 15,
+        "goals_for": 17,
+        "goals_against": 20,
+        "differential": -3,
         "streak": null
       }
     ],
