@@ -1,0 +1,51 @@
+name: SSL Command Center CI
+
+on:
+  pull_request:
+    paths:
+      - 'command-center/**'
+      - 'command-center.css'
+      - 'command-center.js'
+      - 'command-center-activity.js'
+      - 'worker/**'
+      - 'tests/command-center-*.test.mjs'
+      - 'wrangler.jsonc'
+      - '.assetsignore'
+      - 'structure.js'
+      - 'package.json'
+      - 'package-lock.json'
+  push:
+    branches: [main]
+    paths:
+      - 'command-center/**'
+      - 'command-center.css'
+      - 'command-center.js'
+      - 'command-center-activity.js'
+      - 'worker/**'
+      - 'tests/command-center-*.test.mjs'
+      - 'wrangler.jsonc'
+      - '.assetsignore'
+      - 'structure.js'
+
+permissions:
+  contents: read
+
+jobs:
+  test-command-center:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: JavaScript syntax checks
+        run: |
+          node --check worker/index.mjs
+          node --check command-center.js
+          node --check command-center-activity.js
+      - name: Validate Wrangler configuration/build
+        run: npx wrangler deploy --dry-run --outdir .wrangler-command-center-dry-run
