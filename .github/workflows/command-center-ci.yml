@@ -13,7 +13,6 @@ on:
       - '.assetsignore'
       - 'structure.js'
       - 'package.json'
-      - 'package-lock.json'
   push:
     branches: [main]
     paths:
@@ -26,6 +25,7 @@ on:
       - 'wrangler.jsonc'
       - '.assetsignore'
       - 'structure.js'
+      - 'package.json'
 
 permissions:
   contents: read
@@ -39,8 +39,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-      - run: npm ci
+      - name: Install pinned development dependency
+        run: npm install --ignore-scripts --no-audit --no-fund
       - run: npm test
       - name: JavaScript syntax checks
         run: |
