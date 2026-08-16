@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-16T02:10:03.097869Z",
+  "generated_at": "2026-08-16T02:20:03.472355Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -203,17 +203,6 @@
         "phase": "regular_season"
       },
       {
-        "tier": "Rookie",
-        "home": "Polar Bears",
-        "away": "Cryptborn",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-15",
-        "time": "10PM EST",
-        "week": 7,
-        "phase": "regular_season"
-      },
-      {
         "tier": "Amateur",
         "home": "Bards",
         "away": "Minotuar",
@@ -294,6 +283,17 @@
         "tier": "Elite",
         "home": "The Wubbz",
         "away": "Crusaders",
+        "score": "3-1",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Elite",
+        "home": "Ebon Watch",
+        "away": "Icicle Dragons",
         "score": "3-1",
         "status": "Final",
         "date": "2026-06-27",
@@ -678,10 +678,10 @@
         "team": "Polar Bears",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
-        "wins": 4,
+        "wins": 5,
         "losses": 0,
         "win_pct": "100%",
-        "games_won": 12,
+        "games_won": 15,
         "games_lost": 3,
         "goals_for": 63,
         "goals_against": 41,
@@ -739,10 +739,10 @@
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
         "wins": 0,
-        "losses": 4,
+        "losses": 5,
         "win_pct": "0%",
         "games_won": 2,
-        "games_lost": 12,
+        "games_lost": 15,
         "goals_for": 18,
         "goals_against": 28,
         "differential": -10,
