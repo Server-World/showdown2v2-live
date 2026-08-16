@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-15T00:00:03.079567Z",
+  "generated_at": "2026-08-16T00:00:03.434671Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -35,7 +35,7 @@
     ]
   },
   "match_night": {
-    "active": true,
+    "active": false,
     "matches": [
       {
         "tier": "Amateur",
