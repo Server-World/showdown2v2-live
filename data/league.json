@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-16T02:00:03.747205Z",
+  "generated_at": "2026-08-16T02:10:03.097869Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -107,17 +107,6 @@
         "tier": "Elite",
         "home": "Crusaders",
         "away": "The Wubbz",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-15",
-        "time": "10PM EST",
-        "week": 7,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Elite",
-        "home": "Icicle Dragons",
-        "away": "Ebon Watch",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-15",
@@ -295,6 +284,17 @@
         "home": "Paladins",
         "away": "Cerberus",
         "score": "3-2",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Elite",
+        "home": "The Wubbz",
+        "away": "Crusaders",
+        "score": "3-1",
         "status": "Final",
         "date": "2026-06-27",
         "time": "10PM EST",
@@ -494,14 +494,14 @@
         "team": "Ebon Watch",
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
-        "wins": 4,
+        "wins": 5,
         "losses": 0,
         "win_pct": "100%",
-        "games_won": 12,
+        "games_won": 15,
         "games_lost": 5,
-        "goals_for": 63,
-        "goals_against": 50,
-        "differential": 13,
+        "goals_for": 72,
+        "goals_against": 56,
+        "differential": 16,
         "streak": null
       },
       {
@@ -551,21 +551,6 @@
       },
       {
         "rank": 5,
-        "team": "Icicle Dragons",
-        "franchise": "Frozen",
-        "franchise_tag": "FRZ",
-        "wins": 1,
-        "losses": 3,
-        "win_pct": "25%",
-        "games_won": 5,
-        "games_lost": 11,
-        "goals_for": 36,
-        "goals_against": 42,
-        "differential": -6,
-        "streak": null
-      },
-      {
-        "rank": 6,
         "team": "The Wubbz",
         "franchise": "Glow Stick Gang",
         "franchise_tag": "GLO",
@@ -577,6 +562,21 @@
         "goals_for": 35,
         "goals_against": 43,
         "differential": -8,
+        "streak": null
+      },
+      {
+        "rank": 6,
+        "team": "Icicle Dragons",
+        "franchise": "Frozen",
+        "franchise_tag": "FRZ",
+        "wins": 1,
+        "losses": 4,
+        "win_pct": "20%",
+        "games_won": 5,
+        "games_lost": 14,
+        "goals_for": 42,
+        "goals_against": 51,
+        "differential": -9,
         "streak": null
       }
     ],
