@@ -7,6 +7,8 @@ dist/
 scripts/
 docs/
 brand-packet/
+worker/
+tests/
 
 README.md
 TWITCH-MANAGEMENT.md
