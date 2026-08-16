@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-16T14:10:03.692474Z",
+  "generated_at": "2026-08-16T14:30:03.404225Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -37,17 +37,6 @@
   "match_night": {
     "active": false,
     "matches": [
-      {
-        "tier": "Elite",
-        "home": "Cerberus",
-        "away": "Paladins",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-15",
-        "time": "10PM EST",
-        "week": 7,
-        "phase": "regular_season"
-      },
       {
         "tier": "Elite",
         "home": "Crusaders",
@@ -300,6 +289,17 @@
         "time": "10PM EST",
         "week": 2,
         "phase": "preseason"
+      },
+      {
+        "tier": "Contender",
+        "home": "Electro Pulse",
+        "away": "Druids",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
       }
     ]
   },
@@ -506,32 +506,32 @@
       },
       {
         "rank": 2,
-        "team": "Cerberus",
-        "franchise": "Ficticious esports",
-        "franchise_tag": "FCT",
-        "wins": 2,
+        "team": "Paladins",
+        "franchise": "D20",
+        "franchise_tag": "D20",
+        "wins": 3,
         "losses": 2,
-        "win_pct": "50%",
-        "games_won": 9,
-        "games_lost": 6,
-        "goals_for": 37,
-        "goals_against": 38,
-        "differential": -1,
+        "win_pct": "60%",
+        "games_won": 12,
+        "games_lost": 7,
+        "goals_for": 54,
+        "goals_against": 45,
+        "differential": 9,
         "streak": null
       },
       {
         "rank": 3,
-        "team": "Paladins",
-        "franchise": "D20",
-        "franchise_tag": "D20",
+        "team": "Cerberus",
+        "franchise": "Ficticious esports",
+        "franchise_tag": "FCT",
         "wins": 2,
-        "losses": 2,
-        "win_pct": "50%",
+        "losses": 3,
+        "win_pct": "40%",
         "games_won": 9,
-        "games_lost": 7,
-        "goals_for": 37,
-        "goals_against": 39,
-        "differential": -2,
+        "games_lost": 9,
+        "goals_for": 43,
+        "goals_against": 55,
+        "differential": -12,
         "streak": null
       },
       {
