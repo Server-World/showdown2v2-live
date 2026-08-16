@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-16T02:20:03.472355Z",
+  "generated_at": "2026-08-16T02:40:03.041963Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -140,17 +140,6 @@
         "tier": "Legend",
         "home": "Arctic Wolves",
         "away": "Lich Lords",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-15",
-        "time": "10PM EST",
-        "week": 7,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Mythic",
-        "home": "Hydras",
-        "away": "Rogues",
         "score": null,
         "status": "Scheduled",
         "date": "2026-08-15",
@@ -300,6 +289,17 @@
         "time": "10PM EST",
         "week": 1,
         "phase": "preseason"
+      },
+      {
+        "tier": "Legend",
+        "home": "Warlocks",
+        "away": "Draconic",
+        "score": "3-0",
+        "status": "Final",
+        "date": "2026-06-27",
+        "time": "10PM EST",
+        "week": 1,
+        "phase": "preseason"
       }
     ]
   },
@@ -352,6 +352,21 @@
       },
       {
         "rank": 4,
+        "team": "Rogues",
+        "franchise": "D20",
+        "franchise_tag": "D20",
+        "wins": 2,
+        "losses": 3,
+        "win_pct": "40%",
+        "games_won": 8,
+        "games_lost": 9,
+        "goals_for": 25,
+        "goals_against": 25,
+        "differential": 0,
+        "streak": null
+      },
+      {
+        "rank": 5,
         "team": "Nightwalkers",
         "franchise": "GraveWardens",
         "franchise_tag": "GWS",
@@ -366,33 +381,18 @@
         "streak": null
       },
       {
-        "rank": 5,
-        "team": "Rogues",
-        "franchise": "D20",
-        "franchise_tag": "D20",
-        "wins": 1,
-        "losses": 3,
-        "win_pct": "25%",
-        "games_won": 5,
-        "games_lost": 9,
-        "goals_for": 15,
-        "goals_against": 19,
-        "differential": -4,
-        "streak": null
-      },
-      {
         "rank": 6,
         "team": "Hydras",
         "franchise": "Ficticious esports",
         "franchise_tag": "FCT",
         "wins": 0,
-        "losses": 4,
+        "losses": 5,
         "win_pct": "0%",
         "games_won": 4,
-        "games_lost": 12,
-        "goals_for": 37,
-        "goals_against": 74,
-        "differential": -37,
+        "games_lost": 15,
+        "goals_for": 43,
+        "goals_against": 84,
+        "differential": -41,
         "streak": null
       }
     ],
