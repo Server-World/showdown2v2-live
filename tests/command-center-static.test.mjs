@@ -107,11 +107,13 @@ test('features 9-12 are wired as structured command-center surfaces', () => {
   assert.doesNotMatch(feature912Client, /innerHTML\s*=/);
 });
 
-test('features 9-12 preserve authority, provider and repair boundaries', () => {
+test('features 9-12 preserve authority, provider, repair and broadcast-safe boundaries', () => {
   assert.match(feature912Client, /never auto-fixes/);
   assert.match(feature912Client, /Competitive repair remains a human-controlled canonical workflow/);
   assert.match(feature912Client, /not a second match engine/);
   assert.match(feature912Client, /Automatic detection is allowed/);
+  assert.match(feature912Client, /Broadcast-safe ready/);
+  assert.match(feature912Client, /never private lobby credentials/);
   assert.match(html, /GROQCLOUD/);
   assert.doesNotMatch(feature912Client, /XAI_API_KEY|GROG_LLM_API_KEY|GROQ_API_KEY/);
 });
