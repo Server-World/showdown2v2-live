@@ -6,10 +6,12 @@ const html = await readFile(new URL('../command-center/index.html', import.meta.
 const client = await readFile(new URL('../command-center.js', import.meta.url), 'utf8');
 const featureClient = await readFile(new URL('../command-center-features-2-4.js', import.meta.url), 'utf8');
 const feature58Client = await readFile(new URL('../command-center-features-5-8.js', import.meta.url), 'utf8');
+const feature912Client = await readFile(new URL('../command-center-features-9-12.js', import.meta.url), 'utf8');
 const activity = await readFile(new URL('../command-center-activity.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../command-center.css', import.meta.url), 'utf8');
 const featureCss = await readFile(new URL('../command-center-features-2-4.css', import.meta.url), 'utf8');
 const feature58Css = await readFile(new URL('../command-center-features-5-8.css', import.meta.url), 'utf8');
+const feature912Css = await readFile(new URL('../command-center-features-9-12.css', import.meta.url), 'utf8');
 const worker = await readFile(new URL('../worker/index.mjs', import.meta.url), 'utf8');
 const wrangler = await readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8');
 const assetsIgnore = await readFile(new URL('../.assetsignore', import.meta.url), 'utf8');
@@ -93,6 +95,34 @@ test('feature 5-8 presentation is responsive and structured', () => {
   assert.match(feature58Css, /@media \(max-width: 680px\)/);
 });
 
+test('features 9-12 are wired as structured command-center surfaces', () => {
+  assert.match(html, /command-center-features-9-12\.css/);
+  assert.match(html, /command-center-features-9-12\.js/);
+  assert.match(feature912Client, /Franchise Health/);
+  assert.match(feature912Client, /State Integrity/);
+  assert.match(feature912Client, /Game-Day Operations/);
+  assert.match(feature912Client, /Ask SSL/);
+  assert.match(feature912Client, /\/api\/ssl\/v1\/franchise\//);
+  assert.match(feature912Client, /\/api\/ssl\/v1\/league/);
+  assert.doesNotMatch(feature912Client, /innerHTML\s*=/);
+});
+
+test('features 9-12 preserve authority, provider and repair boundaries', () => {
+  assert.match(feature912Client, /never auto-fixes/);
+  assert.match(feature912Client, /Competitive repair remains a human-controlled canonical workflow/);
+  assert.match(feature912Client, /not a second match engine/);
+  assert.match(feature912Client, /Automatic detection is allowed/);
+  assert.match(html, /GROQCLOUD/);
+  assert.doesNotMatch(feature912Client, /XAI_API_KEY|GROG_LLM_API_KEY|GROQ_API_KEY/);
+});
+
+test('features 9-12 presentation is responsive and structured', () => {
+  assert.match(feature912Css, /\.f912-stat-grid/);
+  assert.match(feature912Css, /\.f912-row/);
+  assert.match(feature912Css, /\.f912-boundary/);
+  assert.match(feature912Css, /@media \(max-width: 620px\)/);
+});
+
 test('Activity shell uses a pinned Discord Embedded App SDK', () => {
   assert.match(activity, /embedded-app-sdk@2\.5\.0/);
   assert.match(activity, /commands\.authorize/);
@@ -112,6 +142,7 @@ test('Worker keeps secrets server-side and uses signed sessions plus CSRF', () =
   assert.doesNotMatch(client, /SSL_WEB_BRIDGE_TOKEN|DISCORD_CLIENT_SECRET|SESSION_SIGNING_SECRET/);
   assert.doesNotMatch(featureClient, /SSL_WEB_BRIDGE_TOKEN|DISCORD_CLIENT_SECRET|SESSION_SIGNING_SECRET/);
   assert.doesNotMatch(feature58Client, /SSL_WEB_BRIDGE_TOKEN|DISCORD_CLIENT_SECRET|SESSION_SIGNING_SECRET/);
+  assert.doesNotMatch(feature912Client, /SSL_WEB_BRIDGE_TOKEN|DISCORD_CLIENT_SECRET|SESSION_SIGNING_SECRET|GROQ_API_KEY|GROG_LLM_API_KEY/);
 });
 
 test('Wrangler routes API and command center through Worker while excluding server files', () => {
