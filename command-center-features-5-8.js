@@ -461,7 +461,7 @@ function renderScout58(body, data) {
     metricRows.push(row58(title58(metric), names || '—'));
   }
   section58(body, 'Current statistical leaders', metricRows);
-  section58(body, 'Recent finalized form', (data.recent_form || []).map((match) => row58(`Week ${val58(match.week)} · ${val58(match.opponent)}`, `${val58(match.result)} ${val58(match.score)}`)));
+  section58(body, 'Recent finalized form', (data.recent_form || []).map((match) => row58(`Week ${val58(match.week)} · ${val58(match.matchup)}`, `${val58(match.result)} ${val58(match.score)}`)));
   const h2h = data.head_to_head || {};
   section58(body, 'Head-to-head this season', [
     row58('Series', `${num58(h2h.caller_wins)}-${num58(h2h.opponent_wins)} · ${num58(h2h.series_played)} played`),
