@@ -267,18 +267,25 @@ function renderGameDay912(body, data) {
     ['Finalized', num912(summary.finalized)],
     ['Blocked', num912(summary.blocked)],
     ['Missing HQ', num912(summary.missing_hq)],
+    ['Broadcast-safe ready', num912(summary.public_projection_ready)],
   ]);
   section912(
     body,
     'Current-week match board',
-    matches.map((match) => row912(
-      `${val912(match.tier)} · ${val912(match.home)} vs ${val912(match.away)}`,
-      `Schedule ${val912(match.schedule_id)} · ${title912(match.stage)} · ${gameFlags912(match)}`,
-      match.stage === 'blocked' || match.stage === 'missing_hq' ? 'warning' : '',
-    )),
+    matches.map((match) => {
+      const projection = match.public_projection || {};
+      const broadcast = projection.ready
+        ? `broadcast-safe ${val912(projection.home?.logo_key)} / ${val912(projection.away?.logo_key)}`
+        : 'broadcast-safe projection incomplete';
+      return row912(
+        `${val912(match.tier)} · ${val912(match.home)} vs ${val912(match.away)}`,
+        `Schedule ${val912(match.schedule_id)} · ${title912(match.stage)} · ${gameFlags912(match)} · ${broadcast}`,
+        match.stage === 'blocked' || match.stage === 'missing_hq' ? 'warning' : '',
+      );
+    }),
     'No authorized current-week matches are available.',
   );
-  body.append(el912('p', 'f912-boundary', 'Game-Day Operations is an orchestration/readiness surface, not a second match engine. All competitive mutations remain in canonical Match HQ controls.'));
+  body.append(el912('p', 'f912-boundary', 'Game-Day Operations is an orchestration/readiness surface, not a second match engine. Public projections contain team/franchise labels and logo asset keys only—never private lobby credentials. All competitive mutations remain in canonical Match HQ controls.'));
 }
 
 async function openGameDay912() {
