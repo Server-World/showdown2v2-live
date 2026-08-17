@@ -5,9 +5,11 @@ import { readFile } from 'node:fs/promises';
 const html = await readFile(new URL('../command-center/index.html', import.meta.url), 'utf8');
 const client = await readFile(new URL('../command-center.js', import.meta.url), 'utf8');
 const featureClient = await readFile(new URL('../command-center-features-2-4.js', import.meta.url), 'utf8');
+const feature58Client = await readFile(new URL('../command-center-features-5-8.js', import.meta.url), 'utf8');
 const activity = await readFile(new URL('../command-center-activity.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../command-center.css', import.meta.url), 'utf8');
 const featureCss = await readFile(new URL('../command-center-features-2-4.css', import.meta.url), 'utf8');
+const feature58Css = await readFile(new URL('../command-center-features-5-8.css', import.meta.url), 'utf8');
 const worker = await readFile(new URL('../worker/index.mjs', import.meta.url), 'utf8');
 const wrangler = await readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8');
 const assetsIgnore = await readFile(new URL('../.assetsignore', import.meta.url), 'utf8');
@@ -51,6 +53,41 @@ test('features 2-4 presentation includes responsive milestone and status treatme
   assert.match(featureCss, /@media \(max-width: 640px\)/);
 });
 
+test('features 5-8 are wired as structured command-center tools', () => {
+  assert.match(html, /command-center-features-5-8\.css/);
+  assert.match(html, /command-center-features-5-8\.js/);
+  assert.match(feature58Client, /Scenario Lab/);
+  assert.match(feature58Client, /Transaction Simulator/);
+  assert.match(feature58Client, /Set Availability/);
+  assert.match(feature58Client, /Scheduling Optimizer/);
+  assert.match(feature58Client, /Scout Opponent/);
+  assert.match(feature58Client, /\/api\/ssl\/v1\/scenario/);
+  assert.match(feature58Client, /\/api\/ssl\/v1\/transaction\/preview/);
+  assert.match(feature58Client, /\/api\/ssl\/v1\/availability\?schedule_id=/);
+  assert.match(feature58Client, /\/api\/ssl\/v1\/availability\/options/);
+  assert.match(feature58Client, /\/api\/ssl\/v1\/scout/);
+  assert.match(feature58Client, /out_player/);
+  assert.match(feature58Client, /counterparty_player/);
+  assert.match(feature58Client, /schedule_id/);
+  assert.doesNotMatch(feature58Client, /innerHTML\s*=/);
+});
+
+test('feature 5-8 browser copy preserves server-authoritative boundaries', () => {
+  assert.match(feature58Client, /Scenario Lab never changes standings or schedules/);
+  assert.match(feature58Client, /Preview only/);
+  assert.match(feature58Client, /never changes the official generated schedule/);
+  assert.match(feature58Client, /Factual SSL data only/);
+  assert.match(feature58Client, /Tiebreak status/);
+  assert.match(feature58Client, /records|roster|salary/i);
+});
+
+test('feature 5-8 presentation is responsive and structured', () => {
+  assert.match(feature58Css, /\.f58-form/);
+  assert.match(feature58Css, /\.f58-stat-grid/);
+  assert.match(feature58Css, /\.f58-boundary/);
+  assert.match(feature58Css, /@media \(max-width: 680px\)/);
+});
+
 test('Activity shell uses a pinned Discord Embedded App SDK', () => {
   assert.match(activity, /embedded-app-sdk@2\.5\.0/);
   assert.match(activity, /commands\.authorize/);
@@ -69,6 +106,7 @@ test('Worker keeps secrets server-side and uses signed sessions plus CSRF', () =
   assert.doesNotMatch(html, /SSL_WEB_BRIDGE_TOKEN|DISCORD_CLIENT_SECRET|SESSION_SIGNING_SECRET/);
   assert.doesNotMatch(client, /SSL_WEB_BRIDGE_TOKEN|DISCORD_CLIENT_SECRET|SESSION_SIGNING_SECRET/);
   assert.doesNotMatch(featureClient, /SSL_WEB_BRIDGE_TOKEN|DISCORD_CLIENT_SECRET|SESSION_SIGNING_SECRET/);
+  assert.doesNotMatch(feature58Client, /SSL_WEB_BRIDGE_TOKEN|DISCORD_CLIENT_SECRET|SESSION_SIGNING_SECRET/);
 });
 
 test('Wrangler routes API and command center through Worker while excluding server files', () => {
