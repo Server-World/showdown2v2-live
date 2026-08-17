@@ -9,6 +9,11 @@ function futurePayload(overrides = {}) {
   return { sub: '123456789', username: 'Tester', iat: now, exp: now + 60, ...overrides };
 }
 
+async function authenticatedCookie() {
+  const token = await __test.signPayload(secret, futurePayload());
+  return `__Host-ssl_session=${encodeURIComponent(token)}`;
+}
+
 test('signed sessions round-trip and reject tampering', async () => {
   const token = await __test.signPayload(secret, futurePayload());
   const payload = await __test.verifyPayload(secret, token);
@@ -52,6 +57,56 @@ test('unauthenticated SSL proxy is denied before reaching upstream', async () =>
   );
   assert.equal(response.status, 401);
   assert.deepEqual(await response.json(), { status: 'unauthenticated' });
+});
+
+test('authenticated SSL proxy write rejects cross-origin requests before upstream', async () => {
+  const response = await worker.fetch(
+    new Request('https://showdown2v2.live/api/ssl/v1/availability', {
+      method: 'POST',
+      headers: {
+        Cookie: await authenticatedCookie(),
+        Origin: 'https://attacker.example',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ schedule_id: '1' }),
+    }),
+    {
+      SESSION_SIGNING_SECRET: secret,
+      SSL_API_BASE_URL: 'https://bridge.example.internal',
+      SSL_WEB_BRIDGE_TOKEN: 'bridge-secret',
+      ASSETS: { fetch: () => new Response('asset') },
+    },
+  );
+  assert.equal(response.status, 403);
+  assert.deepEqual(await response.json(), {
+    status: 'forbidden',
+    message: 'CSRF/origin validation failed.',
+  });
+});
+
+test('authenticated same-origin SSL proxy write requires CSRF token', async () => {
+  const response = await worker.fetch(
+    new Request('https://showdown2v2.live/api/ssl/v1/chat/123/messages', {
+      method: 'POST',
+      headers: {
+        Cookie: await authenticatedCookie(),
+        Origin: 'https://showdown2v2.live',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content: 'hello' }),
+    }),
+    {
+      SESSION_SIGNING_SECRET: secret,
+      SSL_API_BASE_URL: 'https://bridge.example.internal',
+      SSL_WEB_BRIDGE_TOKEN: 'bridge-secret',
+      ASSETS: { fetch: () => new Response('asset') },
+    },
+  );
+  assert.equal(response.status, 403);
+  assert.deepEqual(await response.json(), {
+    status: 'forbidden',
+    message: 'CSRF/origin validation failed.',
+  });
 });
 
 test('cross-origin logout is rejected', async () => {
