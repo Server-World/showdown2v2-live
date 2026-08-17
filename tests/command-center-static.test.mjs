@@ -81,6 +81,11 @@ test('feature 5-8 browser copy preserves server-authoritative boundaries', () =>
   assert.match(feature58Client, /records|roster|salary/i);
 });
 
+test('Scout recent finalized form uses the canonical matchup payload key', () => {
+  assert.match(feature58Client, /match\.matchup/);
+  assert.doesNotMatch(feature58Client, /match\.opponent/);
+});
+
 test('feature 5-8 presentation is responsive and structured', () => {
   assert.match(feature58Css, /\.f58-form/);
   assert.match(feature58Css, /\.f58-stat-grid/);
