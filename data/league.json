@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-19T15:00:02.997050Z",
+  "generated_at": "2026-08-19T15:10:03.699315Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -37,6 +37,17 @@
   "match_night": {
     "active": false,
     "matches": [
+      {
+        "tier": "Contender",
+        "home": "Chimera",
+        "away": "Druids",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-15",
+        "time": "10PM EST",
+        "week": 7,
+        "phase": "regular_season"
+      },
       {
         "tier": "Amateur",
         "home": "Bards",
@@ -283,17 +294,6 @@
         "tier": "Contender",
         "home": "Chimera",
         "away": "Frostbite Phantoms",
-        "score": "0-3",
-        "status": "Final",
-        "date": "2026-07-11",
-        "time": "10PM EST",
-        "week": 2,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Contender",
-        "home": "Skeletons",
-        "away": "Wheels of Fortune",
         "score": "0-3",
         "status": "Final",
         "date": "2026-07-11",
@@ -586,14 +586,14 @@
         "team": "Druids",
         "franchise": "D20",
         "franchise_tag": "D20",
-        "wins": 5,
+        "wins": 4,
         "losses": 0,
         "win_pct": "100%",
-        "games_won": 15,
-        "games_lost": 3,
-        "goals_for": 53,
-        "goals_against": 36,
-        "differential": 17,
+        "games_won": 12,
+        "games_lost": 2,
+        "goals_for": 41,
+        "goals_against": 31,
+        "differential": 10,
         "streak": null
       },
       {
@@ -617,13 +617,13 @@
         "franchise": "Ficticious esports",
         "franchise_tag": "FCT",
         "wins": 3,
-        "losses": 2,
-        "win_pct": "60%",
-        "games_won": 12,
-        "games_lost": 7,
-        "goals_for": 76,
-        "goals_against": 55,
-        "differential": 21,
+        "losses": 1,
+        "win_pct": "75%",
+        "games_won": 11,
+        "games_lost": 4,
+        "goals_for": 71,
+        "goals_against": 43,
+        "differential": 28,
         "streak": null
       },
       {
