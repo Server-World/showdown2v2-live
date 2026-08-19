@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-16T14:30:03.404225Z",
+  "generated_at": "2026-08-19T15:00:02.997050Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -37,28 +37,6 @@
   "match_night": {
     "active": false,
     "matches": [
-      {
-        "tier": "Elite",
-        "home": "Crusaders",
-        "away": "The Wubbz",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-15",
-        "time": "10PM EST",
-        "week": 7,
-        "phase": "regular_season"
-      },
-      {
-        "tier": "Mythic",
-        "home": "Oath",
-        "away": "Neon Demons",
-        "score": null,
-        "status": "Scheduled",
-        "date": "2026-08-15",
-        "time": "10PM EST",
-        "week": 7,
-        "phase": "regular_season"
-      },
       {
         "tier": "Amateur",
         "home": "Bards",
@@ -300,6 +278,28 @@
         "time": "10PM EST",
         "week": 2,
         "phase": "preseason"
+      },
+      {
+        "tier": "Contender",
+        "home": "Chimera",
+        "away": "Frostbite Phantoms",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
+      },
+      {
+        "tier": "Contender",
+        "home": "Skeletons",
+        "away": "Wheels of Fortune",
+        "score": "0-3",
+        "status": "Final",
+        "date": "2026-07-11",
+        "time": "10PM EST",
+        "week": 2,
+        "phase": "preseason"
       }
     ]
   },
@@ -325,14 +325,14 @@
         "team": "Neon Demons",
         "franchise": "Glow Stick Gang",
         "franchise_tag": "GLO",
-        "wins": 3,
+        "wins": 4,
         "losses": 1,
-        "win_pct": "75%",
-        "games_won": 9,
+        "win_pct": "80%",
+        "games_won": 12,
         "games_lost": 4,
-        "goals_for": 44,
-        "goals_against": 18,
-        "differential": 26,
+        "goals_for": 62,
+        "goals_against": 30,
+        "differential": 32,
         "streak": null
       },
       {
@@ -341,13 +341,13 @@
         "franchise": "Solace Path",
         "franchise_tag": "SP",
         "wins": 3,
-        "losses": 1,
-        "win_pct": "75%",
+        "losses": 2,
+        "win_pct": "60%",
         "games_won": 9,
-        "games_lost": 7,
-        "goals_for": 60,
-        "goals_against": 42,
-        "differential": 18,
+        "games_lost": 10,
+        "goals_for": 72,
+        "goals_against": 60,
+        "differential": 12,
         "streak": null
       },
       {
@@ -521,6 +521,21 @@
       },
       {
         "rank": 3,
+        "team": "Crusaders",
+        "franchise": "Solace Path",
+        "franchise_tag": "SP",
+        "wins": 3,
+        "losses": 2,
+        "win_pct": "60%",
+        "games_won": 10,
+        "games_lost": 7,
+        "goals_for": 54,
+        "goals_against": 43,
+        "differential": 11,
+        "streak": null
+      },
+      {
+        "rank": 4,
         "team": "Cerberus",
         "franchise": "Ficticious esports",
         "franchise_tag": "FCT",
@@ -535,37 +550,7 @@
         "streak": null
       },
       {
-        "rank": 4,
-        "team": "Crusaders",
-        "franchise": "Solace Path",
-        "franchise_tag": "SP",
-        "wins": 2,
-        "losses": 2,
-        "win_pct": "50%",
-        "games_won": 7,
-        "games_lost": 7,
-        "goals_for": 43,
-        "goals_against": 39,
-        "differential": 4,
-        "streak": null
-      },
-      {
         "rank": 5,
-        "team": "The Wubbz",
-        "franchise": "Glow Stick Gang",
-        "franchise_tag": "GLO",
-        "wins": 1,
-        "losses": 3,
-        "win_pct": "25%",
-        "games_won": 5,
-        "games_lost": 11,
-        "goals_for": 35,
-        "goals_against": 43,
-        "differential": -8,
-        "streak": null
-      },
-      {
-        "rank": 6,
         "team": "Icicle Dragons",
         "franchise": "Frozen",
         "franchise_tag": "FRZ",
@@ -577,6 +562,21 @@
         "goals_for": 42,
         "goals_against": 51,
         "differential": -9,
+        "streak": null
+      },
+      {
+        "rank": 6,
+        "team": "The Wubbz",
+        "franchise": "Glow Stick Gang",
+        "franchise_tag": "GLO",
+        "wins": 1,
+        "losses": 4,
+        "win_pct": "20%",
+        "games_won": 5,
+        "games_lost": 14,
+        "goals_for": 39,
+        "goals_against": 54,
+        "differential": -15,
         "streak": null
       }
     ],
