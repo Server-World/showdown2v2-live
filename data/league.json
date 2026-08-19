@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-19T15:20:04.106400Z",
+  "generated_at": "2026-08-19T15:40:03.491637Z",
   "source_of_truth": "SSL Bot + PostgreSQL",
   "community": {
     "discord_invite": "https://discord.gg/efdQJsceKb"
@@ -37,6 +37,182 @@
   "match_night": {
     "active": false,
     "matches": [
+      {
+        "tier": "Amateur",
+        "home": "Bards",
+        "away": "The Light Force",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Amateur",
+        "home": "Snowy Owls",
+        "away": "Minotuar",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Amateur",
+        "home": "Squires",
+        "away": "Lost Souls",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Contender",
+        "home": "Druids",
+        "away": "Electro Pulse",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Contender",
+        "home": "Frostbite Phantoms",
+        "away": "Chimera",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Contender",
+        "home": "Wheels of Fortune",
+        "away": "Skeletons",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Elite",
+        "home": "Paladins",
+        "away": "The Wubbz",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Elite",
+        "home": "Icicle Dragons",
+        "away": "Cerberus",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Elite",
+        "home": "Crusaders",
+        "away": "Ebon Watch",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Legend",
+        "home": "Warlocks",
+        "away": "Techno Tribe",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Legend",
+        "home": "Arctic Wolves",
+        "away": "Draconic",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Legend",
+        "home": "Reforged",
+        "away": "Lich Lords",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Mythic",
+        "home": "Rogues",
+        "away": "Neon Demons",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Mythic",
+        "home": "Glacier Giants",
+        "away": "Hydras",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Mythic",
+        "home": "Oath",
+        "away": "Nightwalkers",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
+      {
+        "tier": "Rookie",
+        "home": "Rangers",
+        "away": "House Head",
+        "score": null,
+        "status": "Scheduled",
+        "date": "2026-08-22",
+        "time": "10PM EST",
+        "week": 8,
+        "phase": "regular_season"
+      },
       {
         "tier": "Amateur",
         "home": "Bards",
@@ -123,182 +299,6 @@
         "date": "2026-06-27",
         "time": "10PM EST",
         "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Elite",
-        "home": "Ebon Watch",
-        "away": "Icicle Dragons",
-        "score": "3-1",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Legend",
-        "home": "Warlocks",
-        "away": "Draconic",
-        "score": "3-0",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Legend",
-        "home": "Techno Tribe",
-        "away": "Reforged",
-        "score": "1-3",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Legend",
-        "home": "Lich Lords",
-        "away": "Arctic Wolves",
-        "score": "0-3",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Mythic",
-        "home": "Rogues",
-        "away": "Hydras",
-        "score": "3-2",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Mythic",
-        "home": "Neon Demons",
-        "away": "Oath",
-        "score": "0-3",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Mythic",
-        "home": "Nightwalkers",
-        "away": "Glacier Giants",
-        "score": "3-0",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Rookie",
-        "home": "Rangers",
-        "away": "Gargoyle",
-        "score": "3-2",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Rookie",
-        "home": "House Head",
-        "away": "Whiff Wizards",
-        "score": "0-3",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Rookie",
-        "home": "Cryptborn",
-        "away": "Polar Bears",
-        "score": "1-3",
-        "status": "Final",
-        "date": "2026-06-27",
-        "time": "10PM EST",
-        "week": 1,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Amateur",
-        "home": "The Light Force",
-        "away": "Bards",
-        "score": "3-1",
-        "status": "Final",
-        "date": "2026-07-11",
-        "time": "10PM EST",
-        "week": 2,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Amateur",
-        "home": "Minotuar",
-        "away": "Snowy Owls",
-        "score": "2-3",
-        "status": "Final",
-        "date": "2026-07-11",
-        "time": "10PM EST",
-        "week": 2,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Amateur",
-        "home": "Lost Souls",
-        "away": "Squires",
-        "score": "0-3",
-        "status": "Final",
-        "date": "2026-07-11",
-        "time": "10PM EST",
-        "week": 2,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Contender",
-        "home": "Electro Pulse",
-        "away": "Druids",
-        "score": "0-3",
-        "status": "Final",
-        "date": "2026-07-11",
-        "time": "10PM EST",
-        "week": 2,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Contender",
-        "home": "Chimera",
-        "away": "Frostbite Phantoms",
-        "score": "0-3",
-        "status": "Final",
-        "date": "2026-07-11",
-        "time": "10PM EST",
-        "week": 2,
-        "phase": "preseason"
-      },
-      {
-        "tier": "Contender",
-        "home": "Skeletons",
-        "away": "Wheels of Fortune",
-        "score": "0-3",
-        "status": "Final",
-        "date": "2026-07-11",
-        "time": "10PM EST",
-        "week": 2,
         "phase": "preseason"
       }
     ]
