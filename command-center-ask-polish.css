@@ -1,0 +1,34 @@
+/* Ask SSL conversation polish.
+   Model output remains untrusted plain text; this stylesheet only improves
+   spacing/readability and never enables HTML or Markdown rendering. */
+
+.cc-ask-log {
+  gap: 12px;
+}
+
+.cc-assistant-message,
+.cc-user-message {
+  white-space: pre-line;
+}
+
+.cc-assistant-message {
+  color: var(--cc-text);
+  font-size: 14px;
+  line-height: 1.62;
+  padding: 13px 14px;
+  background: linear-gradient(180deg, rgba(67, 215, 255, .075), rgba(67, 215, 255, .035));
+  border-color: rgba(67, 215, 255, .18);
+  box-shadow: inset 3px 0 0 rgba(67, 215, 255, .34);
+}
+
+.cc-user-message {
+  color: var(--cc-text);
+  line-height: 1.55;
+}
+
+@media (max-width: 520px) {
+  .cc-assistant-message,
+  .cc-user-message {
+    font-size: 13px;
+  }
+}
