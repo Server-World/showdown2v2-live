@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07101d">
+  <meta name="robots" content="noindex,nofollow">
+  <title>SSL Command Center | Supersonic Showdown League</title>
+  <meta name="description" content="Private live operating surface for Supersonic Showdown League players, franchise staff, and league administrators.">
+  <link rel="icon" href="/assets/branding/ssl-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/site-v2.css">
+  <link rel="stylesheet" href="/production.css">
+  <link rel="stylesheet" href="/command-center.css">
+  <link rel="stylesheet" href="/command-center-features-2-4.css">
+  <link rel="stylesheet" href="/command-center-features-5-8.css">
+  <link rel="stylesheet" href="/command-center-features-9-12.css">
+  <script type="module" src="/command-center-activity.js"></script>
+  <script type="module" src="/command-center.js"></script>
+  <script type="module" src="/command-center-features-2-4.js"></script>
+  <script type="module" src="/command-center-features-5-8.js"></script>
+  <script type="module" src="/command-center-features-9-12.js"></script>
+</head>
+<body class="cc-body" data-page="command-center">
+  <a class="skip-link" href="#cc-main">Skip to command center</a>
+
+  <header class="cc-topbar">
+    <a class="cc-brand" href="/" aria-label="Supersonic Showdown League home">
+      <img src="/assets/branding/ssl-logo.svg" alt="">
+      <span>
+        <b>SUPERSONIC SHOWDOWN</b>
+        <strong>LEAGUE <em>2v2</em></strong>
+      </span>
+    </a>
+    <div class="cc-top-status">
+      <span id="cc-live-dot" class="cc-live-dot offline" aria-hidden="true"></span>
+      <span id="cc-live-label">Connecting</span>
+      <button id="cc-refresh" class="cc-icon-button" type="button" aria-label="Refresh command center">↻</button>
+      <button id="cc-logout" class="cc-button ghost compact" type="button" hidden>Sign out</button>
+    </div>
+  </header>
+
+  <main id="cc-main">
+    <section id="cc-auth" class="cc-auth-shell">
+      <div class="cc-auth-card">
+        <img src="/assets/branding/ssl-logo-primary.png" alt="Supersonic Showdown League" class="cc-auth-logo">
+        <p class="cc-kicker">SSL OPERATING SYSTEM</p>
+        <h1>Your league. Live.</h1>
+        <p>Sign in with Discord to open the command center built for your actual SSL role, roster, tier, and permissions.</p>
+        <a id="cc-login" class="cc-button primary large" href="/api/auth/login">Continue with Discord</a>
+        <p class="cc-auth-note">No separate SSL password. Your current Discord membership and roles are revalidated by SSL Bot.</p>
+        <div id="cc-auth-error" class="cc-alert error" hidden></div>
+      </div>
+    </section>
+
+    <section id="cc-app" class="cc-shell" hidden>
+      <aside class="cc-sidebar">
+        <div class="cc-user-card">
+          <img id="cc-avatar" class="cc-avatar" alt="">
+          <div>
+            <span class="cc-kicker">SIGNED IN</span>
+            <strong id="cc-user-name">SSL Member</strong>
+            <small id="cc-user-role">Member</small>
+          </div>
+        </div>
+
+        <nav class="cc-nav" aria-label="Command Center context">
+          <button class="cc-nav-item active" data-context="personal" type="button">
+            <span>01</span><b>My Command Center</b><small>Player + role workspace</small>
+          </button>
+          <button class="cc-nav-item" data-context="tier" type="button">
+            <span>02</span><b>Tier Command Center</b><small>Standings + match ops</small>
+          </button>
+          <button class="cc-nav-item" data-context="franchise" type="button">
+            <span>03</span><b>Franchise Command Center</b><small>Roster + health</small>
+          </button>
+          <button id="cc-league-nav" class="cc-nav-item" data-context="league" type="button" hidden>
+            <span>04</span><b>League Command Center</b><small>Admin operations</small>
+          </button>
+        </nav>
+
+        <div class="cc-sidebar-section">
+          <span class="cc-kicker">TIER</span>
+          <div id="cc-tier-list" class="cc-tier-list"></div>
+        </div>
+
+        <div class="cc-sidebar-section">
+          <label class="cc-kicker" for="cc-franchise-input">FRANCHISE</label>
+          <div class="cc-inline-control">
+            <input id="cc-franchise-input" autocomplete="off" placeholder="FZN or Frozen">
+            <button id="cc-franchise-go" type="button">Open</button>
+          </div>
+        </div>
+
+        <div class="cc-sidebar-foot">
+          <span>POSTGRESQL + SSL BOT</span>
+          <strong>ONE LEAGUE AUTHORITY</strong>
+        </div>
+      </aside>
+
+      <section class="cc-workspace">
+        <div class="cc-workspace-head">
+          <div>
+            <p id="cc-context-kicker" class="cc-kicker">PERSONAL COMMAND CENTER</p>
+            <h1 id="cc-context-title">Loading your SSL workspace…</h1>
+            <p id="cc-context-copy">Live data is coming from the same authoritative services that power Discord.</p>
+          </div>
+          <div class="cc-context-meta">
+            <span id="cc-provider-badge" class="cc-badge">ASK SSL · GROQCLOUD</span>
+            <span id="cc-sync-time" class="cc-sync-time">Not synced yet</span>
+          </div>
+        </div>
+
+        <div id="cc-alert" class="cc-alert" hidden></div>
+
+        <section aria-labelledby="cc-actions-title">
+          <div class="cc-section-title">
+            <div>
+              <span class="cc-kicker">ACTION DECK</span>
+              <h2 id="cc-actions-title">What can you do right now?</h2>
+            </div>
+          </div>
+          <div id="cc-actions" class="cc-action-grid"></div>
+        </section>
+
+        <section aria-labelledby="cc-live-title">
+          <div class="cc-section-title">
+            <div>
+              <span class="cc-kicker">LIVE CONTEXT</span>
+              <h2 id="cc-live-title">League intelligence</h2>
+            </div>
+          </div>
+          <div id="cc-dashboard" class="cc-dashboard-grid">
+            <article class="cc-panel skeleton"></article>
+            <article class="cc-panel skeleton"></article>
+            <article class="cc-panel skeleton wide"></article>
+          </div>
+        </section>
+
+        <section id="cc-tool-drawer" class="cc-tool-drawer" hidden>
+          <div class="cc-tool-head">
+            <div>
+              <span id="cc-tool-kicker" class="cc-kicker">TOOL</span>
+              <h2 id="cc-tool-title">SSL Tool</h2>
+            </div>
+            <button id="cc-tool-close" class="cc-icon-button" type="button" aria-label="Close tool">×</button>
+          </div>
+          <div id="cc-tool-body"></div>
+        </section>
+      </section>
+
+      <aside class="cc-rail">
+        <section class="cc-panel ask-panel">
+          <div class="cc-panel-head">
+            <div>
+              <span class="cc-kicker">GROQCLOUD INTELLIGENCE</span>
+              <h2>Ask SSL</h2>
+            </div>
+            <span class="cc-status-chip">READ-SCOPED</span>
+          </div>
+          <div id="cc-ask-log" class="cc-ask-log" aria-live="polite">
+            <div class="cc-assistant-message">Ask about your next match, standings, roster eligibility, scheduling, records, or league operations available to your role.</div>
+          </div>
+          <form id="cc-ask-form" class="cc-compose">
+            <label class="sr-only" for="cc-ask-input">Ask SSL a question</label>
+            <textarea id="cc-ask-input" maxlength="800" rows="3" placeholder="What do you want to know?"></textarea>
+            <button class="cc-button primary" type="submit">Ask SSL</button>
+          </form>
+        </section>
+
+        <section class="cc-panel chat-panel">
+          <div class="cc-panel-head">
+            <div>
+              <span class="cc-kicker">DISCORD · LIVE</span>
+              <h2>League Chat</h2>
+            </div>
+            <span id="cc-chat-live" class="cc-status-chip muted">OFFLINE</span>
+          </div>
+          <label class="sr-only" for="cc-chat-channel">Discord channel</label>
+          <select id="cc-chat-channel">
+            <option value="">No approved channels</option>
+          </select>
+          <div id="cc-chat-log" class="cc-chat-log" aria-live="polite">
+            <p class="cc-muted">Only channels approved for the web command center and visible to your Discord account appear here.</p>
+          </div>
+          <form id="cc-chat-form" class="cc-compose compact-compose">
+            <label class="sr-only" for="cc-chat-input">Send to Discord</label>
+            <textarea id="cc-chat-input" maxlength="1500" rows="2" placeholder="Message Discord…" disabled></textarea>
+            <button id="cc-chat-send" class="cc-button secondary" type="submit" disabled>Send via SSL Bot</button>
+          </form>
+          <small class="cc-chat-note">Messages sent here are clearly labeled “via SSL Command Center.”</small>
+        </section>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

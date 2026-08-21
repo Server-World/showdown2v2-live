@@ -1,0 +1,118 @@
+.f912-hero {
+  display: grid;
+  gap: .45rem;
+  margin-bottom: 1rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--line, rgba(255,255,255,.12));
+  border-radius: 16px;
+  background: rgba(7,16,29,.5);
+}
+
+.f912-hero h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+}
+
+.f912-hero p {
+  margin: 0;
+}
+
+.f912-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .7rem;
+  margin: 1rem 0;
+}
+
+.f912-stat {
+  display: grid;
+  gap: .15rem;
+  min-width: 0;
+  padding: .8rem .85rem;
+  border: 1px solid var(--line, rgba(255,255,255,.12));
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+}
+
+.f912-stat strong {
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
+}
+
+.f912-stat span {
+  color: var(--muted, #a7b4c7);
+  font-size: .76rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.f912-section {
+  display: grid;
+  gap: .65rem;
+  margin-top: 1rem;
+}
+
+.f912-section h3 {
+  margin: 0;
+  font-size: .95rem;
+}
+
+.f912-list {
+  display: grid;
+  gap: .5rem;
+}
+
+.f912-row {
+  display: grid;
+  grid-template-columns: minmax(170px, .8fr) minmax(0, 2fr);
+  gap: .85rem;
+  align-items: start;
+  padding: .72rem .8rem;
+  border: 1px solid var(--line, rgba(255,255,255,.1));
+  border-radius: 12px;
+  background: rgba(255,255,255,.025);
+}
+
+.f912-row strong,
+.f912-row span {
+  overflow-wrap: anywhere;
+}
+
+.f912-row span {
+  color: var(--muted, #a7b4c7);
+}
+
+.f912-row.critical {
+  border-left-width: 4px;
+}
+
+.f912-row.warning {
+  border-left-width: 3px;
+}
+
+.f912-boundary {
+  margin: 1rem 0 0;
+  padding: .8rem .9rem;
+  border: 1px dashed var(--line, rgba(255,255,255,.18));
+  border-radius: 12px;
+  color: var(--muted, #a7b4c7);
+  font-size: .84rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  .f912-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .f912-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .f912-row {
+    grid-template-columns: 1fr;
+    gap: .25rem;
+  }
+}
