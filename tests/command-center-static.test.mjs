@@ -9,6 +9,7 @@ const feature58Client = await readFile(new URL('../command-center-features-5-8.j
 const feature912Client = await readFile(new URL('../command-center-features-9-12.js', import.meta.url), 'utf8');
 const activity = await readFile(new URL('../command-center-activity.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../command-center.css', import.meta.url), 'utf8');
+const askPolishCss = await readFile(new URL('../command-center-ask-polish.css', import.meta.url), 'utf8');
 const featureCss = await readFile(new URL('../command-center-features-2-4.css', import.meta.url), 'utf8');
 const feature58Css = await readFile(new URL('../command-center-features-5-8.css', import.meta.url), 'utf8');
 const feature912Css = await readFile(new URL('../command-center-features-9-12.css', import.meta.url), 'utf8');
@@ -32,6 +33,15 @@ test('client consumes server-owned capabilities and bounded live routes', () => 
   assert.match(client, /\/api\/ssl\/v1\/availability/);
   assert.match(client, /\/api\/ssl\/v1\/chat\/channels/);
   assert.match(client, /\/api\/ssl\/v1\/events/);
+  assert.doesNotMatch(client, /innerHTML\s*=/);
+});
+
+test('Ask SSL conversation polish preserves safe plaintext rendering', () => {
+  assert.match(html, /command-center-ask-polish\.css/);
+  assert.match(askPolishCss, /\.cc-assistant-message/);
+  assert.match(askPolishCss, /white-space:\s*pre-line/);
+  assert.match(askPolishCss, /line-height:\s*1\.62/);
+  assert.match(client, /waiting\.textContent = data\.answer/);
   assert.doesNotMatch(client, /innerHTML\s*=/);
 });
 
